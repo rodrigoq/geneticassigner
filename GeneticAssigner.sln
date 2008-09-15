@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFactory", "DataFactory\DataFactory.csproj", "{F9F78181-348B-42A4-8221-1D236433A203}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAssigner", "GeneticAssigner\GeneticAssigner.csproj", "{5BEFB550-05D3-400E-A0C9-D58B835864A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9F78181-348B-42A4-8221-1D236433A203} = {F9F78181-348B-42A4-8221-1D236433A203}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithm", "GeneticAlgorithm\GeneticAlgorithm.csproj", "{5072A37E-EFFA-4541-96B5-BEBB1F609BCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9F78181-348B-42A4-8221-1D236433A203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F78181-348B-42A4-8221-1D236433A203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F78181-348B-42A4-8221-1D236433A203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F78181-348B-42A4-8221-1D236433A203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BEFB550-05D3-400E-A0C9-D58B835864A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BEFB550-05D3-400E-A0C9-D58B835864A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BEFB550-05D3-400E-A0C9-D58B835864A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BEFB550-05D3-400E-A0C9-D58B835864A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5072A37E-EFFA-4541-96B5-BEBB1F609BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5072A37E-EFFA-4541-96B5-BEBB1F609BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5072A37E-EFFA-4541-96B5-BEBB1F609BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5072A37E-EFFA-4541-96B5-BEBB1F609BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
