@@ -109,7 +109,10 @@ namespace GeneticAssigner {
 
 			sb.Append("* Total de alumnos a inscribir: ").Append(best.Students.Count).AppendLine();
 			sb.Append("* Total de vacantes: ").Append(courses.TotalPlaces).AppendLine();
-			sb.Append("* Alumnos no asignados: ").Append(best.NotAssigned).AppendLine();
+			double prcnt = best.NotAssigned / (double)best.Students.Count * 100;
+			prcnt = Math.Round(prcnt, 2);
+
+			sb.Append("* Alumnos no asignados: ").Append(best.NotAssigned).Append(" (").Append(prcnt).Append("%)").AppendLine();
 
 			sb.AppendLine();
 
@@ -119,7 +122,7 @@ namespace GeneticAssigner {
 
 			for(int i = 0;i < best.Options.Length;i++) {
 				if(best.Options[i] > 0) {
-					double prcnt = best.Options[i] / (double)best.Students.Count * 100;
+					prcnt = best.Options[i] / (double)best.Students.Count * 100;
 					prcnt = Math.Round(prcnt, 2);
 					sb.Append("* Alumnos asignados a la ").Append(ordinales[i + 1].ToLower()).Append(" opción: ").Append(best.Options[i]).Append(" (").Append(prcnt).Append("%)").AppendLine();
 				}
