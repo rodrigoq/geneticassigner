@@ -66,7 +66,7 @@ namespace GeneticAssigner {
 			this.grpStatus.Size = new System.Drawing.Size(211, 92);
 			this.grpStatus.TabIndex = 11;
 			this.grpStatus.TabStop = false;
-			this.grpStatus.Text = "Estado";
+			this.grpStatus.Text = "Status";
 			// 
 			// lblGeneracion
 			// 
@@ -132,7 +132,7 @@ namespace GeneticAssigner {
 			this.btnStart.Name = "btnStart";
 			this.btnStart.Size = new System.Drawing.Size(211, 50);
 			this.btnStart.TabIndex = 11;
-			this.btnStart.Text = "Iniciar";
+			this.btnStart.Text = "Start";
 			this.btnStart.UseVisualStyleBackColor = true;
 			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
 			// 
@@ -252,9 +252,9 @@ namespace GeneticAssigner {
 			this.chkElitism.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.chkElitism.Location = new System.Drawing.Point(7, 45);
 			this.chkElitism.Name = "chkElitism";
-			this.chkElitism.Size = new System.Drawing.Size(194, 17);
+			this.chkElitism.Size = new System.Drawing.Size(74, 17);
 			this.chkElitism.TabIndex = 15;
-			this.chkElitism.Text = "Conservar mejor de cada genarción";
+			this.chkElitism.Text = "Keep best";
 			this.chkElitism.UseVisualStyleBackColor = true;
 			// 
 			// txtIndividuos
@@ -303,9 +303,9 @@ namespace GeneticAssigner {
 			this.chkSaveFiles.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.chkSaveFiles.Location = new System.Drawing.Point(7, 20);
 			this.chkSaveFiles.Name = "chkSaveFiles";
-			this.chkSaveFiles.Size = new System.Drawing.Size(108, 17);
+			this.chkSaveFiles.Size = new System.Drawing.Size(81, 17);
 			this.chkSaveFiles.TabIndex = 0;
-			this.chkSaveFiles.Text = "Generar Archivos";
+			this.chkSaveFiles.Text = "Create Files";
 			this.chkSaveFiles.UseVisualStyleBackColor = true;
 			// 
 			// txtLog
