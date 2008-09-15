@@ -47,9 +47,9 @@ namespace DataFactory {
 		}
 
 		private void Swap(int i, int j) {
-			int alumno = students[i];
+			int value = students[i];
 			students[i] = students[j];
-			students[j] = alumno;
+			students[j] = value;
 		}
 
 		public void Mutate(Random random, double mutationRate) {
@@ -61,11 +61,11 @@ namespace DataFactory {
 		}
 
 		public override string ToString() {
-			string s = NotAssigned.ToString("d3") + "\t";
+			string s = NotAssigned.ToString("d3") + " ";
 			for(int i = 0;i < options.Length;i++)
-				s += options[i].ToString("d3") + "\t";
+				s += options[i].ToString("d3") + " ";
 
-			s += fitness.ToString() + "\t" + normFitness.ToString();
+			s += fitness.ToString() + " " + normFitness.ToString();
 			return s;
 		}
 
