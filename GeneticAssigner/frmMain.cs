@@ -167,7 +167,7 @@ namespace GeneticAssigner {
 				string folderName = "";
 				if(chkCreateFiles.Checked) {
 					string fileNamePrefix = "";
-					folderName = txtOutputFolder.Text + "GA_" + bestFitness.Replace(" ", "_") + "_" + seed + "_" + ga.GenerationLength + "_" + ga.PopulationCount + "\\";
+					folderName = txtOutputFolder.Text + "GA_" + bestFitness.Replace(" ", "_") + "_" + seed + "_" + ga.GenerationLength + "_" + ga.PopulationCount + Path.DirectorySeparatorChar;
 
 					if(!Directory.Exists(folderName))
 						Directory.CreateDirectory(folderName);

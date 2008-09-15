@@ -141,7 +141,7 @@ namespace GA {
 			}
 
 			/*//DEBUGGING
-			using(System.IO.StreamWriter sw = new System.IO.StreamWriter("c:\\fitnesses.txt", true, Encoding.Default)) {
+			using(System.IO.StreamWriter sw = new System.IO.StreamWriter("fitnesses.txt", true, Encoding.Default)) {
 				for(int i = 0;i < thisGeneration.Count;i++)
 					sw.WriteLine(generation + "\t" + i + "\t" + thisGeneration[i].ToString());
 			}*/

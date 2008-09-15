@@ -294,7 +294,7 @@ namespace GeneticAssigner {
 			this.txtOutputFolder.Name = "txtOutputFolder";
 			this.txtOutputFolder.Size = new System.Drawing.Size(70, 20);
 			this.txtOutputFolder.TabIndex = 3;
-			this.txtOutputFolder.Text = "C:\\";
+			this.txtOutputFolder.Text = "";
 			// 
 			// chkCreateFiles
 			// 
