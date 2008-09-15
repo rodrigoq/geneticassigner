@@ -79,12 +79,17 @@ namespace GeneticAssigner {
 		public void PlacesLeft() {
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<table border='1'><tr><th>Comisión</th><th>Institución</th><th>Cupos</th></tr>");
-
+			bool placesLeft = false;
 			foreach(Course course in courses) {
-				if(course.PlacesLeft > 0)
+				if(course.PlacesLeft > 0) {
+					placesLeft = true;
 					sb.Append("<tr><td>").Append(course.Id).Append("</td><td>").Append(course.Name).Append("</td><td>").Append(course.PlacesLeft).Append("</td></tr>");
+				}
 			}
 			sb.Append("</table><br />");
+
+			if(!placesLeft)
+				sb = new StringBuilder("No hay vacantes disponibles.");
 
 			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_vacantes.html", false, Encoding.Default)) {
 				sw.Write(sb);
