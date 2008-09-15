@@ -175,7 +175,7 @@ namespace GeneticAssigner {
 			// lblOptions
 			// 
 			this.lblOptions.AutoSize = true;
-			this.lblOptions.Location = new System.Drawing.Point(158, 119);
+			this.lblOptions.Location = new System.Drawing.Point(132, 120);
 			this.lblOptions.Name = "lblOptions";
 			this.lblOptions.Size = new System.Drawing.Size(43, 13);
 			this.lblOptions.TabIndex = 23;
@@ -184,7 +184,7 @@ namespace GeneticAssigner {
 			// txtOptions
 			// 
 			this.txtOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtOptions.Location = new System.Drawing.Point(204, 116);
+			this.txtOptions.Location = new System.Drawing.Point(190, 117);
 			this.txtOptions.Name = "txtOptions";
 			this.txtOptions.Size = new System.Drawing.Size(38, 20);
 			this.txtOptions.TabIndex = 22;
@@ -194,7 +194,7 @@ namespace GeneticAssigner {
 			// lblSeed
 			// 
 			this.lblSeed.AutoSize = true;
-			this.lblSeed.Location = new System.Drawing.Point(265, 120);
+			this.lblSeed.Location = new System.Drawing.Point(256, 119);
 			this.lblSeed.Name = "lblSeed";
 			this.lblSeed.Size = new System.Drawing.Size(32, 13);
 			this.lblSeed.TabIndex = 21;
@@ -203,7 +203,7 @@ namespace GeneticAssigner {
 			// lblGenerations
 			// 
 			this.lblGenerations.AutoSize = true;
-			this.lblGenerations.Location = new System.Drawing.Point(233, 66);
+			this.lblGenerations.Location = new System.Drawing.Point(224, 65);
 			this.lblGenerations.Name = "lblGenerations";
 			this.lblGenerations.Size = new System.Drawing.Size(64, 13);
 			this.lblGenerations.TabIndex = 20;
@@ -212,7 +212,7 @@ namespace GeneticAssigner {
 			// lblPopulation
 			// 
 			this.lblPopulation.AutoSize = true;
-			this.lblPopulation.Location = new System.Drawing.Point(240, 92);
+			this.lblPopulation.Location = new System.Drawing.Point(231, 91);
 			this.lblPopulation.Name = "lblPopulation";
 			this.lblPopulation.Size = new System.Drawing.Size(57, 13);
 			this.lblPopulation.TabIndex = 19;
@@ -221,7 +221,7 @@ namespace GeneticAssigner {
 			// lblMutationRate
 			// 
 			this.lblMutationRate.AutoSize = true;
-			this.lblMutationRate.Location = new System.Drawing.Point(238, 42);
+			this.lblMutationRate.Location = new System.Drawing.Point(229, 41);
 			this.lblMutationRate.Name = "lblMutationRate";
 			this.lblMutationRate.Size = new System.Drawing.Size(59, 13);
 			this.lblMutationRate.TabIndex = 18;
@@ -230,7 +230,7 @@ namespace GeneticAssigner {
 			// lblOutputFolder
 			// 
 			this.lblOutputFolder.AutoSize = true;
-			this.lblOutputFolder.Location = new System.Drawing.Point(226, 20);
+			this.lblOutputFolder.Location = new System.Drawing.Point(217, 19);
 			this.lblOutputFolder.Name = "lblOutputFolder";
 			this.lblOutputFolder.Size = new System.Drawing.Size(71, 13);
 			this.lblOutputFolder.TabIndex = 17;
@@ -294,7 +294,6 @@ namespace GeneticAssigner {
 			this.txtOutputFolder.Name = "txtOutputFolder";
 			this.txtOutputFolder.Size = new System.Drawing.Size(70, 20);
 			this.txtOutputFolder.TabIndex = 3;
-			this.txtOutputFolder.Text = "";
 			// 
 			// chkCreateFiles
 			// 
