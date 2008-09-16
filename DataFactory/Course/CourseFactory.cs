@@ -33,7 +33,7 @@ namespace DataFactory {
 
 			int totalPlaces = 0;
 			for(int i = 0;i < lines.Length;i++) {
-				string[] tokens = lines[i].Split(';');
+				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 				if(tokens.Length != 3)
 					throw new Exception("Malformed line " + i);
 

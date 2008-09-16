@@ -32,7 +32,7 @@ namespace DataFactory {
 			StudentCollection assignedStudents = CreateFromAssignedArray(GetLineArray(assignedFile));
 			StudentCollection students = CreateFromArray(GetLineArray(file));
 			int maxOptions = 0;
-			
+
 			foreach(Student student in students) {
 				student.AssignOption(assignedStudents[student.Id].AssignedOption);
 				if(student.Options.Length > maxOptions)
@@ -46,7 +46,7 @@ namespace DataFactory {
 			StudentCollection ac = new StudentCollection();
 
 			for(int i = 0;i < lines.Length;i++) {
-				string[] tokens = lines[i].Split(';');
+				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 				if(tokens.Length != 4)
 					throw new Exception("Malformed line " + i);
 
@@ -57,12 +57,12 @@ namespace DataFactory {
 
 		private static StudentCollection CreateFromArray(string[] lines) {
 			StudentCollection sc = new StudentCollection();
-			
+
 			int maxOptions = 0;
-			
+
 			for(int i = 0;i < lines.Length;i++) {
 				List<int> options = new List<int>();
-				string[] tokens = lines[i].Split(';');
+				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 				if(tokens.Length < 3)
 					throw new Exception("Malformed line " + i);
 
