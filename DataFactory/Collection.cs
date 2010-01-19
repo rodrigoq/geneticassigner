@@ -18,7 +18,6 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataFactory {
 	public class Collection<T>: ICollection<T> where T: Identifiable {

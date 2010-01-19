@@ -18,13 +18,16 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using DataFactory;
 
 namespace GeneticAssigner {
 	/// <summary>
-	/// Toma una asignación de alumnos y la cantidad de vacantes por centro
-	/// y verifica que no haya inconsistencias:
+	/// Antes de la asignación verifica:
+	///  - Que el alumno no tenga opciones repetidas para un mismo curso.
+	///  - Que el alumno no tenga opciones a cursos inexistentes.
+	///  
+	/// Luego con una asignación de alumnos y la cantidad de vacantes por centro,
+	/// verifica que no haya inconsistencias:
 	///  - Más alumnos que vacantes en una comisión.
 	///  - Opción que no esté entre las del alumno.
 	///  - Que no haya un alumno no asignado que tenga opciones en un centro con vacantes.
@@ -39,8 +42,10 @@ namespace GeneticAssigner {
 			this.students = new StudentCollection(students);
 		}
 
+		// Revisa que los estudiantes no tengan dos o más opciones para el mismo curso
+		// ordena las opciones del alumno y compara las mismas.
 		public void StudentsRepeatedOptions() {
-			string repeated = "";
+			string repeated = string.Empty;
 			foreach(Student student in students) {
 				Array.Sort<int>(student.Options);
 				for(int i = 1;i < student.Options.Length;i++) {
@@ -48,24 +53,24 @@ namespace GeneticAssigner {
 						repeated += student.ToString() + Environment.NewLine;
 				}
 			}
-			if(!string.IsNullOrEmpty(repeated))
+			if(string.IsNullOrEmpty(repeated) == false)
 				throw new Exception(repeated);
 		}
 
 		public void StudentsInCourses() {
-			string repeated = "";
+			string repeated = string.Empty;
 
-			List<int> cour = new List<int>();
+			List<int> courseIds = new List<int>();
 			foreach(Course course in courses)
-				cour.Add(course.Id);
+				courseIds.Add(course.Id);
 
 			foreach(Student student in students) {
 				for(int i = 0;i < student.Options.Length;i++) {
-					if(!cour.Contains(student.Options[i]))
+					if(courseIds.Contains(student.Options[i]) == false)
 						repeated += student.ToString() + " BAD COURSE " + student.Options[i] + Environment.NewLine;
 				}
 			}
-			if(!string.IsNullOrEmpty(repeated))
+			if(string.IsNullOrEmpty(repeated) == false)
 				throw new Exception(repeated);
 		}
 
@@ -85,7 +90,7 @@ namespace GeneticAssigner {
 
 				} else {
 					for(int i = 0;i < student.Options.Length;i++) {
-						if(!notAssignedOptions.Contains(student.Options[i]))
+						if(notAssignedOptions.Contains(student.Options[i]) == false)
 							notAssignedOptions.Add(student.Options[i]);
 					}
 				}

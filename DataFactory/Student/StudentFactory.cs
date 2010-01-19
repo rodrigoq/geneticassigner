@@ -18,8 +18,6 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 
 namespace DataFactory {
 	public class StudentFactory: Factory {
@@ -28,8 +26,12 @@ namespace DataFactory {
 			return CreateFromArray(GetLineArray(file));
 		}
 
-		public static StudentCollection CreateFromAssignedFile(string file, string assignedFile) {
-			StudentCollection assignedStudents = CreateFromAssignedArray(GetLineArray(assignedFile));
+		public static StudentCollection CreateFromAssignedFile(
+			string file, string assignedFile) {
+
+			StudentCollection assignedStudents =
+				CreateFromAssignedArray(GetLineArray(assignedFile));
+
 			StudentCollection students = CreateFromArray(GetLineArray(file));
 			int maxOptions = 0;
 
@@ -46,7 +48,9 @@ namespace DataFactory {
 			StudentCollection ac = new StudentCollection();
 
 			for(int i = 0;i < lines.Length;i++) {
-				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+				string[] tokens = lines[i].Split(
+					new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
 				if(tokens.Length != 4)
 					throw new Exception("Malformed line " + i);
 
@@ -86,13 +90,12 @@ namespace DataFactory {
 			List<int> indices = new List<int>();
 			while(indices.Count != students.Length) {
 				int num = rand.Next(0, students.Length);
-				if(!indices.Contains(num)) {
+				if(indices.Contains(num) == false) {
 					indices.Add(num);
 					sc.Add(students[num]);
 				}
 			}
 			return sc;
 		}
-
 	}
 }

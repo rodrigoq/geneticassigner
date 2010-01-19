@@ -1,4 +1,4 @@
-/*
+﻿/*
 *   GeneticAssigner - Genetic Algorithm implementation for automatic 
 *   assigning of students to class courses.
 *   Copyright (C) 2008  Rodrigo Queipo <rodrigoq@gmail.com>
@@ -17,23 +17,16 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
 
 namespace GeneticAlgorithm {
-	public interface IIndividual {
+	public class GenerationEventArgs: EventArgs {
+		public int Generation;
+		public IIndividual Individual;
 
-		int[] Options { get; set; }
-
-		List<int> Students { get; set; }
-
-		int NotAssigned { get; set; }
-		int Assigned { get; set; }
-
-		double Fitness { get; set; }
-		double NormFitness { get; set; }
-
-		void Mutate(Random random, double mutationRate);
-
-		//double FitnessFunction(IIndividual individual);
+		public GenerationEventArgs(int generation, IIndividual individual)
+			: base() {
+			Generation = generation;
+			Individual = individual;
+		}
 	}
 }

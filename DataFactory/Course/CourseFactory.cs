@@ -17,9 +17,6 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
 
 namespace DataFactory {
 	public class CourseFactory: Factory {
@@ -33,7 +30,9 @@ namespace DataFactory {
 
 			int totalPlaces = 0;
 			for(int i = 0;i < lines.Length;i++) {
-				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+				string[] tokens = lines[i].Split(
+					new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+				
 				if(tokens.Length != 3)
 					throw new Exception("Malformed line " + i);
 
@@ -46,6 +45,5 @@ namespace DataFactory {
 			cc.TotalPlaces = totalPlaces;
 			return cc;
 		}
-
 	}
 }

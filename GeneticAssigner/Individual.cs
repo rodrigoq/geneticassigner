@@ -18,72 +18,45 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
+using GeneticAlgorithm;
 using DataFactory;
-using GA;
 
 
-namespace DataFactory {
+namespace GeneticAssigner {
 	public class Individual: IIndividual {
 
-		public Individual() { }
-
-		List<int> students = new List<int>();
-		int notAssigned;
-		double fitness;
-		double normFitness;
-		int assigned;
-		int[] options;
-
-		public int[] Options {
-			get { return options; }
-			set { options = value; }
+		public Individual() {
+			Students = new List<int>();
 		}
 
-		public List<int> Students {
-			get { return students; }
-			set { students = value; }
-		}
-
-		public int NotAssigned {
-			get { return notAssigned; }
-			set { notAssigned = value; }
-		}
-		public int Assigned {
-			get { return assigned; }
-			set { assigned = value; }
-		}
-
-
-		public double Fitness {
-			get { return fitness; }
-			set { fitness = value; }
-		}
-		public double NormFitness {
-			get { return normFitness; }
-			set { normFitness = value; }
-		}
+		public int[] Options { get; set; }
+		public int NotAssigned { get; set; }
+		public int Assigned { get; set; }
+		public double Fitness { get; set; }
+		public double NormFitness { get; set; }
+		public List<int> Students { get; set; }
 
 		private void Swap(int i, int j) {
-			int value = students[i];
-			students[i] = students[j];
-			students[j] = value;
+			int value = Students[i];
+			Students[i] = Students[j];
+			Students[j] = value;
 		}
 
 		public void Mutate(Random random, double mutationRate) {
 			if(random.NextDouble() < mutationRate) {
-				int src = random.Next(0, students.Count);
-				int dst = random.Next(0, students.Count);
+				int src = random.Next(0, Students.Count);
+				int dst = random.Next(0, Students.Count);
 				Swap(src, dst);
 			}
 		}
 
 		public override string ToString() {
-			string s = NotAssigned.ToString("d3") + " ";
-			for(int i = 0;i < options.Length;i++)
-				s += options[i].ToString("d3") + " ";
+			string SPACE = " ";
+			string s = NotAssigned.ToString("d3") + SPACE;
+			for(int i = 0;i < Options.Length;i++)
+				s += Options[i].ToString("d3") + SPACE;
 
-			s += fitness.ToString() + " " + normFitness.ToString();
+			s += Fitness.ToString() + SPACE + NormFitness.ToString();
 			return s;
 		}
 

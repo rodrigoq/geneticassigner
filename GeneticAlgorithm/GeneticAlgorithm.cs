@@ -18,32 +18,23 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace GA {
+namespace GeneticAlgorithm {
 
 	#region Delegates
 
-	public delegate void BestDelegate(int generation, IIndividual best);
-	public delegate void GenerationDelegate(int generation, IIndividual individual);
+	public delegate void BestDelegate(object sender, GenerationEventArgs e);
+	public delegate void GenerationDelegate(object sender, GenerationEventArgs e);
+	public delegate void CompletedDelegate(object sender, EventArgs e);
 	public delegate double FitnessDelegate(IIndividual individual);
 
 	#endregion
 
 	public class GeneticAlgorithm<T> where T: IIndividual, new() {
 
-		public GeneticAlgorithm(FitnessDelegate fitnessFunction, List<IIndividual> firstGeneration, int seed) {
-			this.fitnessFunction = fitnessFunction;
-			this.thisGeneration = new List<IIndividual>(firstGeneration);
-
-			this.mutationRate = 0.80;
-			this.elitism = true;
-
-			random = new Random(seed);
-		}
-
 		public event BestDelegate onBest;
 		public event GenerationDelegate onGeneration;
+		public event CompletedDelegate onComplete;
 		public FitnessDelegate fitnessFunction;
 
 		private List<IIndividual> thisGeneration = new List<IIndividual>();
@@ -57,6 +48,7 @@ namespace GA {
 		private int populationCount;
 		private int generationLength;
 		private bool elitism;
+		private int seed;
 
 		public double MutationRate {
 			get { return mutationRate; }
@@ -80,6 +72,21 @@ namespace GA {
 		public int Generation {
 			get { return generation; }
 		}
+		public int Seed {
+			get { return seed; }
+		}
+
+
+		public GeneticAlgorithm(FitnessDelegate fitnessFunction, List<IIndividual> firstGeneration, int seed) {
+			this.fitnessFunction = fitnessFunction;
+			this.thisGeneration = new List<IIndividual>(firstGeneration);
+
+			this.mutationRate = 0.80;
+			this.elitism = true;
+			this.seed = seed;
+
+			random = new Random(seed);
+		}
 
 		public void Start() {
 			RankPopulation();
@@ -93,8 +100,11 @@ namespace GA {
 				SetBest();
 
 				if(onGeneration != null)
-					onGeneration(this.generation, thisGeneration[populationCount - 1]);
+					onGeneration(this, new GenerationEventArgs(this.generation, thisGeneration[populationCount - 1]));
 			}
+
+			if(onComplete != null)
+				onComplete(this, new EventArgs());
 		}
 
 		private void SetBest() {
@@ -113,11 +123,11 @@ namespace GA {
 				best.Options = new List<int>(ind.Options).ToArray();
 
 				if(onBest != null)
-					onBest(this.generation, best);
+					onBest(this, new GenerationEventArgs(this.generation, best));
 			}
 		}
 
-		//TODO: think how to add crossing over... and if is a necesity.
+		//TODO: think how to add crossing over... and if it is a necesity.
 		private void CreateNextGeneration() {
 			List<IIndividual> nextGeneration = new List<IIndividual>();
 
@@ -163,8 +173,6 @@ namespace GA {
 				for(int i = 0;i < thisGeneration.Count;i++)
 					sw.WriteLine(generation + "\t" + i + "\t" + thisGeneration[i].ToString());
 			}*/
-
-
 		}
 
 		private int RouletteSelection() {

@@ -41,6 +41,7 @@ namespace GeneticAssigner {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.grpStatus = new System.Windows.Forms.GroupBox();
 			this.lblGenerationValue = new System.Windows.Forms.Label();
 			this.lblTime = new System.Windows.Forms.Label();
@@ -50,6 +51,7 @@ namespace GeneticAssigner {
 			this.lblNotAssigned = new System.Windows.Forms.Label();
 			this.btnStart = new System.Windows.Forms.Button();
 			this.grpSettings = new System.Windows.Forms.GroupBox();
+			this.chkFixedSeed = new System.Windows.Forms.CheckBox();
 			this.chkOpenFolder = new System.Windows.Forms.CheckBox();
 			this.lblOptions = new System.Windows.Forms.Label();
 			this.txtOptions = new System.Windows.Forms.TextBox();
@@ -67,12 +69,13 @@ namespace GeneticAssigner {
 			this.chkCreateFiles = new System.Windows.Forms.CheckBox();
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.prgProgress = new System.Windows.Forms.ProgressBar();
+			this.tmrElapsed = new System.Windows.Forms.Timer(this.components);
 			this.grpStatus.SuspendLayout();
 			this.grpSettings.SuspendLayout();
 			this.SuspendLayout();
-			//
+			// 
 			// grpStatus
-			//
+			// 
 			this.grpStatus.Controls.Add(this.lblGenerationValue);
 			this.grpStatus.Controls.Add(this.lblTime);
 			this.grpStatus.Controls.Add(this.lblGeneration);
@@ -85,9 +88,9 @@ namespace GeneticAssigner {
 			this.grpStatus.TabIndex = 11;
 			this.grpStatus.TabStop = false;
 			this.grpStatus.Text = "Status";
-			//
+			// 
 			// lblGenerationValue
-			//
+			// 
 			this.lblGenerationValue.AutoSize = true;
 			this.lblGenerationValue.Location = new System.Drawing.Point(133, 45);
 			this.lblGenerationValue.Name = "lblGenerationValue";
@@ -95,27 +98,27 @@ namespace GeneticAssigner {
 			this.lblGenerationValue.TabIndex = 23;
 			this.lblGenerationValue.Text = "0000";
 			this.lblGenerationValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			//
+			// 
 			// lblTime
-			//
+			// 
 			this.lblTime.AutoSize = true;
 			this.lblTime.Location = new System.Drawing.Point(43, 69);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
 			this.lblTime.TabIndex = 22;
 			this.lblTime.Text = "Time";
-			//
+			// 
 			// lblGeneration
-			//
+			// 
 			this.lblGeneration.AutoSize = true;
 			this.lblGeneration.Location = new System.Drawing.Point(43, 45);
 			this.lblGeneration.Name = "lblGeneration";
 			this.lblGeneration.Size = new System.Drawing.Size(59, 13);
 			this.lblGeneration.TabIndex = 21;
 			this.lblGeneration.Text = "Generation";
-			//
+			// 
 			// lblTimeValue
-			//
+			// 
 			this.lblTimeValue.AutoSize = true;
 			this.lblTimeValue.Location = new System.Drawing.Point(109, 69);
 			this.lblTimeValue.Name = "lblTimeValue";
@@ -123,9 +126,9 @@ namespace GeneticAssigner {
 			this.lblTimeValue.TabIndex = 20;
 			this.lblTimeValue.Text = "00:00.000";
 			this.lblTimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			//
+			// 
 			// lblNotAssignedValue
-			//
+			// 
 			this.lblNotAssignedValue.AutoSize = true;
 			this.lblNotAssignedValue.Location = new System.Drawing.Point(145, 23);
 			this.lblNotAssignedValue.Name = "lblNotAssignedValue";
@@ -133,18 +136,18 @@ namespace GeneticAssigner {
 			this.lblNotAssignedValue.TabIndex = 16;
 			this.lblNotAssignedValue.Text = "00";
 			this.lblNotAssignedValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			//
+			// 
 			// lblNotAssigned
-			//
+			// 
 			this.lblNotAssigned.AutoSize = true;
 			this.lblNotAssigned.Location = new System.Drawing.Point(43, 23);
 			this.lblNotAssigned.Name = "lblNotAssigned";
 			this.lblNotAssigned.Size = new System.Drawing.Size(70, 13);
 			this.lblNotAssigned.TabIndex = 12;
 			this.lblNotAssigned.Text = "Not Assigned";
-			//
+			// 
 			// btnStart
-			//
+			// 
 			this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnStart.Location = new System.Drawing.Point(12, 113);
 			this.btnStart.Name = "btnStart";
@@ -153,9 +156,10 @@ namespace GeneticAssigner {
 			this.btnStart.Text = "Start";
 			this.btnStart.UseVisualStyleBackColor = true;
 			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-			//
+			// 
 			// grpSettings
-			//
+			// 
+			this.grpSettings.Controls.Add(this.chkFixedSeed);
 			this.grpSettings.Controls.Add(this.chkOpenFolder);
 			this.grpSettings.Controls.Add(this.lblOptions);
 			this.grpSettings.Controls.Add(this.txtOptions);
@@ -177,9 +181,19 @@ namespace GeneticAssigner {
 			this.grpSettings.TabIndex = 12;
 			this.grpSettings.TabStop = false;
 			this.grpSettings.Text = "Configuration";
-			//
+			// 
+			// chkFixedSeed
+			// 
+			this.chkFixedSeed.AutoSize = true;
+			this.chkFixedSeed.Location = new System.Drawing.Point(149, 118);
+			this.chkFixedSeed.Name = "chkFixedSeed";
+			this.chkFixedSeed.Size = new System.Drawing.Size(101, 17);
+			this.chkFixedSeed.TabIndex = 24;
+			this.chkFixedSeed.Text = "Use Fixed Seed";
+			this.chkFixedSeed.UseVisualStyleBackColor = true;
+			// 
 			// chkOpenFolder
-			//
+			// 
 			this.chkOpenFolder.AutoSize = true;
 			this.chkOpenFolder.Checked = true;
 			this.chkOpenFolder.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -189,82 +203,82 @@ namespace GeneticAssigner {
 			this.chkOpenFolder.TabIndex = 24;
 			this.chkOpenFolder.Text = "Open Folder";
 			this.chkOpenFolder.UseVisualStyleBackColor = true;
-			//
+			// 
 			// lblOptions
-			//
+			// 
 			this.lblOptions.AutoSize = true;
-			this.lblOptions.Location = new System.Drawing.Point(132, 120);
+			this.lblOptions.Location = new System.Drawing.Point(13, 118);
 			this.lblOptions.Name = "lblOptions";
 			this.lblOptions.Size = new System.Drawing.Size(43, 13);
 			this.lblOptions.TabIndex = 23;
 			this.lblOptions.Text = "Options";
-			//
+			// 
 			// txtOptions
-			//
+			// 
 			this.txtOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtOptions.Location = new System.Drawing.Point(190, 117);
+			this.txtOptions.Location = new System.Drawing.Point(62, 115);
 			this.txtOptions.Name = "txtOptions";
 			this.txtOptions.Size = new System.Drawing.Size(38, 20);
 			this.txtOptions.TabIndex = 22;
 			this.txtOptions.Text = "3";
 			this.txtOptions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			//
+			// 
 			// lblSeed
-			//
+			// 
 			this.lblSeed.AutoSize = true;
 			this.lblSeed.Location = new System.Drawing.Point(256, 119);
 			this.lblSeed.Name = "lblSeed";
 			this.lblSeed.Size = new System.Drawing.Size(32, 13);
 			this.lblSeed.TabIndex = 21;
 			this.lblSeed.Text = "Seed";
-			//
+			// 
 			// lblGenerations
-			//
+			// 
 			this.lblGenerations.AutoSize = true;
 			this.lblGenerations.Location = new System.Drawing.Point(224, 65);
 			this.lblGenerations.Name = "lblGenerations";
 			this.lblGenerations.Size = new System.Drawing.Size(64, 13);
 			this.lblGenerations.TabIndex = 20;
 			this.lblGenerations.Text = "Generations";
-			//
+			// 
 			// lblPopulation
-			//
+			// 
 			this.lblPopulation.AutoSize = true;
 			this.lblPopulation.Location = new System.Drawing.Point(231, 91);
 			this.lblPopulation.Name = "lblPopulation";
 			this.lblPopulation.Size = new System.Drawing.Size(57, 13);
 			this.lblPopulation.TabIndex = 19;
 			this.lblPopulation.Text = "Population";
-			//
+			// 
 			// lblMutationRate
-			//
+			// 
 			this.lblMutationRate.AutoSize = true;
 			this.lblMutationRate.Location = new System.Drawing.Point(229, 41);
 			this.lblMutationRate.Name = "lblMutationRate";
 			this.lblMutationRate.Size = new System.Drawing.Size(59, 13);
 			this.lblMutationRate.TabIndex = 18;
 			this.lblMutationRate.Text = "Mutation %";
-			//
+			// 
 			// lblOutputFolder
-			//
+			// 
 			this.lblOutputFolder.AutoSize = true;
 			this.lblOutputFolder.Location = new System.Drawing.Point(217, 19);
 			this.lblOutputFolder.Name = "lblOutputFolder";
 			this.lblOutputFolder.Size = new System.Drawing.Size(71, 13);
 			this.lblOutputFolder.TabIndex = 17;
 			this.lblOutputFolder.Text = "Output Folder";
-			//
+			// 
 			// txtSeed
-			//
+			// 
 			this.txtSeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtSeed.Location = new System.Drawing.Point(306, 117);
 			this.txtSeed.Name = "txtSeed";
 			this.txtSeed.Size = new System.Drawing.Size(69, 20);
 			this.txtSeed.TabIndex = 16;
 			this.txtSeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			//
+			// 
 			// chkElitism
-			//
+			// 
 			this.chkElitism.AutoSize = true;
 			this.chkElitism.Checked = true;
 			this.chkElitism.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -274,9 +288,9 @@ namespace GeneticAssigner {
 			this.chkElitism.TabIndex = 15;
 			this.chkElitism.Text = "Keep best";
 			this.chkElitism.UseVisualStyleBackColor = true;
-			//
+			// 
 			// txtPopulation
-			//
+			// 
 			this.txtPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtPopulation.Location = new System.Drawing.Point(306, 90);
 			this.txtPopulation.Name = "txtPopulation";
@@ -284,9 +298,9 @@ namespace GeneticAssigner {
 			this.txtPopulation.TabIndex = 14;
 			this.txtPopulation.Text = "100";
 			this.txtPopulation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			//
+			// 
 			// txtGenerations
-			//
+			// 
 			this.txtGenerations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtGenerations.Location = new System.Drawing.Point(306, 64);
 			this.txtGenerations.Name = "txtGenerations";
@@ -294,9 +308,9 @@ namespace GeneticAssigner {
 			this.txtGenerations.TabIndex = 5;
 			this.txtGenerations.Text = "2000";
 			this.txtGenerations.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			//
+			// 
 			// txtMutationRate
-			//
+			// 
 			this.txtMutationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtMutationRate.Location = new System.Drawing.Point(306, 39);
 			this.txtMutationRate.Name = "txtMutationRate";
@@ -304,17 +318,17 @@ namespace GeneticAssigner {
 			this.txtMutationRate.TabIndex = 4;
 			this.txtMutationRate.Text = "80";
 			this.txtMutationRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			//
+			// 
 			// txtOutputFolder
-			//
+			// 
 			this.txtOutputFolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtOutputFolder.Location = new System.Drawing.Point(306, 15);
 			this.txtOutputFolder.Name = "txtOutputFolder";
 			this.txtOutputFolder.Size = new System.Drawing.Size(70, 20);
 			this.txtOutputFolder.TabIndex = 3;
-			//
+			// 
 			// chkCreateFiles
-			//
+			// 
 			this.chkCreateFiles.AutoSize = true;
 			this.chkCreateFiles.Checked = true;
 			this.chkCreateFiles.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -324,9 +338,9 @@ namespace GeneticAssigner {
 			this.chkCreateFiles.TabIndex = 0;
 			this.chkCreateFiles.Text = "Create Files";
 			this.chkCreateFiles.UseVisualStyleBackColor = true;
-			//
+			// 
 			// txtLog
-			//
+			// 
 			this.txtLog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.txtLog.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtLog.Location = new System.Drawing.Point(12, 169);
@@ -337,18 +351,22 @@ namespace GeneticAssigner {
 			this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.txtLog.Size = new System.Drawing.Size(609, 143);
 			this.txtLog.TabIndex = 13;
-			//
+			// 
 			// prgProgress
-			//
+			// 
 			this.prgProgress.Location = new System.Drawing.Point(12, 318);
 			this.prgProgress.Name = "prgProgress";
 			this.prgProgress.Size = new System.Drawing.Size(610, 23);
 			this.prgProgress.Step = 1;
 			this.prgProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.prgProgress.TabIndex = 14;
-			//
+			// 
+			// tmrElapsed
+			// 
+			this.tmrElapsed.Tick += new System.EventHandler(this.tmrElapsed_Tick);
+			// 
 			// frmMain
-			//
+			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(634, 350);
@@ -360,9 +378,9 @@ namespace GeneticAssigner {
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Name = "frmMain";
-			this.Text = "Genetic Assignator";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
+			this.Text = "Genetic Assigner";
 			this.Load += new System.EventHandler(this.frmMain_Load);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
 			this.grpStatus.ResumeLayout(false);
 			this.grpStatus.PerformLayout();
 			this.grpSettings.ResumeLayout(false);
@@ -400,6 +418,8 @@ namespace GeneticAssigner {
 		private System.Windows.Forms.Label lblOptions;
 		private System.Windows.Forms.TextBox txtOptions;
 		private System.Windows.Forms.CheckBox chkOpenFolder;
+		private System.Windows.Forms.Timer tmrElapsed;
+		private System.Windows.Forms.CheckBox chkFixedSeed;
 	}
 }
 

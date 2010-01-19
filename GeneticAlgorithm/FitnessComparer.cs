@@ -16,13 +16,10 @@
 *   You should have received a copy of the GNU General Public License
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace GA {
+namespace GeneticAlgorithm {
 	public sealed class FitnessComparer: IComparer<IIndividual> {
-
 		public int Compare(IIndividual x, IIndividual y) {
 			if (x.Fitness > y.Fitness)
 				return 1;
@@ -31,6 +28,5 @@ namespace GA {
 			else
 				return -1;
 		}
-
 	}
 }

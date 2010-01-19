@@ -17,15 +17,13 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataFactory {
 	public class Course: Identifiable {
 
 		internal Course(int id, string name, int totalPlaces) {
 			if(totalPlaces < 0)
-				throw new Exception("totalPlaces has to be greater than cero.");
+				throw new Exception("totalPlaces has to be greater than zero.");
 
 			this.id = id;
 			this.name = name;

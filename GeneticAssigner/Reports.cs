@@ -17,11 +17,10 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
 using System.Text;
 using DataFactory;
 using System.IO;
-using GA;
+using GeneticAlgorithm;
 
 namespace GeneticAssigner {
 	public class Reports {
@@ -106,7 +105,7 @@ namespace GeneticAssigner {
 			}
 			sb.Append("</table><br />");
 
-			if(!placesLeft)
+			if(placesLeft == false)
 				sb = new StringBuilder("No hay vacantes disponibles.");
 
 			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_vacantes.html", false, Encoding.Default)) {

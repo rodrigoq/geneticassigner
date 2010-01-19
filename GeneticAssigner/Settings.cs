@@ -16,66 +16,21 @@
 *   You should have received a copy of the GNU General Public License
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
 
 namespace GeneticAssigner {
 	public class Settings {
-		string coursesPath;
-		string studentsPath;
-		bool saveFiles;
-		bool openFolder;
-		bool keepBest;
-		string outputPath;
-		double mutationRate;
-		int generations;
-		int individuals;
-		int cantOpt;
-
-		public bool OpenFolder {
-			get { return openFolder; }
-			set { openFolder = value; }
-		}
-		public int CantOpt {
-			get { return cantOpt; }
-			set { cantOpt = value; }
-		}
-		public string CoursesPath {
-			get { return coursesPath; }
-			set { coursesPath = value; }
-		}
-		public string StudentsPath {
-			get { return studentsPath; }
-			set { studentsPath = value; }
-		}
-		public bool SaveFiles {
-			get { return saveFiles; }
-			set { saveFiles = value; }
-		}
-		public bool KeepBest {
-			get { return keepBest; }
-			set { keepBest = value; }
-		}
-		public string OutputPath {
-			get { return outputPath; }
-			set { outputPath = value; }
-		}
-		public double MutationRate {
-			get { return mutationRate; }
-			set { mutationRate = value; }
-		}
-		public int Generations {
-			get { return generations; }
-			set { generations = value; }
-		}
-		public int Individuals {
-			get { return individuals; }
-			set { individuals = value; }
-		}
-
-
+		public bool OpenFolder { get; set; }
+		public int CantOpt { get; set; }
+		public string CoursesPath { get; set; }
+		public string StudentsPath { get; set; }
+		public bool SaveFiles { get; set; }
+		public bool KeepBest { get; set; }
+		public string OutputPath { get; set; }
+		public double MutationRate { get; set; }
+		public int Generations { get; set; }
+		public int Individuals { get; set; }
+		
 		public Settings() {
 			Defaults();
 		}
@@ -84,39 +39,66 @@ namespace GeneticAssigner {
 		/// Default start settings for the GA.
 		/// </summary>
 		public void Defaults() {
-			saveFiles = false;
-			keepBest = true;
-			openFolder = true;
-			mutationRate = 80;
-			generations = 2000;
-			individuals = 100;
-			cantOpt = 3;
+			SaveFiles = false;
+			KeepBest = true;
+			OpenFolder = true;
+			MutationRate = 80;
+			Generations = 2000;
+			Individuals = 100;
+			CantOpt = 3;
 		}
 
-		public void LoadFromArgs(string args) {
-			throw new NotImplementedException();
+		public void LoadFromArgs(string[] args) {
+			foreach(string s in args) {
+				switch(s[0]) {
+					case 'c'://courses
+						break;
+					case 's'://students
+						break;
+					case 'v'://save files
+						break;
+					case 'o'://open folder
+						break;
+					case 'm'://mutation
+						break;
+					case 'g'://generations
+						break;
+					case 'i'://individuals
+						break;
+					case 'n'://cant options
+						break;
+					case 'k'://keep best
+						break;
+					case 'p'://output path
+						break;
+					case 'e'://seed
+						break;
+					default:
+						break;
+				}
+			}
 		}
 
 		public void LoadFromFile() {
-			coursesPath = ConfigurationManager.AppSettings["courses"];
+			CoursesPath = ConfigurationManager.AppSettings["courses"];
 
-			studentsPath = ConfigurationManager.AppSettings["students"];
+			StudentsPath = ConfigurationManager.AppSettings["students"];
 
-			openFolder = bool.Parse(ConfigurationManager.AppSettings["open_folder"]);
+			OpenFolder = bool.Parse(ConfigurationManager.AppSettings["open_folder"]);
 
-			saveFiles = bool.Parse(ConfigurationManager.AppSettings["save_files"]);
+			SaveFiles = bool.Parse(ConfigurationManager.AppSettings["save_files"]);
 
-			outputPath = ConfigurationManager.AppSettings["output_path"];
+			OutputPath = ConfigurationManager.AppSettings["output_path"];
 
-			mutationRate = double.Parse(ConfigurationManager.AppSettings["mutation_rate"]);
+			MutationRate = double.Parse(ConfigurationManager.AppSettings["mutation_rate"]);
 
-			generations = int.Parse(ConfigurationManager.AppSettings["generations"]);
+			Generations = int.Parse(ConfigurationManager.AppSettings["generations"]);
 
-			individuals = int.Parse(ConfigurationManager.AppSettings["individuals"]);
+			Individuals = int.Parse(ConfigurationManager.AppSettings["individuals"]);
 
-			cantOpt = int.Parse(ConfigurationManager.AppSettings["cant_opt"]);
+			CantOpt = int.Parse(ConfigurationManager.AppSettings["cant_opt"]);
 
-			keepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
+			KeepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
 		}
 
 
