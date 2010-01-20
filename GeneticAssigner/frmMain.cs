@@ -30,7 +30,7 @@ namespace GeneticAssigner {
 	public partial class frmMain: Form {
 		GeneticAlgorithm<Individual> ga;
 		DateTime startTime;
-		Settings settings = new Settings();
+		Settings settings;
 		StringBuilder log = new StringBuilder();
 
 		string bestFitness;
@@ -41,6 +41,13 @@ namespace GeneticAssigner {
 
 		public frmMain(string[] args) {
 			InitializeComponent();
+			if(args.Length > 0) {
+				settings = Settings.LoadFromArgs(args);
+				if(settings != null && settings.Seed.HasValue) {
+					chkFixedSeed.Checked = true;
+					txtSeed.Text = settings.Seed.Value.ToString();
+				}
+			}
 		}
 
 		private void OnBest(object e) {
@@ -82,7 +89,7 @@ namespace GeneticAssigner {
 				log.AppendLine();
 			}
 		}
-		
+
 		private void OnAddLogLine(object text) {
 			txtLog.Text += "[" + DateTime.Now.ToLongTimeString() + "] " + text + Environment.NewLine;
 			txtLog.Select(txtLog.Text.Length, 0);
@@ -200,10 +207,13 @@ namespace GeneticAssigner {
 
 		private void frmMain_Load(object sender, EventArgs e) {
 			try {
-				settings.LoadFromFile();
+				if(settings == null)
+					settings = Settings.LoadFromFile();
 				SetSettingsToControls();
 				courses = CourseFactory.CreateFromFile(settings.CoursesPath);
 				students = StudentFactory.CreateFromFile(settings.StudentsPath);
+				if(settings.Start)
+					Start();
 			} catch(Exception ex) {
 				Debug.Write(ex.ToString());
 				MessageBox.Show("Ocurrió un error que no permite continuar con la ejecución de la aplicación.\n\n" + ex.Message);
@@ -212,6 +222,10 @@ namespace GeneticAssigner {
 		}
 
 		private void btnStart_Click(object sender, EventArgs e) {
+			Start();
+		}
+
+		private void Start() {
 			try {
 				btnStart.Enabled = false;
 				grpSettings.Enabled = false;
@@ -244,7 +258,7 @@ namespace GeneticAssigner {
 				tmrElapsed.Interval = 10;
 				tmrElapsed.Enabled = true;
 				tmrElapsed.Start();
-				ThreadPool.QueueUserWorkItem(new WaitCallback(Start));
+				ThreadPool.QueueUserWorkItem(new WaitCallback(AsyncStart));
 
 			} catch(Exception ex) {
 				Debug.WriteLine(ex.ToString());
@@ -317,7 +331,7 @@ namespace GeneticAssigner {
 				OnBest(e);
 		}
 
-		private void Start(object dummy) {
+		private void AsyncStart(object dummy) {
 			ga.Start();
 		}
 
@@ -335,7 +349,7 @@ namespace GeneticAssigner {
 			}
 			return thisGeneration;
 		}
-		
+
 		public double FitnessFunction(IIndividual individual) {
 			int notAssigned = individual.Students.Count;
 			individual.Options = new int[opts];
@@ -344,7 +358,7 @@ namespace GeneticAssigner {
 
 			for(int i = 0;i < individual.Students.Count;i++) {
 				int id = individual.Students[i];
-				
+
 				int opt = Math.Min(opts, students[id].Options.Length);
 				for(int j = 0;j < opt;j++) {
 					Course actual = courses[students[id].Options[j]];
@@ -375,7 +389,7 @@ namespace GeneticAssigner {
 			}
 			return new List<int>(students);
 		}
-		
+
 		private void Swap(List<int> students, int i, int j) {
 			int value = students[i];
 			students[i] = students[j];
