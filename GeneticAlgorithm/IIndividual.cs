@@ -19,9 +19,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace GeneticAlgorithm {
-	public interface IIndividual {
-
+namespace GeneticAlgorithm
+{
+	public interface IIndividual
+	{
 		int[] Options { get; set; }
 
 		List<int> Students { get; set; }
@@ -34,6 +35,6 @@ namespace GeneticAlgorithm {
 
 		void Mutate(Random random, double mutationRate);
 
-		//double FitnessFunction(IIndividual individual);
+		double FitnessFunction();
 	}
 }

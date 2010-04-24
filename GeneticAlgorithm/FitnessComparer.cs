@@ -18,15 +18,13 @@
 */
 using System.Collections.Generic;
 
-namespace GeneticAlgorithm {
-	public sealed class FitnessComparer: IComparer<IIndividual> {
-		public int Compare(IIndividual x, IIndividual y) {
-			if (x.Fitness > y.Fitness)
-				return 1;
-			else if (x.Fitness == y.Fitness)
-				return 0;
-			else
-				return -1;
+namespace GeneticAlgorithm
+{
+	public sealed class FitnessComparer: IComparer<IIndividual>
+	{
+		public int Compare(IIndividual x, IIndividual y)
+		{
+			return x.Fitness.CompareTo(y.Fitness);
 		}
 	}
 }

@@ -22,10 +22,13 @@ using GeneticAlgorithm;
 using DataFactory;
 
 
-namespace GeneticAssigner {
-	public class Individual: IIndividual {
+namespace GeneticAssigner
+{
+	public class Individual: IIndividual
+	{
 
-		public Individual() {
+		public Individual()
+		{
 			Students = new List<int>();
 		}
 
@@ -36,21 +39,25 @@ namespace GeneticAssigner {
 		public double NormFitness { get; set; }
 		public List<int> Students { get; set; }
 
-		private void Swap(int i, int j) {
+		private void Swap(int i, int j)
+		{
 			int value = Students[i];
 			Students[i] = Students[j];
 			Students[j] = value;
 		}
 
-		public void Mutate(Random random, double mutationRate) {
-			if(random.NextDouble() < mutationRate) {
+		public void Mutate(Random random, double mutationRate)
+		{
+			if(random.NextDouble() < mutationRate)
+			{
 				int src = random.Next(0, Students.Count);
 				int dst = random.Next(0, Students.Count);
 				Swap(src, dst);
 			}
 		}
 
-		public override string ToString() {
+		public override string ToString()
+		{
 			string SPACE = " ";
 			string s = NotAssigned.ToString("d3") + SPACE;
 			for(int i = 0;i < Options.Length;i++)
@@ -58,6 +65,40 @@ namespace GeneticAssigner {
 
 			s += Fitness.ToString() + SPACE + NormFitness.ToString();
 			return s;
+		}
+
+		public double FitnessFunction()
+		{
+			int notAssigned = this.Students.Count;
+			this.Options = new int[Context.Places];
+
+			Context.Courses.ResetPlacesLeft();
+
+			for(int i = 0;i < this.Students.Count;i++)
+			{
+				int id = this.Students[i];
+
+				int opt = Math.Min(Context.Places, Context.Students[id].Options.Length);
+				for(int j = 0;j < opt;j++)
+				{
+					Course actual = Context.Courses[Context.Students[id].Options[j]];
+					if(actual.PlacesLeft > 0)
+					{
+						this.Options[j]++;
+						notAssigned--;
+						actual.AssignPlace();
+						break;
+					}
+				}
+			}
+			this.Assigned = this.Students.Count - notAssigned;
+			this.NotAssigned = notAssigned;
+
+			long value = this.Assigned * (long)Math.Pow(10, this.Options.Length * 3);
+			for(int i = 0;i < this.Options.Length;i++)
+				value += this.Options[i] * (long)Math.Pow(10, (this.Options.Length - 1 - i) * 3);
+
+			return Math.Log(value);
 		}
 
 	}

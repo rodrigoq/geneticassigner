@@ -17,6 +17,7 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.Configuration;
+using System;
 
 namespace GeneticAssigner {
 	public class Settings {
@@ -32,6 +33,7 @@ namespace GeneticAssigner {
 		public int Individuals { get; set; }
 		public int? Seed { get; set; }
 		public bool Start { get; set; }
+		public bool Exit { get; set; }
 
 		public Settings() {
 			Defaults();
@@ -50,6 +52,7 @@ namespace GeneticAssigner {
 			CantOpt = 3;
 			Seed = null;
 			Start = false;
+			Exit = false;
 		}
 
 		public static Settings LoadFromArgs(string[] args) {
@@ -63,6 +66,13 @@ namespace GeneticAssigner {
 			if(args.Length > 0 && args[0] == "start") {
 				args[0] = " ";
 				settings.Start = true;
+			}
+			
+			if(args.Length > 0 && args[0] == "startexit")
+			{
+				args[0] = " ";
+				settings.Start = true;
+				settings.Exit = true;
 			}
 
 			foreach(string s in args) {
@@ -99,6 +109,8 @@ namespace GeneticAssigner {
 						break;
 					case 'e'://seed
 						settings.Seed = int.Parse(s.Substring(1));
+						if(settings.Seed == int.MaxValue)
+							throw new Exception("Seed value has to be smaller than " + int.MaxValue);
 						break;
 					default:
 						break;
@@ -129,9 +141,10 @@ namespace GeneticAssigner {
 		}
 
 		private static void ShowUsage() {
-			string usage = @"Usage: GeneticAssigner [start] <parameters> [all are mandatory]
+			string usage = @"Usage: GeneticAssigner [start|startexit] <parameters> [all are mandatory]
 Commands:   
    start       Start processing automatically
+   startexit   Start processing automatically and exits when finished
 
 Parameters:
    c           courses file path
@@ -147,7 +160,7 @@ Parameters:
    e           seed
 
 Example:
-GeneticAssigner start cC:\\courses.txt sC:\\students.txt v1 o1 m80 pC:\\ g2000 i100 n3 k1 e75168413
+GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100 n3 k1 e75168413
 ";
 			System.Windows.Forms.MessageBox.Show(usage);
 		}
@@ -175,10 +188,16 @@ GeneticAssigner start cC:\\courses.txt sC:\\students.txt v1 o1 m80 pC:\\ g2000 i
 			settings.KeepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
 
 			if(ConfigurationManager.AppSettings["seed"] == null)
+			{
 				settings.Seed = null;
+			}
 			else
+			{
 				settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
+				if(settings.Seed == int.MaxValue)
+					throw new Exception("Seed value has to be smaller than " + int.MaxValue);
 
+			}
 			return settings;
 		}
 

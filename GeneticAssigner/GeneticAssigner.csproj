@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="Changelog.txt" />
+    <Content Include="TODO.txt" />
+    <Compile Include="Context.cs" />
     <Compile Include="Individual.cs" />
     <Compile Include="Ordinal.cs" />
     <Compile Include="Reports.cs" />

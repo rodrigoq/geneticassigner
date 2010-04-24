@@ -19,146 +19,156 @@
 using System;
 using System.Collections.Generic;
 
-namespace GeneticAlgorithm {
+namespace GeneticAlgorithm
+{
 
 	#region Delegates
 
 	public delegate void BestDelegate(object sender, GenerationEventArgs e);
 	public delegate void GenerationDelegate(object sender, GenerationEventArgs e);
 	public delegate void CompletedDelegate(object sender, EventArgs e);
-	public delegate double FitnessDelegate(IIndividual individual);
+	public delegate void StoppedDelegate(object sender, EventArgs e);
 
 	#endregion
 
-	public class GeneticAlgorithm<T> where T: IIndividual, new() {
+	public class GeneticAlgorithm<T> where T: IIndividual, new()
+	{
 
 		public event BestDelegate onBest;
 		public event GenerationDelegate onGeneration;
 		public event CompletedDelegate onComplete;
-		public FitnessDelegate fitnessFunction;
+		public event StoppedDelegate onStop;
 
 		private List<IIndividual> thisGeneration = new List<IIndividual>();
 		private List<double> fitnessTable = new List<double>();
 
+		private bool stop;
+		private bool isRunning;
 		private Random random;
-		private IIndividual best;
 		private double totalFitness;
-		private int generation;
-		private double mutationRate;
-		private int populationCount;
-		private int generationLength;
-		private bool elitism;
-		private int seed;
 
-		public double MutationRate {
-			get { return mutationRate; }
-			set { mutationRate = value; }
-		}
-		public int PopulationCount {
-			get { return populationCount; }
-			set { populationCount = value; }
-		}
-		public int GenerationLength {
-			get { return generationLength; }
-			set { generationLength = value; }
-		}
-		public bool Elitism {
-			get { return elitism; }
-			set { elitism = value; }
-		}
-		public IIndividual Best {
-			get { return best; }
-		}
-		public int Generation {
-			get { return generation; }
-		}
-		public int Seed {
-			get { return seed; }
-		}
+		public IIndividual Best { get; private set; }
+		public int Seed { get; private set; }
+		public int Generation { get; private set; }
+		public double MutationRate { get; set; }
+		public int PopulationCount { get; set; }
+		public int GenerationLength { get; set; }
+		public bool Elitism { get; set; }
 
-
-		public GeneticAlgorithm(FitnessDelegate fitnessFunction, List<IIndividual> firstGeneration, int seed) {
-			this.fitnessFunction = fitnessFunction;
+		public GeneticAlgorithm(List<IIndividual> firstGeneration, int seed)
+		{
 			this.thisGeneration = new List<IIndividual>(firstGeneration);
 
-			this.mutationRate = 0.80;
-			this.elitism = true;
-			this.seed = seed;
+			this.MutationRate = 0.80;
+			this.Elitism = true;
+			this.Seed = seed;
 
 			random = new Random(seed);
 		}
 
-		public void Start() {
-			RankPopulation();
-			for(int i = 0;i < generationLength;i++) {
-				CreateNextGeneration();
-
+		public void Start()
+		{
+			try
+			{
+				isRunning = true;
 				RankPopulation();
+				for(int i = 0;i < GenerationLength;i++)
+				{
+					if(stop)
+					{
+						if(onStop != null)
+							onStop(this, new EventArgs());
+						return;
+					}
 
-				generation = i + 1;
+					CreateNextGeneration();
 
-				SetBest();
+					RankPopulation();
 
-				if(onGeneration != null)
-					onGeneration(this, new GenerationEventArgs(this.generation, thisGeneration[populationCount - 1]));
+					Generation = i + 1;
+
+					SetBest();
+
+					if(onGeneration != null)
+						onGeneration(this, new GenerationEventArgs(Generation, thisGeneration[PopulationCount - 1]));
+				}
+
+				if(onComplete != null)
+					onComplete(this, new EventArgs());
 			}
-
-			if(onComplete != null)
-				onComplete(this, new EventArgs());
+			finally
+			{
+				isRunning = false;
+				stop = false;
+			}
 		}
 
-		private void SetBest() {
-			IIndividual ind = thisGeneration[populationCount - 1];
+		public void Stop()
+		{
+			if(isRunning)
+				stop = true;
+		}
 
-			if(best == null || best.Fitness < ind.Fitness) {
-				best = new T();
-				best.Students = new List<int>(ind.Students);
 
-				best.NotAssigned = ind.NotAssigned;
-				best.Assigned = ind.Assigned;
+		private void SetBest()
+		{
+			IIndividual ind = thisGeneration[PopulationCount - 1];
 
-				best.Fitness = ind.Fitness;
-				best.NormFitness = ind.NormFitness;
+			if(Best == null || Best.Fitness < ind.Fitness)
+			{
+				Best = new T();
+				Best.Students = new List<int>(ind.Students);
 
-				best.Options = new List<int>(ind.Options).ToArray();
+				Best.NotAssigned = ind.NotAssigned;
+				Best.Assigned = ind.Assigned;
+
+				Best.Fitness = ind.Fitness;
+				Best.NormFitness = ind.NormFitness;
+
+				Best.Options = new List<int>(ind.Options).ToArray();
 
 				if(onBest != null)
-					onBest(this, new GenerationEventArgs(this.generation, best));
+					onBest(this, new GenerationEventArgs(Generation, Best));
 			}
 		}
 
 		//TODO: think how to add crossing over... and if it is a necesity.
-		private void CreateNextGeneration() {
+		private void CreateNextGeneration()
+		{
 			List<IIndividual> nextGeneration = new List<IIndividual>();
 
 			IIndividual ind = null;
-			if(elitism) {
+			if(Elitism)
+			{
 				ind = new T();
-				ind.Students = new List<int>(thisGeneration[populationCount - 1].Students);
+				ind.Students = new List<int>(thisGeneration[PopulationCount - 1].Students);
 			}
-			for(int i = 0;i < populationCount;i++) {
+			for(int i = 0;i < PopulationCount;i++)
+			{
 				IIndividual parent = thisGeneration[RouletteSelection()];
 				IIndividual child = new T();
 				child.Students = new List<int>(parent.Students);
-				child.Mutate(random, mutationRate);
+				child.Mutate(random, MutationRate);
 				nextGeneration.Add(child);
 			}
 			thisGeneration = new List<IIndividual>(nextGeneration);
 
-			if(elitism && ind != null)
+			if(Elitism && ind != null)
 				nextGeneration[0] = ind;
 
 		}
 
-		private void RankPopulation() {
-			for(int i = 0;i < populationCount;i++)
-				thisGeneration[i].Fitness = fitnessFunction(thisGeneration[i]);
+		private void RankPopulation()
+		{
+			for(int i = 0;i < PopulationCount;i++)
+				thisGeneration[i].Fitness = thisGeneration[i].FitnessFunction();
 
 			thisGeneration.Sort(new FitnessComparer());
 
 			totalFitness = 0;
 			fitnessTable.Clear();
-			for(int i = 0;i < populationCount;i++) {
+			for(int i = 0;i < PopulationCount;i++)
+			{
 				if(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
 					thisGeneration[i].NormFitness = (double)(thisGeneration[i].Fitness - thisGeneration[0].Fitness) / (double)(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness);
 				else
@@ -175,7 +185,8 @@ namespace GeneticAlgorithm {
 			}*/
 		}
 
-		private int RouletteSelection() {
+		private int RouletteSelection()
+		{
 			int index = fitnessTable.BinarySearch(random.NextDouble() * totalFitness);
 			return (index < 0) ? ~index : index;
 		}

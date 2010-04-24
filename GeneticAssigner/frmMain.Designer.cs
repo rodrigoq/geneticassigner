@@ -16,8 +16,10 @@
 *   You should have received a copy of the GNU General Public License
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-namespace GeneticAssigner {
-	partial class frmMain {
+namespace GeneticAssigner
+{
+	partial class frmMain
+	{
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -27,8 +29,10 @@ namespace GeneticAssigner {
 		/// Clean up any resources being used.
 		/// </summary>
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing) {
-			if (disposing && (components != null)) {
+		protected override void Dispose(bool disposing)
+		{
+			if(disposing && (components != null))
+			{
 				components.Dispose();
 			}
 			base.Dispose(disposing);
@@ -40,7 +44,8 @@ namespace GeneticAssigner {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent() {
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			this.grpStatus = new System.Windows.Forms.GroupBox();
 			this.lblGenerationValue = new System.Windows.Forms.Label();
