@@ -17,24 +17,29 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace DataFactory {
-	public class StudentCollection: Collection<Student> {
+namespace DataFactory
+{
+	public class StudentCollection: Collection<Student>
+	{
 		int maxOptions;
 
 		public StudentCollection() : base() { }
-		public StudentCollection(StudentCollection collection)  {
-			foreach(Student student in collection) 
+		public StudentCollection(StudentCollection collection)
+		{
+			foreach(Student student in collection)
 				list.Add(student.Clone());
 
 			this.MaxOptions = collection.MaxOptions;
 		}
 
-		public void UnAssign() {
+		public void UnAssign()
+		{
 			for(int i = 0;i < list.Count;i++)
 				list[i].UnAssign();
 		}
 
-		public int MaxOptions {
+		public int MaxOptions
+		{
 			get { return maxOptions; }
 			set { maxOptions = value; }
 		}

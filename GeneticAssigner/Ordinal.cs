@@ -18,19 +18,24 @@
 */
 using System;
 
-namespace GeneticAssigner {
-	public class Ordinal {
+namespace GeneticAssigner
+{
+	public class Ordinal
+	{
 
 		string locale = "es";
 
 		public Ordinal() { }
 
-		public Ordinal(string locale) {
+		public Ordinal(string locale)
+		{
 			this.locale = locale;
 		}
 
-		public string this[int i] {
-			get {
+		public string this[int i]
+		{
+			get
+			{
 				if(locale.ToLower() == "es")
 					return ordinalEs(i);
 				else if(locale.ToLower() == "en")
@@ -40,8 +45,10 @@ namespace GeneticAssigner {
 			}
 		}
 
-		private string ordinalEs(int i) {
-			switch(i) {
+		private string ordinalEs(int i)
+		{
+			switch(i)
+			{
 				case 1: return "Primera";
 				case 2: return "Segunda";
 				case 3: return "Tercera";
@@ -57,8 +64,10 @@ namespace GeneticAssigner {
 			}
 		}
 
-		private string ordinalEn(int i) {
-			switch(i) {
+		private string ordinalEn(int i)
+		{
+			switch(i)
+			{
 				case 1: return "First";
 				case 2: return "Second";
 				case 3: return "Third";

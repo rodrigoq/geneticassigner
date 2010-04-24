@@ -17,8 +17,10 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace DataFactory {
-	public interface Identifiable {
+namespace DataFactory
+{
+	public interface Identifiable
+	{
 		int Id { get; }
 	}
 }

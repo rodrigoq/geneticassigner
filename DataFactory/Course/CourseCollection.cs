@@ -17,20 +17,24 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace DataFactory {
-	public class CourseCollection: Collection<Course> {
+namespace DataFactory
+{
+	public class CourseCollection: Collection<Course>
+	{
 
 		public int TotalPlaces { get; set; }
-		
+
 		public CourseCollection() : base() { }
-		public CourseCollection(CourseCollection collection) {
+		public CourseCollection(CourseCollection collection)
+		{
 			foreach(Course course in collection)
 				this.list.Add(course.Clone());
 
 			this.TotalPlaces = collection.TotalPlaces;
 		}
 
-		public void ResetPlacesLeft() {
+		public void ResetPlacesLeft()
+		{
 			for(int i = 0;i < list.Count;i++)
 				list[i].ResetPlacesLeft();
 		}

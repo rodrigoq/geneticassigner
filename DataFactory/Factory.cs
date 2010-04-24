@@ -21,9 +21,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DataFactory {
-	public class Factory {
-		protected static string[] GetLineArray(string path) {
+namespace DataFactory
+{
+	public class Factory
+	{
+		protected static string[] GetLineArray(string path)
+		{
 			string contents = string.Empty;
 			using(StreamReader sr = new StreamReader(path, Encoding.Default))
 				contents = sr.ReadToEnd();
@@ -32,7 +35,8 @@ namespace DataFactory {
 				new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
 			List<string> linesClean = new List<string>();
-			for(int i = 0;i < lines.Length;i++) {
+			for(int i = 0;i < lines.Length;i++)
+			{
 				string trimmed = lines[i].Trim();
 				if(trimmed.StartsWith("*") == false)
 					linesClean.Add(trimmed);

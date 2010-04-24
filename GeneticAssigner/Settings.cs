@@ -19,8 +19,10 @@
 using System.Configuration;
 using System;
 
-namespace GeneticAssigner {
-	public class Settings {
+namespace GeneticAssigner
+{
+	public class Settings
+	{
 		public bool OpenFolder { get; set; }
 		public int CantOpt { get; set; }
 		public string CoursesPath { get; set; }
@@ -35,14 +37,16 @@ namespace GeneticAssigner {
 		public bool Start { get; set; }
 		public bool Exit { get; set; }
 
-		public Settings() {
+		public Settings()
+		{
 			Defaults();
 		}
 
 		/// <summary>
 		/// Default start settings for the GA.
 		/// </summary>
-		public void Defaults() {
+		public void Defaults()
+		{
 			SaveFiles = false;
 			KeepBest = true;
 			OpenFolder = true;
@@ -55,19 +59,22 @@ namespace GeneticAssigner {
 			Exit = false;
 		}
 
-		public static Settings LoadFromArgs(string[] args) {
-			if(args.Length > 0 && (args[0] == "--help" || args[0] == "-h")) {
+		public static Settings LoadFromArgs(string[] args)
+		{
+			if(args.Length > 0 && (args[0] == "--help" || args[0] == "-h"))
+			{
 				ShowUsage();
 				return null;
 			}
 			Settings settings = new Settings();
 
 
-			if(args.Length > 0 && args[0] == "start") {
+			if(args.Length > 0 && args[0] == "start")
+			{
 				args[0] = " ";
 				settings.Start = true;
 			}
-			
+
 			if(args.Length > 0 && args[0] == "startexit")
 			{
 				args[0] = " ";
@@ -75,8 +82,10 @@ namespace GeneticAssigner {
 				settings.Exit = true;
 			}
 
-			foreach(string s in args) {
-				switch(s[0]) {
+			foreach(string s in args)
+			{
+				switch(s[0])
+				{
 					case 'c'://courses
 						settings.CoursesPath = s.Substring(1);
 						break;
@@ -119,8 +128,10 @@ namespace GeneticAssigner {
 			return settings;
 		}
 
-		private static bool ParseBool(string s) {
-			switch(s.ToLower()) {
+		private static bool ParseBool(string s)
+		{
+			switch(s.ToLower())
+			{
 				case "1":
 					return true;
 				case "y":
@@ -140,7 +151,8 @@ namespace GeneticAssigner {
 			}
 		}
 
-		private static void ShowUsage() {
+		private static void ShowUsage()
+		{
 			string usage = @"Usage: GeneticAssigner [start|startexit] <parameters> [all are mandatory]
 Commands:   
    start       Start processing automatically
@@ -165,7 +177,8 @@ GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100
 			System.Windows.Forms.MessageBox.Show(usage);
 		}
 
-		public static Settings LoadFromFile() {
+		public static Settings LoadFromFile()
+		{
 			Settings settings = new Settings();
 			settings.CoursesPath = ConfigurationManager.AppSettings["courses"];
 
@@ -196,7 +209,6 @@ GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100
 				settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
 				if(settings.Seed == int.MaxValue)
 					throw new Exception("Seed value has to be smaller than " + int.MaxValue);
-
 			}
 			return settings;
 		}

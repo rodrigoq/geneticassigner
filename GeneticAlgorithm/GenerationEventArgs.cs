@@ -18,13 +18,16 @@
 */
 using System;
 
-namespace GeneticAlgorithm {
-	public class GenerationEventArgs: EventArgs {
+namespace GeneticAlgorithm
+{
+	public class GenerationEventArgs: EventArgs
+	{
 		public int Generation;
 		public IIndividual Individual;
 
 		public GenerationEventArgs(int generation, IIndividual individual)
-			: base() {
+			: base()
+		{
 			Generation = generation;
 			Individual = individual;
 		}
