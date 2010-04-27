@@ -5,3 +5,4 @@
 * Apply GA to the application itself for parameter tunning.
 * Make new interface to run multiple applications with different parameters.
 * Move FitnessFunction to Individual.
+* Add graphics of the process.
