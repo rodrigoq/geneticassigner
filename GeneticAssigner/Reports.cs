@@ -130,13 +130,17 @@ namespace GeneticAssigner
 		}
 
 
-		public void Summary(IIndividual best, int bestGeneration, int populationSize)
+		public void Summary(IIndividual best, int bestGeneration, int populationSize, string time)
 		{
 			StringBuilder sb = new StringBuilder();
 
 			int disponibles = courses.TotalPlaces - best.Assigned;
 
-			sb.Append("Se encontró la mejor distribución en ").Append(bestGeneration).Append(" generaciones de ").Append(populationSize).Append(" individuos cada una.").AppendLine();
+			string generaciones = GetPluralGeneraciones(bestGeneration);
+			string individuos = GetPluralIndividuos(populationSize);
+			sb.Append("Se encontró la mejor distribución en ").Append(time)
+				.Append(" en ").Append(bestGeneration).Append(generaciones).Append(" de ")
+				.Append(populationSize).Append(individuos).Append(" individuos cada una.").AppendLine();
 
 			sb.AppendLine();
 
@@ -168,6 +172,30 @@ namespace GeneticAssigner
 				sw.Write(sb);
 			}
 
+		}
+
+		private string GetPluralIndividuos(int populationSize)
+		{
+			if(populationSize == 1)
+			{
+				return " individuo";
+			}
+			else
+			{
+				return " individuos";
+			}
+		}
+
+		private static string GetPluralGeneraciones(int bestGeneration)
+		{
+			if(bestGeneration == 1)
+			{
+				return " generación";
+			}
+			else
+			{
+				return " generaciones";
+			}
 		}
 
 		public void Log(IIndividual best, StringBuilder log)
