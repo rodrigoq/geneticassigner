@@ -61,8 +61,9 @@ namespace GeneticAssigner
 			string SPACE = " ";
 			string s = NotAssigned.ToString("d3") + SPACE;
 			for(int i = 0;i < Options.Length;i++)
+			{
 				s += Options[i].ToString("d3") + SPACE;
-
+			}
 			s += Fitness.ToString() + SPACE + NormFitness.ToString();
 			return s;
 		}
@@ -96,8 +97,10 @@ namespace GeneticAssigner
 
 			long value = this.Assigned * (long)Math.Pow(10, this.Options.Length * 3);
 			for(int i = 0;i < this.Options.Length;i++)
+			{
 				value += this.Options[i] * (long)Math.Pow(10, (this.Options.Length - 1 - i) * 3);
-
+			}
+			//return Math.Log10(value);
 			return Math.Log(value);
 		}
 

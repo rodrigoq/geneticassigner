@@ -208,7 +208,9 @@ GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100
 			{
 				settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
 				if(settings.Seed == int.MaxValue)
+				{
 					throw new Exception("Seed value has to be smaller than " + int.MaxValue);
+				}
 			}
 			return settings;
 		}

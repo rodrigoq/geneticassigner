@@ -60,7 +60,9 @@ namespace GeneticAssigner
 				}
 			}
 			if(string.IsNullOrEmpty(repeated) == false)
+			{
 				throw new Exception(repeated);
+			}
 		}
 
 		public void StudentsInCourses()
@@ -69,18 +71,23 @@ namespace GeneticAssigner
 
 			List<int> courseIds = new List<int>();
 			foreach(Course course in courses)
+			{
 				courseIds.Add(course.Id);
-
+			}
 			foreach(Student student in students)
 			{
 				for(int i = 0;i < student.Options.Length;i++)
 				{
 					if(courseIds.Contains(student.Options[i]) == false)
+					{
 						repeated += student.ToString() + " BAD COURSE " + student.Options[i] + Environment.NewLine;
+					}
 				}
 			}
 			if(string.IsNullOrEmpty(repeated) == false)
+			{
 				throw new Exception(repeated);
+			}
 		}
 
 		public void Verify()
@@ -93,20 +100,26 @@ namespace GeneticAssigner
 				{
 					Predicate<int> contains = delegate(int value) { return value == student.AssignedCourse; };
 					if(Array.Find<int>(student.Options, contains) < 0)
+					{
 						throw new Exception(student.ToString() + " asignado a una opción no posible");
-
+					}
 					if(coursePlaces.ContainsKey(student.AssignedCourse))
+					{
 						coursePlaces[student.AssignedCourse]++;
+					}
 					else
+					{
 						coursePlaces.Add(student.AssignedCourse, 1);
-
+					}
 				}
 				else
 				{
 					for(int i = 0;i < student.Options.Length;i++)
 					{
 						if(notAssignedOptions.Contains(student.Options[i]) == false)
+						{
 							notAssignedOptions.Add(student.Options[i]);
+						}
 					}
 				}
 			}
@@ -116,15 +129,20 @@ namespace GeneticAssigner
 				if(coursePlaces.ContainsKey(course.Id))
 				{
 					if(coursePlaces[course.Id] > course.TotalPlaces)
+					{
 						throw new Exception("Más alumnos asignados que vacantes disponibles, centro [" + course.Id + "]");
-
+					}
 					if(coursePlaces[course.Id] < course.TotalPlaces && notAssignedOptions.Contains(course.Id))
+					{
 						throw new Exception("Centro [" + course.Id + "] con vacantes para alumno no asignado");
+					}
 				}
 				else
 				{
 					if(course.TotalPlaces > 0 && notAssignedOptions.Contains(course.Id))
+					{
 						throw new Exception("Centro [" + course.Id + "] con vacantes para alumno no asignado");
+					}
 				}
 			}
 		}

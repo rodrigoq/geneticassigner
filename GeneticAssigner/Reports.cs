@@ -52,18 +52,25 @@ namespace GeneticAssigner
 			foreach(Student student in students)
 			{
 				if(student.Assigned)
-					sb.Append("<tr><td>").Append(student.Id).Append("</td><td>").Append(student.Name).Append("</td><td>").Append(student.AssignedCourse).Append("</td></tr>");
+				{
+					sb.Append("<tr><td>").Append(student.Id).Append("</td><td>")
+						.Append(student.Name).Append("</td><td>")
+						.Append(student.AssignedCourse).Append("</td></tr>");
+				}
 				else
 				{
 					hayNoAssig = true;
-					sbNoAssig.Append("<tr><td>").Append(student.Id).Append("</td><td>").Append(student.Name).Append("</td><td>No Asignado</td></tr>");
+					sbNoAssig.Append("<tr><td>").Append(student.Id).Append("</td><td>")
+						.Append(student.Name).Append("</td><td>No Asignado</td></tr>");
 				}
 			}
 			sb.Append("</table><br />");
 			if(hayNoAssig)
+			{
 				sb.Append(sbNoAssig.Append("</table><br />"));
-
-			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_alumnos.html", false, Encoding.Default))
+			}
+			using(StreamWriter sw =
+				new StreamWriter(outPath + fileNamePrefix + "report_alumnos.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
 			}
@@ -82,18 +89,24 @@ namespace GeneticAssigner
 				if(student.AssignedCourse != last)
 				{
 					if(sb.Length > 0)
+					{
 						sb.Append("</table><br />");
-
+					}
 					sb.Append("<table border='1'>");
 					sb.Append("<tr><th>Libreta</th><th>Nombre</th><th>Comisión</th></tr>");
 					last = student.AssignedCourse;
 				}
 				string asignado;
 				if(student.Assigned)
+				{
 					asignado = student.AssignedCourse.ToString();
+				}
 				else
+				{
 					asignado = "No Asignado";
-				sb.Append("<tr><td>").Append(student.Id).Append("</td><td>").Append(student.Name).Append("</td><td>").Append(asignado).Append("</td></tr>");
+				}
+				sb.Append("<tr><td>").Append(student.Id).Append("</td><td>")
+					.Append(student.Name).Append("</td><td>").Append(asignado).Append("</td></tr>");
 
 			}
 			sb.Append("</table><br />");
@@ -114,14 +127,16 @@ namespace GeneticAssigner
 				if(course.PlacesLeft > 0)
 				{
 					placesLeft = true;
-					sb.Append("<tr><td>").Append(course.Id).Append("</td><td>").Append(course.Name).Append("</td><td>").Append(course.PlacesLeft).Append("</td></tr>");
+					sb.Append("<tr><td>").Append(course.Id).Append("</td><td>")
+						.Append(course.Name).Append("</td><td>").Append(course.PlacesLeft).Append("</td></tr>");
 				}
 			}
 			sb.Append("</table><br />");
 
 			if(placesLeft == false)
+			{
 				sb = new StringBuilder("No hay vacantes disponibles.");
-
+			}
 			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_vacantes.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
@@ -203,7 +218,9 @@ namespace GeneticAssigner
 			StringBuilder header = new StringBuilder();
 			header.Append("\"Generación\";\"Fitness\";\"No asignados\";");
 			for(int i = 0;i < best.Options.Length;i++)
+			{
 				header.Append("\"").Append(ordinales[i + 1]).Append("\";");
+			}
 			header.AppendLine();
 			header.Append(log);
 			using(StreamWriter outputLog = new StreamWriter(outPath + fileNamePrefix + "log.csv", false, Encoding.Default))
@@ -222,7 +239,5 @@ namespace GeneticAssigner
 				result.Write(header);
 			}
 		}
-
-
 	}
 }

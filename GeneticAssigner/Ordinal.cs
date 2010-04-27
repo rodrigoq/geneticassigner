@@ -22,7 +22,6 @@ namespace GeneticAssigner
 {
 	public class Ordinal
 	{
-
 		string locale = "es";
 
 		public Ordinal() { }
@@ -37,11 +36,17 @@ namespace GeneticAssigner
 			get
 			{
 				if(locale.ToLower() == "es")
+				{
 					return ordinalEs(i);
+				}
 				else if(locale.ToLower() == "en")
+				{
 					return ordinalEn(i);
+				}
 				else
+				{
 					throw new NotImplementedException("locale '" + locale + "'");
+				}
 			}
 		}
 
