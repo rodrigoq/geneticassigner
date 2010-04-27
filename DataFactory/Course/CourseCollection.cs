@@ -28,15 +28,18 @@ namespace DataFactory
 		public CourseCollection(CourseCollection collection)
 		{
 			foreach(Course course in collection)
-				this.list.Add(course.Clone());
-
+			{
+				base.Add(course.Clone());
+			}
 			this.TotalPlaces = collection.TotalPlaces;
 		}
 
 		public void ResetPlacesLeft()
 		{
-			for(int i = 0;i < list.Count;i++)
-				list[i].ResetPlacesLeft();
+			foreach(Course c in list)
+			{
+				c.ResetPlacesLeft();
+			}
 		}
 
 	}

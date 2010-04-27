@@ -25,16 +25,29 @@ namespace DataFactory
 	{
 
 		protected List<T> list = new List<T>();
+		protected Dictionary<int, int> hash = new Dictionary<int, int>();
 
 		public Collection() { }
 
 		public void Sort(Comparison<T> comparison)
 		{
 			list.Sort(comparison);
+			RecreateHash();
 		}
+
 		public void Sort(IComparer<T> comparer)
 		{
 			list.Sort(comparer);
+			RecreateHash();
+		}
+
+		private void RecreateHash()
+		{
+			hash.Clear();
+			for(int i = 0;i < list.Count;i++)
+			{
+				hash.Add(list[i].Id, i);
+			}
 		}
 
 		#region ICollection<T> Members
@@ -43,8 +56,7 @@ namespace DataFactory
 		{
 			get
 			{
-				Predicate<T> findById = delegate(T t) { return t.Id == id; };
-				return list.Find(findById);
+				return list[hash[id]];
 			}
 		}
 
@@ -56,11 +68,13 @@ namespace DataFactory
 		public void Add(T item)
 		{
 			list.Add(item);
+			hash.Add(item.Id, list.Count - 1);
 		}
 
 		public void Clear()
 		{
 			list.Clear();
+			hash.Clear();
 		}
 
 		public bool Contains(T item)
@@ -75,17 +89,30 @@ namespace DataFactory
 
 		public int Count
 		{
-			get { return list.Count; }
+			get
+			{
+				return list.Count;
+			}
 		}
 
 		public bool IsReadOnly
 		{
-			get { return false; }
+			get
+			{
+				return false;
+			}
 		}
 
 		public bool Remove(T item)
 		{
-			return list.Remove(item);
+			if(hash.Remove(item.Id))
+			{
+				return list.Remove(item);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		#endregion
