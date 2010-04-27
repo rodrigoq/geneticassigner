@@ -154,8 +154,9 @@ namespace GeneticAlgorithm
 			thisGeneration = new List<IIndividual>(nextGeneration);
 
 			if(Elitism && ind != null)
+			{
 				nextGeneration[0] = ind;
-
+			}
 		}
 
 		private void RankPopulation()
