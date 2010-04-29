@@ -1,4 +1,8 @@
 ﻿
+0.1.1.0
+
+* Linked open folder option with create files.
+
 0.1.0.0
 
 * Huge improve on speed (> 10x).

@@ -551,5 +551,10 @@ namespace GeneticAssigner
 				+ ts.Seconds.ToString("d2") + "."
 				+ ts.Milliseconds.ToString("d3");
 		}
+
+		private void chkCreateFiles_CheckedChanged(object sender, EventArgs e)
+		{
+			chkOpenFolder.Checked = chkCreateFiles.Checked;
+		}
 	}
 }
