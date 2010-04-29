@@ -104,5 +104,45 @@ namespace GeneticAssigner
 			return Math.Log(value);
 		}
 
+
+		public static List<IIndividual> FirstGeneration(int size, int seed)
+		{
+			Random random = new Random(seed + 1);
+			List<int> students0 = new List<int>();
+			foreach(Student student in Context.Students)
+			{
+				students0.Add(student.Id);
+			}
+			List<IIndividual> thisGeneration = new List<IIndividual>();
+			for(int i = 0;i < size;i++)
+			{
+				Individual ind = new Individual();
+				ind.Students = Shuffle(random, students0);
+				thisGeneration.Add(ind);
+			}
+			return thisGeneration;
+		}
+
+		private static List<int> Shuffle(Random random, List<int> students)
+		{
+			int n = students.Count;
+			while(n > 1)
+			{
+				int k = random.Next(n);
+				n--;
+				Swap(students, n, k);
+			}
+			return new List<int>(students);
+		}
+
+		private static void Swap(List<int> students, int i, int j)
+		{
+			int value = students[i];
+			students[i] = students[j];
+			students[j] = value;
+		}
+
+
+
 	}
 }

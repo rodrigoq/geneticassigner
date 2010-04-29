@@ -222,6 +222,7 @@ namespace GeneticAssigner
 			// 
 			this.txtOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtOptions.Location = new System.Drawing.Point(62, 115);
+			this.txtOptions.MaxLength = 1;
 			this.txtOptions.Name = "txtOptions";
 			this.txtOptions.Size = new System.Drawing.Size(38, 20);
 			this.txtOptions.TabIndex = 4;
@@ -277,6 +278,7 @@ namespace GeneticAssigner
 			// 
 			this.txtSeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtSeed.Location = new System.Drawing.Point(306, 117);
+			this.txtSeed.MaxLength = 12;
 			this.txtSeed.Name = "txtSeed";
 			this.txtSeed.Size = new System.Drawing.Size(69, 20);
 			this.txtSeed.TabIndex = 15;
@@ -298,6 +300,7 @@ namespace GeneticAssigner
 			// 
 			this.txtPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtPopulation.Location = new System.Drawing.Point(306, 90);
+			this.txtPopulation.MaxLength = 7;
 			this.txtPopulation.Name = "txtPopulation";
 			this.txtPopulation.Size = new System.Drawing.Size(69, 20);
 			this.txtPopulation.TabIndex = 12;
@@ -308,6 +311,7 @@ namespace GeneticAssigner
 			// 
 			this.txtGenerations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtGenerations.Location = new System.Drawing.Point(306, 64);
+			this.txtGenerations.MaxLength = 7;
 			this.txtGenerations.Name = "txtGenerations";
 			this.txtGenerations.Size = new System.Drawing.Size(69, 20);
 			this.txtGenerations.TabIndex = 10;
@@ -318,6 +322,7 @@ namespace GeneticAssigner
 			// 
 			this.txtMutationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtMutationRate.Location = new System.Drawing.Point(306, 39);
+			this.txtMutationRate.MaxLength = 3;
 			this.txtMutationRate.Name = "txtMutationRate";
 			this.txtMutationRate.Size = new System.Drawing.Size(69, 20);
 			this.txtMutationRate.TabIndex = 8;
@@ -328,6 +333,7 @@ namespace GeneticAssigner
 			// 
 			this.txtOutputFolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtOutputFolder.Location = new System.Drawing.Point(306, 15);
+			this.txtOutputFolder.MaxLength = 2000;
 			this.txtOutputFolder.Name = "txtOutputFolder";
 			this.txtOutputFolder.Size = new System.Drawing.Size(70, 20);
 			this.txtOutputFolder.TabIndex = 6;
