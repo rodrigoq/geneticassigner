@@ -153,9 +153,10 @@ namespace GeneticAssigner
 
 			string generaciones = GetPluralGeneraciones(bestGeneration);
 			string individuos = GetPluralIndividuos(populationSize);
-			sb.Append("Se encontró la mejor distribución en ").Append(time)
-				.Append(" en ").Append(bestGeneration).Append(generaciones).Append(" de ")
-				.Append(populationSize).Append(individuos).Append(" individuos cada una.").AppendLine();
+			sb.Append("Se encontró la mejor distribución en ")
+				.Append(bestGeneration).Append(generaciones).Append(" de ")
+				.Append(populationSize).Append(individuos).Append(" cada una en ").Append(time)
+				.Append(" segundos.").AppendLine();
 
 			sb.AppendLine();
 
