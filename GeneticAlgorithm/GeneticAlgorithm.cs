@@ -57,7 +57,8 @@ namespace GeneticAlgorithm
 
 		public GeneticAlgorithm(List<IIndividual> firstGeneration, int seed)
 		{
-			this.thisGeneration = new List<IIndividual>(firstGeneration);
+			this.thisGeneration =
+				new List<IIndividual>(firstGeneration);
 
 			this.MutationRate = 0.80;
 			this.Elitism = true;
@@ -77,7 +78,9 @@ namespace GeneticAlgorithm
 					if(stop)
 					{
 						if(onStop != null)
+						{
 							onStop(this, new EventArgs());
+						}
 						return;
 					}
 
@@ -90,11 +93,17 @@ namespace GeneticAlgorithm
 					SetBest();
 
 					if(onGeneration != null)
-						onGeneration(this, new GenerationEventArgs(Generation, thisGeneration[PopulationCount - 1]));
+					{
+						onGeneration(this,
+							new GenerationEventArgs(Generation,
+								thisGeneration[PopulationCount - 1]));
+					}
 				}
 
 				if(onComplete != null)
+				{
 					onComplete(this, new EventArgs());
+				}
 			}
 			finally
 			{
@@ -106,7 +115,9 @@ namespace GeneticAlgorithm
 		public void Stop()
 		{
 			if(isRunning)
+			{
 				stop = true;
+			}
 		}
 
 
@@ -128,7 +139,9 @@ namespace GeneticAlgorithm
 				Best.Options = new List<int>(ind.Options).ToArray();
 
 				if(onBest != null)
+				{
 					onBest(this, new GenerationEventArgs(Generation, Best));
+				}
 			}
 		}
 
@@ -141,7 +154,8 @@ namespace GeneticAlgorithm
 			if(Elitism)
 			{
 				ind = new T();
-				ind.Students = new List<int>(thisGeneration[PopulationCount - 1].Students);
+				ind.Students =
+					new List<int>(thisGeneration[PopulationCount - 1].Students);
 			}
 			for(int i = 0;i < PopulationCount;i++)
 			{
@@ -162,8 +176,9 @@ namespace GeneticAlgorithm
 		private void RankPopulation()
 		{
 			for(int i = 0;i < PopulationCount;i++)
+			{
 				thisGeneration[i].Fitness = thisGeneration[i].FitnessFunction();
-
+			}
 			thisGeneration.Sort(new FitnessComparer());
 
 			totalFitness = 0;
@@ -171,24 +186,34 @@ namespace GeneticAlgorithm
 			for(int i = 0;i < PopulationCount;i++)
 			{
 				if(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
-					thisGeneration[i].NormFitness = (double)(thisGeneration[i].Fitness - thisGeneration[0].Fitness) / (double)(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness);
+				{
+					thisGeneration[i].NormFitness =
+						(double)(thisGeneration[i].Fitness - thisGeneration[0].Fitness) /
+						(double)(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness);
+				}
 				else
+				{
 					thisGeneration[i].NormFitness = 1.0;
-
+				}
 				totalFitness += thisGeneration[i].NormFitness;
 				fitnessTable.Add(totalFitness);
 			}
 
-			/*//DEBUGGING
-			using(System.IO.StreamWriter sw = new System.IO.StreamWriter("fitnesses.txt", true, Encoding.Default)) {
+			/*
+			//DEBUGGING
+			using(System.IO.StreamWriter sw = new System.IO.StreamWriter("fitnesses.txt", true, Encoding.Default)) 
+			{
 				for(int i = 0;i < thisGeneration.Count;i++)
+				{
 					sw.WriteLine(generation + "\t" + i + "\t" + thisGeneration[i].ToString());
+				}
 			}*/
 		}
 
 		private int RouletteSelection()
 		{
-			int index = fitnessTable.BinarySearch(random.NextDouble() * totalFitness);
+			int index =
+				fitnessTable.BinarySearch(random.NextDouble() * totalFitness);
 			return (index < 0) ? ~index : index;
 		}
 
