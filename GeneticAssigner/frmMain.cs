@@ -25,10 +25,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using GeneticAlgorithm;
+using System.Reflection;
 
 namespace GeneticAssigner
 {
-	public partial class frmMain: Form
+	public partial class frmMain : Form
 	{
 		GeneticAlgorithm<Individual> ga;
 		DateTime startTime;
@@ -62,7 +63,7 @@ namespace GeneticAssigner
 			bestGeneration = generation;
 			bestFitness = best.NotAssigned.ToString("d3") + " ";
 
-			for(int i = 0;i < best.Options.Length;i++)
+			for(int i = 0; i < best.Options.Length; i++)
 			{
 				bestFitness += best.Options[i].ToString("d3") + " ";
 			}
@@ -90,7 +91,7 @@ namespace GeneticAssigner
 				log.Append(stringSep).Append(generation).Append(separator);
 				log.Append(stringSep).Append(individual.Fitness).Append(separator);
 				log.Append(stringSep).Append(individual.NotAssigned).Append(separator);
-				for(int i = 0;i < individual.Options.Length;i++)
+				for(int i = 0; i < individual.Options.Length; i++)
 				{
 					log.Append(stringSep).Append(individual.Options[i]).Append(separator);
 				}
@@ -109,6 +110,8 @@ namespace GeneticAssigner
 		{
 			try
 			{
+				TimeSpan totalTime = DateTime.Now - startTime;
+
 				//Reset courses and studens
 				Context.Courses.ResetPlacesLeft();
 				Context.Students.UnAssign();
@@ -119,7 +122,7 @@ namespace GeneticAssigner
 
 				if(chkCreateFiles.Checked)
 				{
-					folderName = CreateFiles(sb);
+					folderName = CreateFiles(sb, totalTime);
 				}
 				VerifyResults();
 				AddLogLine("The end.");
@@ -143,6 +146,7 @@ namespace GeneticAssigner
 			finally
 			{
 				btnStart.Text = "Start";
+				btnStart.Enabled = true;
 				grpSettings.Enabled = true;
 			}
 		}
@@ -190,7 +194,7 @@ namespace GeneticAssigner
 			AddLogLine("Verification OK.");
 		}
 
-		private string CreateFiles(StringBuilder sb)
+		private string CreateFiles(StringBuilder sb, TimeSpan totalTime)
 		{
 			string folderName = string.Empty;
 			string fileNamePrefix = string.Empty;
@@ -203,7 +207,8 @@ namespace GeneticAssigner
 			Reports reports = new Reports(Context.Courses, Context.Students, folderName, fileNamePrefix);
 			AddLogLine("Saving results...");
 
-			reports.Summary(ga.Best, bestGeneration, ga.PopulationCount, lblTimeValue.Text);
+			string totalSeconds = Math.Round(totalTime.TotalSeconds, 2).ToString();
+			reports.Summary(ga.Best, bestGeneration, ga.PopulationCount, totalSeconds);
 			reports.AlphabeticOrder();
 			reports.CourseOrder();
 			reports.PlacesLeft();
@@ -216,10 +221,10 @@ namespace GeneticAssigner
 		{
 			//asign students with best result
 			StringBuilder sb = new StringBuilder();
-			for(int i = 0;i < ga.Best.Students.Count;i++)
+			for(int i = 0; i < ga.Best.Students.Count; i++)
 			{
 				int id = ga.Best.Students[i];
-				for(int j = 0;j < Context.Students[id].Options.Length;j++)
+				for(int j = 0; j < Context.Students[id].Options.Length; j++)
 				{
 					Course actual = Context.Courses[Context.Students[id].Options[j]];
 					if(actual.PlacesLeft > 0)
@@ -283,6 +288,8 @@ namespace GeneticAssigner
 		{
 			try
 			{
+				SetWindowCaption();
+
 				if(settings == null)
 				{
 					settings = Settings.LoadFromFile();
@@ -310,6 +317,13 @@ namespace GeneticAssigner
 			}
 		}
 
+		private void SetWindowCaption()
+		{
+			string appFile = Assembly.GetAssembly(this.GetType()).Location;
+			AssemblyName ass = AssemblyName.GetAssemblyName(appFile);
+			this.Text += " (v" + ass.Version.ToString() + ")";
+		}
+
 		private void btnStart_Click(object sender, EventArgs e)
 		{
 			if(btnStart.Text == "Start")
@@ -326,10 +340,13 @@ namespace GeneticAssigner
 		{
 			try
 			{
-				btnStart.Enabled = false;
-				btnStart.Text = "Stopping...";
-				AddLogLine("Stopping...");
-				ga.Stop();
+				if(ga.IsRunning)
+				{
+					btnStart.Enabled = false;
+					btnStart.Text = "Stopping...";
+					AddLogLine("Stopping...");
+					ga.Stop();
+				}
 			}
 			catch(Exception ex)
 			{

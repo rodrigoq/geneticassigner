@@ -5,7 +5,6 @@
 * Validate all user input, command line, file, and form.
 * Finish validation of seed value (non negative for command line 
   and .config, not int.MaxValue for form).
-* Improve stop speed.
 * Apply GA to the application itself for parameter tunning.
 * Make new interface to run multiple applications with different
   parameters.

@@ -1,4 +1,11 @@
 ﻿
+0.1.2
+
+* Improved stop speed.
+* Bugfix on stop button.
+* Shows version number on window caption.
+* Some minor edits.
+
 0.1.1
 
 * Linked open folder option with create files.

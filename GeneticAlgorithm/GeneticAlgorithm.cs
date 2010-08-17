@@ -31,7 +31,7 @@ namespace GeneticAlgorithm
 
 	#endregion
 
-	public class GeneticAlgorithm<T> where T: IIndividual, new()
+	public class GeneticAlgorithm<T> where T : IIndividual, new()
 	{
 
 		public event BestDelegate onBest;
@@ -43,10 +43,10 @@ namespace GeneticAlgorithm
 		private List<double> fitnessTable = new List<double>();
 
 		private bool stop;
-		private bool isRunning;
 		private Random random;
 		private double totalFitness;
 
+		public bool IsRunning { get; private set; }
 		public IIndividual Best { get; private set; }
 		public int Seed { get; private set; }
 		public int Generation { get; private set; }
@@ -71,22 +71,28 @@ namespace GeneticAlgorithm
 		{
 			try
 			{
-				isRunning = true;
+				IsRunning = true;
 				RankPopulation();
-				for(int i = 0;i < GenerationLength;i++)
+				for(int i = 0; i < GenerationLength; i++)
 				{
-					if(stop)
+					if(CheckStop())
 					{
-						if(onStop != null)
-						{
-							onStop(this, new EventArgs());
-						}
 						return;
 					}
 
 					CreateNextGeneration();
 
+					if(CheckStop())
+					{
+						return;
+					}
+
 					RankPopulation();
+
+					if(CheckStop())
+					{
+						return;
+					}
 
 					Generation = i + 1;
 
@@ -107,14 +113,30 @@ namespace GeneticAlgorithm
 			}
 			finally
 			{
-				isRunning = false;
+				IsRunning = false;
 				stop = false;
+			}
+		}
+
+		private bool CheckStop()
+		{
+			if(stop)
+			{
+				if(onStop != null)
+				{
+					onStop(this, new EventArgs());
+				}
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 
 		public void Stop()
 		{
-			if(isRunning)
+			if(IsRunning)
 			{
 				stop = true;
 			}
@@ -157,8 +179,13 @@ namespace GeneticAlgorithm
 				ind.Students =
 					new List<int>(thisGeneration[PopulationCount - 1].Students);
 			}
-			for(int i = 0;i < PopulationCount;i++)
+			for(int i = 0; i < PopulationCount; i++)
 			{
+				if(stop)
+				{
+					return;
+				}
+
 				IIndividual parent = thisGeneration[RouletteSelection()];
 				IIndividual child = new T();
 				child.Students = new List<int>(parent.Students);
@@ -175,16 +202,26 @@ namespace GeneticAlgorithm
 
 		private void RankPopulation()
 		{
-			for(int i = 0;i < PopulationCount;i++)
+			for(int i = 0; i < PopulationCount; i++)
 			{
+				if(stop)
+				{
+					return;
+				}
+
 				thisGeneration[i].Fitness = thisGeneration[i].FitnessFunction();
 			}
 			thisGeneration.Sort(new FitnessComparer());
 
 			totalFitness = 0;
 			fitnessTable.Clear();
-			for(int i = 0;i < PopulationCount;i++)
+			for(int i = 0; i < PopulationCount; i++)
 			{
+				if(stop)
+				{
+					return;
+				}
+
 				if(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
 				{
 					thisGeneration[i].NormFitness =
