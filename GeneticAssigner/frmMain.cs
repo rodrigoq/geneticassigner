@@ -180,7 +180,13 @@ namespace GeneticAssigner
 		{
 			string folderName = string.Empty;
 			string fileNamePrefix = string.Empty;
-			folderName = txtOutputFolder.Text + "GA_" + bestFitness.Replace(" ", "_") + "_" + ga.Seed + "_" + ga.GenerationLength + "_" + ga.PopulationCount + Path.DirectorySeparatorChar;
+			folderName = txtOutputFolder.Text
+				+ "GA_" + bestFitness.Replace(" ", "_")
+				+ "_e" + ga.Seed
+				+ "_g" + ga.GenerationLength
+				+ "_i" + ga.PopulationCount
+				+ "_m" + (ga.MutationRate * 100)
+				+ Path.DirectorySeparatorChar;
 
 			if (Directory.Exists(folderName) == false)
 			{
