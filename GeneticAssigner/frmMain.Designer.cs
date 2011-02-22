@@ -75,6 +75,7 @@ namespace GeneticAssigner
 			this.txtLog = new System.Windows.Forms.TextBox();
 			this.prgProgress = new System.Windows.Forms.ProgressBar();
 			this.tmrElapsed = new System.Windows.Forms.Timer(this.components);
+			this.graph1 = new GeneticAssigner.Graph();
 			this.grpStatus.SuspendLayout();
 			this.grpSettings.SuspendLayout();
 			this.SuspendLayout();
@@ -353,7 +354,7 @@ namespace GeneticAssigner
 			// 
 			// txtLog
 			// 
-			this.txtLog.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.txtLog.BackColor = System.Drawing.Color.White;
 			this.txtLog.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtLog.Location = new System.Drawing.Point(12, 169);
 			this.txtLog.MaxLength = 0;
@@ -372,16 +373,28 @@ namespace GeneticAssigner
 			this.prgProgress.Step = 1;
 			this.prgProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.prgProgress.TabIndex = 4;
+			this.prgProgress.Click += new System.EventHandler(this.prgProgress_Click);
 			// 
 			// tmrElapsed
 			// 
 			this.tmrElapsed.Tick += new System.EventHandler(this.tmrElapsed_Tick);
 			// 
+			// graph1
+			// 
+			this.graph1.BackColor = System.Drawing.Color.White;
+			this.graph1.Location = new System.Drawing.Point(12, 347);
+			this.graph1.Name = "graph1";
+			this.graph1.Size = new System.Drawing.Size(610, 215);
+			this.graph1.TabIndex = 5;
+			this.graph1.Text = "graph1";
+			this.graph1.Visible = false;
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(634, 350);
+			this.ClientSize = new System.Drawing.Size(634, 349);
+			this.Controls.Add(this.graph1);
 			this.Controls.Add(this.prgProgress);
 			this.Controls.Add(this.txtLog);
 			this.Controls.Add(this.grpSettings);
@@ -391,8 +404,8 @@ namespace GeneticAssigner
 			this.MaximizeBox = false;
 			this.Name = "frmMain";
 			this.Text = "Genetic Assigner";
-			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
+			this.Load += new System.EventHandler(this.frmMain_Load);
 			this.grpStatus.ResumeLayout(false);
 			this.grpStatus.PerformLayout();
 			this.grpSettings.ResumeLayout(false);
@@ -432,6 +445,7 @@ namespace GeneticAssigner
 		private System.Windows.Forms.CheckBox chkOpenFolder;
 		private System.Windows.Forms.Timer tmrElapsed;
 		private System.Windows.Forms.CheckBox chkFixedSeed;
+		private Graph graph1;
 	}
 }
 

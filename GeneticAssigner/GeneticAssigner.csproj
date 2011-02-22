@@ -146,6 +146,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Context.cs" />
+    <Compile Include="Graph.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Individual.cs" />
     <Compile Include="Ordinal.cs" />
     <Compile Include="Reports.cs" />

@@ -36,16 +36,18 @@ namespace GeneticAssigner
 		Settings settings;
 		StringBuilder log = new StringBuilder();
 
+		Thread gaThread;
+
 		string bestFitness;
 		int bestGeneration;
 
 		public frmMain(string[] args)
 		{
 			InitializeComponent();
-			if(args.Length > 0)
+			if (args.Length > 0)
 			{
 				settings = Settings.LoadFromArgs(args);
-				if(settings != null && settings.Seed.HasValue)
+				if (settings != null && settings.Seed.HasValue)
 				{
 					chkFixedSeed.Checked = true;
 					txtSeed.Text = settings.Seed.Value.ToString();
@@ -63,7 +65,7 @@ namespace GeneticAssigner
 			bestGeneration = generation;
 			bestFitness = best.NotAssigned.ToString("d3") + " ";
 
-			for(int i = 0; i < best.Options.Length; i++)
+			for (int i = 0; i < best.Options.Length; i++)
 			{
 				bestFitness += best.Options[i].ToString("d3") + " ";
 			}
@@ -77,21 +79,25 @@ namespace GeneticAssigner
 
 		private void OnGeneration(object e)
 		{
+
 			int generation = ((GenerationEventArgs)e).Generation;
 			IIndividual individual = ((GenerationEventArgs)e).Individual;
+
+			graph1.DrawFitness(generation, individual.Fitness);
+			graph1.DrawStudents(generation, individual);
 
 			lblGenerationValue.Text = generation.ToString("d4");
 
 			prgProgress.PerformStep();
 
-			if(chkCreateFiles.Checked)
+			if (chkCreateFiles.Checked)
 			{
 				string stringSep = "\"";
 				string separator = stringSep + ";";
 				log.Append(stringSep).Append(generation).Append(separator);
 				log.Append(stringSep).Append(individual.Fitness).Append(separator);
 				log.Append(stringSep).Append(individual.NotAssigned).Append(separator);
-				for(int i = 0; i < individual.Options.Length; i++)
+				for (int i = 0; i < individual.Options.Length; i++)
 				{
 					log.Append(stringSep).Append(individual.Options[i]).Append(separator);
 				}
@@ -120,7 +126,7 @@ namespace GeneticAssigner
 
 				StringBuilder sb = AssignBestResults();
 
-				if(chkCreateFiles.Checked)
+				if (chkCreateFiles.Checked)
 				{
 					folderName = CreateFiles(sb, totalTime);
 				}
@@ -129,40 +135,16 @@ namespace GeneticAssigner
 
 				StopTimer();
 
-				if(settings.Exit)
+				if (settings.Exit)
 				{
 					Exit();
 				}
-				if(ShouldOpenFolder())
+				if (ShouldOpenFolder())
 				{
 					Process.Start(folderName);
 				}
 			}
-			catch(Exception ex)
-			{
-				Debug.WriteLine(ex.ToString());
-				MessageBox.Show(this, ex.Message, this.Text);
-			}
-			finally
-			{
-				btnStart.Text = "Start";
-				btnStart.Enabled = true;
-				grpSettings.Enabled = true;
-			}
-		}
-
-		void OnStop()
-		{
-			try
-			{
-				//Reset courses and studens
-				Context.Courses.ResetPlacesLeft();
-				Context.Students.UnAssign();
-
-				AddLogLine("Interrupted by user.");
-				StopTimer();
-			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
 				MessageBox.Show(this, ex.Message, this.Text);
@@ -200,7 +182,7 @@ namespace GeneticAssigner
 			string fileNamePrefix = string.Empty;
 			folderName = txtOutputFolder.Text + "GA_" + bestFitness.Replace(" ", "_") + "_" + ga.Seed + "_" + ga.GenerationLength + "_" + ga.PopulationCount + Path.DirectorySeparatorChar;
 
-			if(Directory.Exists(folderName) == false)
+			if (Directory.Exists(folderName) == false)
 			{
 				Directory.CreateDirectory(folderName);
 			}
@@ -221,13 +203,13 @@ namespace GeneticAssigner
 		{
 			//asign students with best result
 			StringBuilder sb = new StringBuilder();
-			for(int i = 0; i < ga.Best.Students.Count; i++)
+			for (int i = 0; i < ga.Best.Students.Count; i++)
 			{
 				int id = ga.Best.Students[i];
-				for(int j = 0; j < Context.Students[id].Options.Length; j++)
+				for (int j = 0; j < Context.Students[id].Options.Length; j++)
 				{
 					Course actual = Context.Courses[Context.Students[id].Options[j]];
-					if(actual.PlacesLeft > 0)
+					if (actual.PlacesLeft > 0)
 					{
 						Context.Students[id].AssignOption(j);
 						actual.AssignPlace();
@@ -235,7 +217,7 @@ namespace GeneticAssigner
 					}
 				}
 
-				if(chkCreateFiles.Checked)
+				if (chkCreateFiles.Checked)
 				{
 					sb.Append(Context.Students[id].Id).Append(";").Append(Context.Students[id].Name).Append(";").Append(Context.Students[id].AssignedCourse).Append(";").Append(Context.Students[id].AssignedOption);
 					sb.AppendLine();
@@ -246,7 +228,7 @@ namespace GeneticAssigner
 
 		private void AddLogLine(string text)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				this.Invoke(new WaitCallback(OnAddLogLine), new object[] { text });
 			}
@@ -266,7 +248,7 @@ namespace GeneticAssigner
 			chkCreateFiles.Checked = settings.SaveFiles;
 			txtOptions.Text = settings.CantOpt.ToString();
 			chkOpenFolder.Checked = settings.OpenFolder;
-			if(settings.Seed.HasValue)
+			if (settings.Seed.HasValue)
 			{
 				txtSeed.Text = settings.Seed.Value.ToString();
 				chkFixedSeed.Checked = true;
@@ -290,7 +272,7 @@ namespace GeneticAssigner
 			{
 				SetWindowCaption();
 
-				if(settings == null)
+				if (settings == null)
 				{
 					settings = Settings.LoadFromFile();
 				}
@@ -304,12 +286,12 @@ namespace GeneticAssigner
 
 				Context.InitializeContext(courses, students, settings.CantOpt);
 
-				if(settings.Start)
+				if (settings.Start)
 				{
 					Start();
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.Write(ex.ToString());
 				MessageBox.Show("Ocurrió un error que no permite continuar con la ejecución de la aplicación." + Environment.NewLine + Environment.NewLine + ex.Message);
@@ -326,7 +308,7 @@ namespace GeneticAssigner
 
 		private void btnStart_Click(object sender, EventArgs e)
 		{
-			if(btnStart.Text == "Start")
+			if (btnStart.Text == "Start")
 			{
 				Start();
 			}
@@ -340,22 +322,45 @@ namespace GeneticAssigner
 		{
 			try
 			{
-				if(ga.IsRunning)
+				if (ga.IsRunning)
 				{
 					btnStart.Enabled = false;
 					btnStart.Text = "Stopping...";
 					AddLogLine("Stopping...");
-					ga.Stop();
+
+					gaThread.Abort();
+					gaThread.Join();
+
+					//Reset courses and studens
+					Context.Courses.ResetPlacesLeft();
+					Context.Students.UnAssign();
+					AddLogLine("Interrupted by user.");
+					StopTimer();
 				}
 			}
-			catch(Exception ex)
+			catch (ThreadAbortException)
+			{
+			}
+			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
 				MessageBox.Show(this, ex.Message, this.Text);
+			}
+			finally
+			{
 				btnStart.Text = "Start";
 				btnStart.Enabled = true;
+				grpSettings.Enabled = true;
 			}
 		}
+
+		void OnStop()
+		{
+
+
+
+		}
+
 
 		private void Start()
 		{
@@ -364,6 +369,9 @@ namespace GeneticAssigner
 				btnStart.Text = "Stop";
 				grpSettings.Enabled = false;
 				txtLog.Clear();
+				lblGenerationValue.Text = "0000";
+				lblNotAssignedValue.Text = "00";
+				lblTimeValue.Text = "00:00.000";
 				log = new StringBuilder();
 
 				AddLogLine("Starting...");
@@ -394,10 +402,11 @@ namespace GeneticAssigner
 				tmrElapsed.Enabled = true;
 				tmrElapsed.Start();
 
-				new Thread(new ThreadStart(AsyncStart)).Start();
+				gaThread = new Thread(new ThreadStart(AsyncStart));
+				gaThread.Start();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
 				MessageBox.Show(this, ex.Message, this.Text);
@@ -415,7 +424,6 @@ namespace GeneticAssigner
 			ga.onBest += new BestDelegate(ga_onBest);
 			ga.onGeneration += new GenerationDelegate(ga_onGeneration);
 			ga.onComplete += new CompletedDelegate(ga_onComplete);
-			ga.onStop += new StoppedDelegate(ga_onStop);
 			ga.MutationRate = double.Parse(txtMutationRate.Text) / 100.0;
 			ga.GenerationLength = int.Parse(txtGenerations.Text);
 			ga.PopulationCount = int.Parse(txtPopulation.Text);
@@ -425,7 +433,7 @@ namespace GeneticAssigner
 		private int GetOptions()
 		{
 			int options;
-			if(int.TryParse(txtOptions.Text.Trim(), out options)
+			if (int.TryParse(txtOptions.Text.Trim(), out options)
 				&& options > 0 && options < 6)
 			{
 				return options;
@@ -438,7 +446,7 @@ namespace GeneticAssigner
 
 		private int GetSeed()
 		{
-			if(chkFixedSeed.Checked)
+			if (chkFixedSeed.Checked)
 			{
 				return GetSeedFromTextBox();
 			}
@@ -453,10 +461,10 @@ namespace GeneticAssigner
 		private int GetSeedFromTextBox()
 		{
 			string msg = "Seed must be a positive number.";
-			if(string.IsNullOrEmpty(txtSeed.Text) == false)
+			if (string.IsNullOrEmpty(txtSeed.Text) == false)
 			{
 				int seed;
-				if(int.TryParse(txtSeed.Text, out seed) && seed >= 0)
+				if (int.TryParse(txtSeed.Text, out seed) && seed >= 0)
 				{
 					return seed;
 				}
@@ -473,7 +481,7 @@ namespace GeneticAssigner
 
 		void ga_onComplete(object sender, EventArgs e)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				this.Invoke(new ThreadStart(OnComplete));
 			}
@@ -485,7 +493,7 @@ namespace GeneticAssigner
 
 		void ga_onGeneration(object sender, GenerationEventArgs e)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				this.Invoke(new WaitCallback(OnGeneration), new object[] { e });
 			}
@@ -497,25 +505,13 @@ namespace GeneticAssigner
 
 		void ga_onBest(object sender, GenerationEventArgs e)
 		{
-			if(this.InvokeRequired)
+			if (this.InvokeRequired)
 			{
 				this.Invoke(new WaitCallback(OnBest), new object[] { e });
 			}
 			else
 			{
 				OnBest(e);
-			}
-		}
-
-		void ga_onStop(object sender, EventArgs e)
-		{
-			if(this.InvokeRequired)
-			{
-				this.Invoke(new ThreadStart(OnStop));
-			}
-			else
-			{
-				OnStop();
 			}
 		}
 
@@ -535,6 +531,20 @@ namespace GeneticAssigner
 		private void chkCreateFiles_CheckedChanged(object sender, EventArgs e)
 		{
 			chkOpenFolder.Checked = chkCreateFiles.Checked;
+		}
+
+		private void prgProgress_Click(object sender, EventArgs e)
+		{
+			/*if (graph1.Visible)
+			{
+				this.Height -= graph1.Height + 10;
+				graph1.Visible = false;
+			}
+			else
+			{
+				this.Height += graph1.Height + 10;
+				graph1.Visible = true;
+			}*/
 		}
 	}
 }

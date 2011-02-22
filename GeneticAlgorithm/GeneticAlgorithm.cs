@@ -18,6 +18,7 @@
 */
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GeneticAlgorithm
 {
@@ -27,7 +28,6 @@ namespace GeneticAlgorithm
 	public delegate void BestDelegate(object sender, GenerationEventArgs e);
 	public delegate void GenerationDelegate(object sender, GenerationEventArgs e);
 	public delegate void CompletedDelegate(object sender, EventArgs e);
-	public delegate void StoppedDelegate(object sender, EventArgs e);
 
 	#endregion
 
@@ -37,12 +37,10 @@ namespace GeneticAlgorithm
 		public event BestDelegate onBest;
 		public event GenerationDelegate onGeneration;
 		public event CompletedDelegate onComplete;
-		public event StoppedDelegate onStop;
 
 		private List<IIndividual> thisGeneration = new List<IIndividual>();
 		private List<double> fitnessTable = new List<double>();
 
-		private bool stop;
 		private Random random;
 		private double totalFitness;
 
@@ -73,32 +71,17 @@ namespace GeneticAlgorithm
 			{
 				IsRunning = true;
 				RankPopulation();
-				for(int i = 0; i < GenerationLength; i++)
+				for (int i = 0; i < GenerationLength; i++)
 				{
-					if(CheckStop())
-					{
-						return;
-					}
-
 					CreateNextGeneration();
 
-					if(CheckStop())
-					{
-						return;
-					}
-
 					RankPopulation();
-
-					if(CheckStop())
-					{
-						return;
-					}
 
 					Generation = i + 1;
 
 					SetBest();
 
-					if(onGeneration != null)
+					if (onGeneration != null)
 					{
 						onGeneration(this,
 							new GenerationEventArgs(Generation,
@@ -106,42 +89,21 @@ namespace GeneticAlgorithm
 					}
 				}
 
-				if(onComplete != null)
+				if (onComplete != null)
 				{
 					onComplete(this, new EventArgs());
 				}
 			}
+			catch (ThreadAbortException)
+			{
+				//TODO: keep the best usable 
+				//or something like that
+			}
 			finally
 			{
 				IsRunning = false;
-				stop = false;
 			}
 		}
-
-		private bool CheckStop()
-		{
-			if(stop)
-			{
-				if(onStop != null)
-				{
-					onStop(this, new EventArgs());
-				}
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		public void Stop()
-		{
-			if(IsRunning)
-			{
-				stop = true;
-			}
-		}
-
 
 		private void SetBest()
 		{
@@ -181,11 +143,6 @@ namespace GeneticAlgorithm
 			}
 			for(int i = 0; i < PopulationCount; i++)
 			{
-				if(stop)
-				{
-					return;
-				}
-
 				IIndividual parent = thisGeneration[RouletteSelection()];
 				IIndividual child = new T();
 				child.Students = new List<int>(parent.Students);
@@ -204,11 +161,6 @@ namespace GeneticAlgorithm
 		{
 			for(int i = 0; i < PopulationCount; i++)
 			{
-				if(stop)
-				{
-					return;
-				}
-
 				thisGeneration[i].Fitness = thisGeneration[i].FitnessFunction();
 			}
 			thisGeneration.Sort(new FitnessComparer());
@@ -217,11 +169,6 @@ namespace GeneticAlgorithm
 			fitnessTable.Clear();
 			for(int i = 0; i < PopulationCount; i++)
 			{
-				if(stop)
-				{
-					return;
-				}
-
 				if(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
 				{
 					thisGeneration[i].NormFitness =
