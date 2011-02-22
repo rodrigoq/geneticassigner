@@ -1,4 +1,12 @@
 ﻿
+0.1.3
+
+* Improved stop functionality.
+* Added support for graphics (not fully implemented).
+* Better naming for results folder.
+* New way of versioning files (only three numbers).
+
+
 0.1.2
 
 * Improved stop speed.

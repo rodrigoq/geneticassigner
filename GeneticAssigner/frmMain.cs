@@ -309,7 +309,15 @@ namespace GeneticAssigner
 		{
 			string appFile = Assembly.GetAssembly(this.GetType()).Location;
 			AssemblyName ass = AssemblyName.GetAssemblyName(appFile);
-			this.Text += " (v" + ass.Version.ToString() + ")";
+			this.Text += GetVersionString(ass);
+		}
+
+		private static string GetVersionString(AssemblyName ass)
+		{
+			return " (v" + ass.Version.Major
+				+ "." + ass.Version.Minor
+				+ "." + ass.Version.Build
+				+ ")";
 		}
 
 		private void btnStart_Click(object sender, EventArgs e)
