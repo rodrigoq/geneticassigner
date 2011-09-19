@@ -1,4 +1,12 @@
 ﻿
+0.1.4
+
+* Added overflow functionality.
+* Bugfix students were assigned to following options than the one selected.
+* Bugfix sorting on reports.
+* Minor UI changes.
+* Some refactoring.
+
 0.1.3
 
 * Improved stop functionality.

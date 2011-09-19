@@ -1,7 +1,10 @@
 ﻿
 * Adjust algorithm for four and five options (since they are optional).
+
 * Correct the fitness function to not allow small changes on lesser 
   significative places with big cost on high significative ones.
+  http://math.stackexchange.com/questions/44221/specific-fitness-function-for-genetic-algorithm
+
 * Validate all user input, command line, file, and form.
 * Finish validation of seed value (non negative for command line 
   and .config, not int.MaxValue for form).

@@ -43,15 +43,18 @@ namespace GeneticAssigner
 
 		public void AlphabeticOrder()
 		{
-			students.Sort(delegate(Student a1, Student a2) { return a1.Name.CompareTo(a2.Name); });
+			StudentComparer studentComparer =
+				new StudentComparer(StudentComparer.ComparisonType.Name);
+			students.Sort(studentComparer);
+
 			bool hayNoAssig = false;
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<table border='1'><tr><th>Libreta</th><th>Nombre</th><th>Comisión</th></tr>");
 			StringBuilder sbNoAssig = new StringBuilder(sb.ToString());
 
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
-				if(student.Assigned)
+				if (student.Assigned)
 				{
 					sb.Append("<tr><td>").Append(student.Id).Append("</td><td>")
 						.Append(student.Name).Append("</td><td>")
@@ -65,11 +68,11 @@ namespace GeneticAssigner
 				}
 			}
 			sb.Append("</table><br />");
-			if(hayNoAssig)
+			if (hayNoAssig)
 			{
 				sb.Append(sbNoAssig.Append("</table><br />"));
 			}
-			using(StreamWriter sw =
+			using (StreamWriter sw =
 				new StreamWriter(outPath + fileNamePrefix + "report_alumnos.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
@@ -78,17 +81,18 @@ namespace GeneticAssigner
 
 		public void CourseOrder()
 		{
-			students.Sort(delegate(Student a1, Student a2) { return a1.Name.CompareTo(a2.Name); });
-			students.Sort(delegate(Student a1, Student a2) { return a1.AssignedCourse.CompareTo(a2.AssignedCourse); });
+			StudentComparer studentComparer = 
+				new StudentComparer(StudentComparer.ComparisonType.AssignedCourseAndName);
+			students.Sort(studentComparer);
 
 			StringBuilder sb = new StringBuilder();
 
 			int last = -1;
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
-				if(student.AssignedCourse != last)
+				if (student.AssignedCourse != last)
 				{
-					if(sb.Length > 0)
+					if (sb.Length > 0)
 					{
 						sb.Append("</table><br />");
 					}
@@ -97,7 +101,7 @@ namespace GeneticAssigner
 					last = student.AssignedCourse;
 				}
 				string asignado;
-				if(student.Assigned)
+				if (student.Assigned)
 				{
 					asignado = student.AssignedCourse.ToString();
 				}
@@ -111,7 +115,7 @@ namespace GeneticAssigner
 			}
 			sb.Append("</table><br />");
 
-			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_comisiones.html", false, Encoding.Default))
+			using (StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_comisiones.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
 			}
@@ -122,9 +126,9 @@ namespace GeneticAssigner
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<table border='1'><tr><th>Comisión</th><th>Institución</th><th>Cupos</th></tr>");
 			bool placesLeft = false;
-			foreach(Course course in courses)
+			foreach (Course course in courses)
 			{
-				if(course.PlacesLeft > 0)
+				if (course.PlacesLeft > 0)
 				{
 					placesLeft = true;
 					sb.Append("<tr><td>").Append(course.Id).Append("</td><td>")
@@ -133,11 +137,11 @@ namespace GeneticAssigner
 			}
 			sb.Append("</table><br />");
 
-			if(placesLeft == false)
+			if (placesLeft == false)
 			{
 				sb = new StringBuilder("No hay vacantes disponibles.");
 			}
-			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_vacantes.html", false, Encoding.Default))
+			using (StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_vacantes.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
 			}
@@ -173,9 +177,9 @@ namespace GeneticAssigner
 
 			sb.AppendLine();
 
-			for(int i = 0;i < best.Options.Length;i++)
+			for (int i = 0; i < best.Options.Length; i++)
 			{
-				if(best.Options[i] > 0)
+				if (best.Options[i] > 0)
 				{
 					prcnt = best.Options[i] / (double)best.Students.Count * 100;
 					prcnt = Math.Round(prcnt, 2);
@@ -183,7 +187,7 @@ namespace GeneticAssigner
 				}
 			}
 
-			using(StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "summary.txt", false, Encoding.Default))
+			using (StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "summary.txt", false, Encoding.Default))
 			{
 				sw.Write(sb);
 			}
@@ -192,7 +196,7 @@ namespace GeneticAssigner
 
 		private string GetPluralIndividuos(int populationSize)
 		{
-			if(populationSize == 1)
+			if (populationSize == 1)
 			{
 				return " individuo";
 			}
@@ -204,7 +208,7 @@ namespace GeneticAssigner
 
 		private static string GetPluralGeneraciones(int bestGeneration)
 		{
-			if(bestGeneration == 1)
+			if (bestGeneration == 1)
 			{
 				return " generación";
 			}
@@ -218,13 +222,13 @@ namespace GeneticAssigner
 		{
 			StringBuilder header = new StringBuilder();
 			header.Append("\"Generación\";\"Fitness\";\"No asignados\";");
-			for(int i = 0;i < best.Options.Length;i++)
+			for (int i = 0; i < best.Options.Length; i++)
 			{
 				header.Append("\"").Append(ordinales[i + 1]).Append("\";");
 			}
 			header.AppendLine();
 			header.Append(log);
-			using(StreamWriter outputLog = new StreamWriter(outPath + fileNamePrefix + "log.csv", false, Encoding.Default))
+			using (StreamWriter outputLog = new StreamWriter(outPath + fileNamePrefix + "log.csv", false, Encoding.Default))
 			{
 				outputLog.Write(header);
 			}
@@ -235,7 +239,7 @@ namespace GeneticAssigner
 			StringBuilder header = new StringBuilder();
 			header.AppendLine("libreta;nombre;comisión;opción");
 			header.Append(sb);
-			using(StreamWriter result = new StreamWriter(outPath + fileNamePrefix + "result.csv", false, Encoding.Default))
+			using (StreamWriter result = new StreamWriter(outPath + fileNamePrefix + "result.csv", false, Encoding.Default))
 			{
 				result.Write(header);
 			}

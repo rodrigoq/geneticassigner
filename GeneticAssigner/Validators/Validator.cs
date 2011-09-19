@@ -16,22 +16,38 @@
 *   You should have received a copy of the GNU General Public License
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("GeneticAssigner")]
-[assembly: AssemblyDescription("Front-end program to assign students to courses using GeneticAlgorithm library.")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GeneticAssigner")]
-[assembly: AssemblyCopyright("Copyright (C) 2008-2011  Rodrigo Queipo")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
-[assembly: ComVisible(false)]
+namespace GeneticAssigner
+{
+	class Validator
+	{
+		//public static abstract void Validate();
 
-[assembly: Guid("005a05b5-2282-4ae6-9ed4-8d213d28d4ef")]
+		public static bool ValidateInteger(int min, int max, int value)
+		{
+			if (value > max || value < min)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		public static bool ValidateInteger(int min, int max, string value)
+		{
+			int val;
+			if (int.TryParse(value, out val) == false)
+			{
+				return false;
+			}
+			else
+			{
+				return ValidateInteger(min, max, val);
+			}
+			
+		}
 
-[assembly: AssemblyVersion("0.1.4")]
-[assembly: AssemblyFileVersion("0.1.4")]
+	}
+}

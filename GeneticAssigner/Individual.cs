@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using GeneticAlgorithm;
 using DataFactory;
+using System.Diagnostics;
 
 
 namespace GeneticAssigner
@@ -80,6 +81,7 @@ namespace GeneticAssigner
 				int id = this.Students[i];
 
 				int opt = Math.Min(Context.Places, Context.Students[id].Options.Length);
+
 				for(int j = 0;j < opt;j++)
 				{
 					Course actual = Context.Courses[Context.Students[id].Options[j]];
@@ -141,8 +143,6 @@ namespace GeneticAssigner
 			students[i] = students[j];
 			students[j] = value;
 		}
-
-
 
 	}
 }

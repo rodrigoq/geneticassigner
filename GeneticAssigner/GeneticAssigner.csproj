@@ -129,7 +129,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Changelog.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -153,6 +155,8 @@
     <Compile Include="Ordinal.cs" />
     <Compile Include="Reports.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Validators\SeedValidator.cs" />
+    <Compile Include="Validators\Validator.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -223,6 +227,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

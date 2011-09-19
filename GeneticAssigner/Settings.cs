@@ -36,6 +36,7 @@ namespace GeneticAssigner
 		public int? Seed { get; set; }
 		public bool Start { get; set; }
 		public bool Exit { get; set; }
+		public int? Overflow { get; set; }
 
 		public Settings()
 		{
@@ -49,7 +50,7 @@ namespace GeneticAssigner
 		{
 			SaveFiles = false;
 			KeepBest = true;
-			OpenFolder = true;
+			OpenFolder = false;
 			MutationRate = 80;
 			Generations = 2000;
 			Individuals = 100;
@@ -57,34 +58,35 @@ namespace GeneticAssigner
 			Seed = null;
 			Start = false;
 			Exit = false;
+			Overflow = null;
 		}
 
 		public static Settings LoadFromArgs(string[] args)
 		{
-			if(args.Length > 0 && (args[0] == "--help" || args[0] == "-h"))
+			if (args.Length > 0 && (args[0] == "--help" || args[0] == "-h"))
 			{
 				ShowUsage();
 				return null;
 			}
+
 			Settings settings = new Settings();
 
-
-			if(args.Length > 0 && args[0] == "start")
+			if (args.Length > 0 && args[0] == "start")
 			{
 				args[0] = " ";
 				settings.Start = true;
 			}
 
-			if(args.Length > 0 && args[0] == "startexit")
+			if (args.Length > 0 && args[0] == "startexit")
 			{
 				args[0] = " ";
 				settings.Start = true;
 				settings.Exit = true;
 			}
 
-			foreach(string s in args)
+			foreach (string s in args)
 			{
-				switch(s[0])
+				switch (s[0])
 				{
 					case 'c'://courses
 						settings.CoursesPath = s.Substring(1);
@@ -118,63 +120,23 @@ namespace GeneticAssigner
 						break;
 					case 'e'://seed
 						settings.Seed = int.Parse(s.Substring(1));
-						if(settings.Seed == int.MaxValue)
+						if (settings.Seed == int.MaxValue)
+						{
 							throw new Exception("Seed value has to be smaller than " + int.MaxValue);
+						}
+						break;
+					case 'f'://Overflow
+						settings.Overflow = int.Parse(s.Substring(1));
+						if (settings.CantOpt > settings.Overflow.Value)
+						{
+							throw new Exception("Overflow value must be greater or equal than n");
+						}
 						break;
 					default:
 						break;
 				}
 			}
 			return settings;
-		}
-
-		private static bool ParseBool(string s)
-		{
-			switch(s.ToLower())
-			{
-				case "1":
-					return true;
-				case "y":
-					return true;
-				case "s":
-					return true;
-				case "true":
-					return true;
-				case "0":
-					return false;
-				case "n":
-					return false;
-				case "false":
-					return false;
-				default:
-					return bool.Parse(s);
-			}
-		}
-
-		private static void ShowUsage()
-		{
-			string usage = @"Usage: GeneticAssigner [start|startexit] <parameters> [all are mandatory]
-Commands:   
-   start       Start processing automatically
-   startexit   Start processing automatically and exits when finished
-
-Parameters:
-   c           courses file path
-   s           students file path
-   v           save files (0, 1)
-   o           open folder (0, 1)
-   m           mutation rate (0-100)
-   g           number of generations
-   i           number of individuals per generation
-   n           number of options to choose from
-   k           keep best (0, 1)
-   p           output path
-   e           seed
-
-Example:
-GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100 n3 k1 e75168413
-";
-			System.Windows.Forms.MessageBox.Show(usage);
 		}
 
 		public static Settings LoadFromFile()
@@ -200,21 +162,109 @@ GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100
 
 			settings.KeepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
 
-			if(ConfigurationManager.AppSettings["seed"] == null)
+			if (ConfigurationManager.AppSettings["seed"] == null)
 			{
 				settings.Seed = null;
 			}
 			else
 			{
 				settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
-				if(settings.Seed == int.MaxValue)
+				if (settings.Seed == int.MaxValue)
 				{
 					throw new Exception("Seed value has to be smaller than " + int.MaxValue);
+				}
+			}
+
+			if (ConfigurationManager.AppSettings["overflow"] == null)
+			{
+				settings.Overflow = null;
+			}
+			else
+			{
+				settings.Overflow = int.Parse(ConfigurationManager.AppSettings["overflow"]);
+				if (settings.CantOpt > settings.Overflow.Value)
+				{
+					throw new Exception("Overflow value must be greater or equal than n");
 				}
 			}
 			return settings;
 		}
 
+		public static Settings LoadFromForm(string coursesPath, string studentsPath, bool openFolder, bool saveFiles
+			, string outputPath, double mutationRate, int generations, int individuals,
+			int cantOpt, bool keepBest, int seed, int? overflow)
+		{
+			Settings settings = new Settings();
+
+			settings.CoursesPath = ConfigurationManager.AppSettings["courses"];
+			settings.StudentsPath = ConfigurationManager.AppSettings["students"];
+			settings.OpenFolder = bool.Parse(ConfigurationManager.AppSettings["open_folder"]);
+			settings.SaveFiles = bool.Parse(ConfigurationManager.AppSettings["save_files"]);
+			settings.OutputPath = ConfigurationManager.AppSettings["output_path"];
+			settings.MutationRate = double.Parse(ConfigurationManager.AppSettings["mutation_rate"]);
+			settings.Generations = int.Parse(ConfigurationManager.AppSettings["generations"]);
+			settings.Individuals = int.Parse(ConfigurationManager.AppSettings["individuals"]);
+			settings.CantOpt = int.Parse(ConfigurationManager.AppSettings["cant_opt"]);
+			settings.KeepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
+			settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
+			settings.Overflow = int.Parse(ConfigurationManager.AppSettings["overflow"]);
+
+
+
+			return settings;
+		}
+
+
+
+		private static bool ParseBool(string s)
+		{
+			switch (s.ToLower())
+			{
+				case "1":
+					return true;
+				case "y":
+					return true;
+				case "s":
+					return true;
+				case "true":
+					return true;
+				case "0":
+					return false;
+				case "n":
+					return false;
+				case "false":
+					return false;
+				default:
+					return bool.Parse(s);
+			}
+		}
+
+		private static void ShowUsage()
+		{
+			string usage = @"Usage: GeneticAssigner [start|startexit] <parameters> [all except f are mandatory]
+Commands:   
+   start       Start processing automatically
+   startexit   Start processing automatically and exits when finished
+
+Parameters:
+   c           courses file path
+   s           students file path
+   v           save files (0, 1)
+   o           open folder (0, 1)
+   m           mutation rate (0-100)
+   g           number of generations
+   i           number of individuals per generation
+   n           number of options to choose from
+   k           keep best (0, 1)
+   p           output path
+   e           seed
+   [f          overflow (has to be equal or greater than n)]
+
+Example:
+GeneticAssigner start cC:\courses.txt sC:\students.txt v1 o1 m80 pC:\ g2000 i100 n3 k1 e75168413 f4
+";
+			System.Windows.Forms.MessageBox.Show(usage);
+		}
 
 	}
 }

@@ -67,7 +67,7 @@ namespace GeneticAssigner
 
 		public void StudentsInCourses()
 		{
-			string repeated = string.Empty;
+			string badCourses = string.Empty;
 
 			List<int> courseIds = new List<int>();
 			foreach(Course course in courses)
@@ -80,13 +80,13 @@ namespace GeneticAssigner
 				{
 					if(courseIds.Contains(student.Options[i]) == false)
 					{
-						repeated += student.ToString() + " BAD COURSE " + student.Options[i] + Environment.NewLine;
+						badCourses += student.ToString() + " BAD COURSE " + student.Options[i] + Environment.NewLine;
 					}
 				}
 			}
-			if(string.IsNullOrEmpty(repeated) == false)
+			if (string.IsNullOrEmpty(badCourses) == false)
 			{
-				throw new Exception(repeated);
+				throw new Exception(badCourses);
 			}
 		}
 
@@ -114,7 +114,9 @@ namespace GeneticAssigner
 				}
 				else
 				{
-					for(int i = 0;i < student.Options.Length;i++)
+					int opt = Math.Min(Context.Places, student.Options.Length);
+
+					for (int i = 0; i < opt; i++)
 					{
 						if(notAssignedOptions.Contains(student.Options[i]) == false)
 						{

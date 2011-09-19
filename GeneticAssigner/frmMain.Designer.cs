@@ -56,10 +56,15 @@ namespace GeneticAssigner
 			this.lblNotAssigned = new System.Windows.Forms.Label();
 			this.btnStart = new System.Windows.Forms.Button();
 			this.grpSettings = new System.Windows.Forms.GroupBox();
+			this.nudPopulation = new System.Windows.Forms.NumericUpDown();
+			this.nudMutationRate = new System.Windows.Forms.NumericUpDown();
+			this.nudGenerations = new System.Windows.Forms.NumericUpDown();
+			this.nudOverflow = new System.Windows.Forms.NumericUpDown();
+			this.nudOptions = new System.Windows.Forms.NumericUpDown();
+			this.chkOverflow = new System.Windows.Forms.CheckBox();
 			this.chkFixedSeed = new System.Windows.Forms.CheckBox();
 			this.chkOpenFolder = new System.Windows.Forms.CheckBox();
 			this.lblOptions = new System.Windows.Forms.Label();
-			this.txtOptions = new System.Windows.Forms.TextBox();
 			this.lblSeed = new System.Windows.Forms.Label();
 			this.lblGenerations = new System.Windows.Forms.Label();
 			this.lblPopulation = new System.Windows.Forms.Label();
@@ -67,9 +72,6 @@ namespace GeneticAssigner
 			this.lblOutputFolder = new System.Windows.Forms.Label();
 			this.txtSeed = new System.Windows.Forms.TextBox();
 			this.chkElitism = new System.Windows.Forms.CheckBox();
-			this.txtPopulation = new System.Windows.Forms.TextBox();
-			this.txtGenerations = new System.Windows.Forms.TextBox();
-			this.txtMutationRate = new System.Windows.Forms.TextBox();
 			this.txtOutputFolder = new System.Windows.Forms.TextBox();
 			this.chkCreateFiles = new System.Windows.Forms.CheckBox();
 			this.txtLog = new System.Windows.Forms.TextBox();
@@ -78,6 +80,11 @@ namespace GeneticAssigner
 			this.graph1 = new GeneticAssigner.Graph();
 			this.grpStatus.SuspendLayout();
 			this.grpSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudPopulation)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudMutationRate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudOverflow)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudOptions)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// grpStatus
@@ -97,10 +104,9 @@ namespace GeneticAssigner
 			// 
 			// lblGenerationValue
 			// 
-			this.lblGenerationValue.AutoSize = true;
-			this.lblGenerationValue.Location = new System.Drawing.Point(133, 45);
+			this.lblGenerationValue.Location = new System.Drawing.Point(108, 45);
 			this.lblGenerationValue.Name = "lblGenerationValue";
-			this.lblGenerationValue.Size = new System.Drawing.Size(31, 13);
+			this.lblGenerationValue.Size = new System.Drawing.Size(56, 13);
 			this.lblGenerationValue.TabIndex = 3;
 			this.lblGenerationValue.Text = "0000";
 			this.lblGenerationValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -108,7 +114,7 @@ namespace GeneticAssigner
 			// lblTime
 			// 
 			this.lblTime.AutoSize = true;
-			this.lblTime.Location = new System.Drawing.Point(43, 69);
+			this.lblTime.Location = new System.Drawing.Point(43, 67);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
 			this.lblTime.TabIndex = 4;
@@ -126,7 +132,7 @@ namespace GeneticAssigner
 			// lblTimeValue
 			// 
 			this.lblTimeValue.AutoSize = true;
-			this.lblTimeValue.Location = new System.Drawing.Point(109, 69);
+			this.lblTimeValue.Location = new System.Drawing.Point(109, 67);
 			this.lblTimeValue.Name = "lblTimeValue";
 			this.lblTimeValue.Size = new System.Drawing.Size(55, 13);
 			this.lblTimeValue.TabIndex = 5;
@@ -165,10 +171,15 @@ namespace GeneticAssigner
 			// 
 			// grpSettings
 			// 
+			this.grpSettings.Controls.Add(this.nudPopulation);
+			this.grpSettings.Controls.Add(this.nudMutationRate);
+			this.grpSettings.Controls.Add(this.nudGenerations);
+			this.grpSettings.Controls.Add(this.nudOverflow);
+			this.grpSettings.Controls.Add(this.nudOptions);
+			this.grpSettings.Controls.Add(this.chkOverflow);
 			this.grpSettings.Controls.Add(this.chkFixedSeed);
 			this.grpSettings.Controls.Add(this.chkOpenFolder);
 			this.grpSettings.Controls.Add(this.lblOptions);
-			this.grpSettings.Controls.Add(this.txtOptions);
 			this.grpSettings.Controls.Add(this.lblSeed);
 			this.grpSettings.Controls.Add(this.lblGenerations);
 			this.grpSettings.Controls.Add(this.lblPopulation);
@@ -176,9 +187,6 @@ namespace GeneticAssigner
 			this.grpSettings.Controls.Add(this.lblOutputFolder);
 			this.grpSettings.Controls.Add(this.txtSeed);
 			this.grpSettings.Controls.Add(this.chkElitism);
-			this.grpSettings.Controls.Add(this.txtPopulation);
-			this.grpSettings.Controls.Add(this.txtGenerations);
-			this.grpSettings.Controls.Add(this.txtMutationRate);
 			this.grpSettings.Controls.Add(this.txtOutputFolder);
 			this.grpSettings.Controls.Add(this.chkCreateFiles);
 			this.grpSettings.Location = new System.Drawing.Point(240, 12);
@@ -188,13 +196,145 @@ namespace GeneticAssigner
 			this.grpSettings.TabStop = false;
 			this.grpSettings.Text = "Configuration";
 			// 
+			// nudPopulation
+			// 
+			this.nudPopulation.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.nudPopulation.Location = new System.Drawing.Point(306, 90);
+			this.nudPopulation.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.nudPopulation.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudPopulation.Name = "nudPopulation";
+			this.nudPopulation.Size = new System.Drawing.Size(69, 20);
+			this.nudPopulation.TabIndex = 20;
+			this.nudPopulation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nudPopulation.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			// 
+			// nudMutationRate
+			// 
+			this.nudMutationRate.Location = new System.Drawing.Point(306, 40);
+			this.nudMutationRate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudMutationRate.Name = "nudMutationRate";
+			this.nudMutationRate.Size = new System.Drawing.Size(69, 20);
+			this.nudMutationRate.TabIndex = 20;
+			this.nudMutationRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nudMutationRate.Value = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+			// 
+			// nudGenerations
+			// 
+			this.nudGenerations.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.nudGenerations.Location = new System.Drawing.Point(306, 65);
+			this.nudGenerations.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+			this.nudGenerations.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudGenerations.Name = "nudGenerations";
+			this.nudGenerations.Size = new System.Drawing.Size(69, 20);
+			this.nudGenerations.TabIndex = 19;
+			this.nudGenerations.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nudGenerations.Value = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+			// 
+			// nudOverflow
+			// 
+			this.nudOverflow.Location = new System.Drawing.Point(90, 113);
+			this.nudOverflow.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.nudOverflow.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudOverflow.Name = "nudOverflow";
+			this.nudOverflow.Size = new System.Drawing.Size(38, 20);
+			this.nudOverflow.TabIndex = 18;
+			this.nudOverflow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nudOverflow.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			// 
+			// nudOptions
+			// 
+			this.nudOptions.Location = new System.Drawing.Point(90, 90);
+			this.nudOptions.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.nudOptions.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.nudOptions.Name = "nudOptions";
+			this.nudOptions.Size = new System.Drawing.Size(38, 20);
+			this.nudOptions.TabIndex = 18;
+			this.nudOptions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.nudOptions.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.nudOptions.ValueChanged += new System.EventHandler(this.nudOptions_ValueChanged);
+			// 
+			// chkOverflow
+			// 
+			this.chkOverflow.AutoSize = true;
+			this.chkOverflow.Location = new System.Drawing.Point(16, 116);
+			this.chkOverflow.Name = "chkOverflow";
+			this.chkOverflow.Size = new System.Drawing.Size(68, 17);
+			this.chkOverflow.TabIndex = 8;
+			this.chkOverflow.Text = "Overflow";
+			this.chkOverflow.UseVisualStyleBackColor = true;
+			this.chkOverflow.CheckedChanged += new System.EventHandler(this.chkOverflow_CheckedChanged);
+			// 
 			// chkFixedSeed
 			// 
 			this.chkFixedSeed.AutoSize = true;
-			this.chkFixedSeed.Location = new System.Drawing.Point(149, 118);
+			this.chkFixedSeed.Location = new System.Drawing.Point(149, 116);
 			this.chkFixedSeed.Name = "chkFixedSeed";
 			this.chkFixedSeed.Size = new System.Drawing.Size(101, 17);
-			this.chkFixedSeed.TabIndex = 13;
+			this.chkFixedSeed.TabIndex = 0;
 			this.chkFixedSeed.Text = "Use Fixed Seed";
 			this.chkFixedSeed.UseVisualStyleBackColor = true;
 			// 
@@ -203,86 +343,75 @@ namespace GeneticAssigner
 			this.chkOpenFolder.AutoSize = true;
 			this.chkOpenFolder.Checked = true;
 			this.chkOpenFolder.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chkOpenFolder.Location = new System.Drawing.Point(16, 70);
+			this.chkOpenFolder.Location = new System.Drawing.Point(16, 68);
 			this.chkOpenFolder.Name = "chkOpenFolder";
 			this.chkOpenFolder.Size = new System.Drawing.Size(84, 17);
-			this.chkOpenFolder.TabIndex = 2;
+			this.chkOpenFolder.TabIndex = 5;
 			this.chkOpenFolder.Text = "Open Folder";
 			this.chkOpenFolder.UseVisualStyleBackColor = true;
 			// 
 			// lblOptions
 			// 
 			this.lblOptions.AutoSize = true;
-			this.lblOptions.Location = new System.Drawing.Point(13, 118);
+			this.lblOptions.Location = new System.Drawing.Point(32, 92);
 			this.lblOptions.Name = "lblOptions";
 			this.lblOptions.Size = new System.Drawing.Size(43, 13);
-			this.lblOptions.TabIndex = 3;
+			this.lblOptions.TabIndex = 6;
 			this.lblOptions.Text = "Options";
-			// 
-			// txtOptions
-			// 
-			this.txtOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtOptions.Location = new System.Drawing.Point(62, 115);
-			this.txtOptions.MaxLength = 1;
-			this.txtOptions.Name = "txtOptions";
-			this.txtOptions.Size = new System.Drawing.Size(38, 20);
-			this.txtOptions.TabIndex = 4;
-			this.txtOptions.Text = "3";
-			this.txtOptions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// lblSeed
 			// 
 			this.lblSeed.AutoSize = true;
-			this.lblSeed.Location = new System.Drawing.Point(256, 119);
+			this.lblSeed.Location = new System.Drawing.Point(256, 117);
 			this.lblSeed.Name = "lblSeed";
 			this.lblSeed.Size = new System.Drawing.Size(32, 13);
-			this.lblSeed.TabIndex = 14;
+			this.lblSeed.TabIndex = 1;
 			this.lblSeed.Text = "Seed";
 			// 
 			// lblGenerations
 			// 
 			this.lblGenerations.AutoSize = true;
-			this.lblGenerations.Location = new System.Drawing.Point(224, 65);
+			this.lblGenerations.Location = new System.Drawing.Point(224, 67);
 			this.lblGenerations.Name = "lblGenerations";
 			this.lblGenerations.Size = new System.Drawing.Size(64, 13);
-			this.lblGenerations.TabIndex = 9;
+			this.lblGenerations.TabIndex = 14;
 			this.lblGenerations.Text = "Generations";
 			// 
 			// lblPopulation
 			// 
 			this.lblPopulation.AutoSize = true;
-			this.lblPopulation.Location = new System.Drawing.Point(231, 91);
+			this.lblPopulation.Location = new System.Drawing.Point(231, 92);
 			this.lblPopulation.Name = "lblPopulation";
 			this.lblPopulation.Size = new System.Drawing.Size(57, 13);
-			this.lblPopulation.TabIndex = 11;
+			this.lblPopulation.TabIndex = 16;
 			this.lblPopulation.Text = "Population";
 			// 
 			// lblMutationRate
 			// 
 			this.lblMutationRate.AutoSize = true;
-			this.lblMutationRate.Location = new System.Drawing.Point(229, 41);
+			this.lblMutationRate.Location = new System.Drawing.Point(229, 42);
 			this.lblMutationRate.Name = "lblMutationRate";
 			this.lblMutationRate.Size = new System.Drawing.Size(59, 13);
-			this.lblMutationRate.TabIndex = 7;
+			this.lblMutationRate.TabIndex = 12;
 			this.lblMutationRate.Text = "Mutation %";
 			// 
 			// lblOutputFolder
 			// 
 			this.lblOutputFolder.AutoSize = true;
-			this.lblOutputFolder.Location = new System.Drawing.Point(217, 19);
+			this.lblOutputFolder.Location = new System.Drawing.Point(217, 17);
 			this.lblOutputFolder.Name = "lblOutputFolder";
 			this.lblOutputFolder.Size = new System.Drawing.Size(71, 13);
-			this.lblOutputFolder.TabIndex = 5;
+			this.lblOutputFolder.TabIndex = 10;
 			this.lblOutputFolder.Text = "Output Folder";
 			// 
 			// txtSeed
 			// 
 			this.txtSeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtSeed.Location = new System.Drawing.Point(306, 117);
+			this.txtSeed.Location = new System.Drawing.Point(306, 115);
 			this.txtSeed.MaxLength = 12;
 			this.txtSeed.Name = "txtSeed";
 			this.txtSeed.Size = new System.Drawing.Size(69, 20);
-			this.txtSeed.TabIndex = 15;
+			this.txtSeed.TabIndex = 2;
 			this.txtSeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// chkElitism
@@ -293,42 +422,9 @@ namespace GeneticAssigner
 			this.chkElitism.Location = new System.Drawing.Point(16, 22);
 			this.chkElitism.Name = "chkElitism";
 			this.chkElitism.Size = new System.Drawing.Size(74, 17);
-			this.chkElitism.TabIndex = 0;
+			this.chkElitism.TabIndex = 3;
 			this.chkElitism.Text = "Keep best";
 			this.chkElitism.UseVisualStyleBackColor = true;
-			// 
-			// txtPopulation
-			// 
-			this.txtPopulation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtPopulation.Location = new System.Drawing.Point(306, 90);
-			this.txtPopulation.MaxLength = 7;
-			this.txtPopulation.Name = "txtPopulation";
-			this.txtPopulation.Size = new System.Drawing.Size(69, 20);
-			this.txtPopulation.TabIndex = 12;
-			this.txtPopulation.Text = "100";
-			this.txtPopulation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// txtGenerations
-			// 
-			this.txtGenerations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtGenerations.Location = new System.Drawing.Point(306, 64);
-			this.txtGenerations.MaxLength = 7;
-			this.txtGenerations.Name = "txtGenerations";
-			this.txtGenerations.Size = new System.Drawing.Size(69, 20);
-			this.txtGenerations.TabIndex = 10;
-			this.txtGenerations.Text = "2000";
-			this.txtGenerations.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// txtMutationRate
-			// 
-			this.txtMutationRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtMutationRate.Location = new System.Drawing.Point(306, 39);
-			this.txtMutationRate.MaxLength = 3;
-			this.txtMutationRate.Name = "txtMutationRate";
-			this.txtMutationRate.Size = new System.Drawing.Size(69, 20);
-			this.txtMutationRate.TabIndex = 8;
-			this.txtMutationRate.Text = "80";
-			this.txtMutationRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// txtOutputFolder
 			// 
@@ -337,7 +433,7 @@ namespace GeneticAssigner
 			this.txtOutputFolder.MaxLength = 2000;
 			this.txtOutputFolder.Name = "txtOutputFolder";
 			this.txtOutputFolder.Size = new System.Drawing.Size(70, 20);
-			this.txtOutputFolder.TabIndex = 6;
+			this.txtOutputFolder.TabIndex = 11;
 			// 
 			// chkCreateFiles
 			// 
@@ -347,7 +443,7 @@ namespace GeneticAssigner
 			this.chkCreateFiles.Location = new System.Drawing.Point(16, 45);
 			this.chkCreateFiles.Name = "chkCreateFiles";
 			this.chkCreateFiles.Size = new System.Drawing.Size(81, 17);
-			this.chkCreateFiles.TabIndex = 1;
+			this.chkCreateFiles.TabIndex = 4;
 			this.chkCreateFiles.Text = "Create Files";
 			this.chkCreateFiles.UseVisualStyleBackColor = true;
 			this.chkCreateFiles.CheckedChanged += new System.EventHandler(this.chkCreateFiles_CheckedChanged);
@@ -410,6 +506,11 @@ namespace GeneticAssigner
 			this.grpStatus.PerformLayout();
 			this.grpSettings.ResumeLayout(false);
 			this.grpSettings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudPopulation)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudMutationRate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudGenerations)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudOverflow)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudOptions)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -423,12 +524,9 @@ namespace GeneticAssigner
 		private System.Windows.Forms.Label lblNotAssigned;
 		private System.Windows.Forms.Button btnStart;
 		private System.Windows.Forms.GroupBox grpSettings;
-		private System.Windows.Forms.TextBox txtMutationRate;
 		private System.Windows.Forms.TextBox txtOutputFolder;
 		private System.Windows.Forms.CheckBox chkCreateFiles;
-		private System.Windows.Forms.TextBox txtGenerations;
 		private System.Windows.Forms.CheckBox chkElitism;
-		private System.Windows.Forms.TextBox txtPopulation;
 		private System.Windows.Forms.TextBox txtSeed;
 		private System.Windows.Forms.Label lblSeed;
 		private System.Windows.Forms.Label lblGenerations;
@@ -441,11 +539,16 @@ namespace GeneticAssigner
 		private System.Windows.Forms.Label lblTime;
 		private System.Windows.Forms.ProgressBar prgProgress;
 		private System.Windows.Forms.Label lblOptions;
-		private System.Windows.Forms.TextBox txtOptions;
 		private System.Windows.Forms.CheckBox chkOpenFolder;
 		private System.Windows.Forms.Timer tmrElapsed;
 		private System.Windows.Forms.CheckBox chkFixedSeed;
 		private Graph graph1;
+		private System.Windows.Forms.CheckBox chkOverflow;
+		private System.Windows.Forms.NumericUpDown nudOptions;
+		private System.Windows.Forms.NumericUpDown nudGenerations;
+		private System.Windows.Forms.NumericUpDown nudMutationRate;
+		private System.Windows.Forms.NumericUpDown nudPopulation;
+		private System.Windows.Forms.NumericUpDown nudOverflow;
 	}
 }
 

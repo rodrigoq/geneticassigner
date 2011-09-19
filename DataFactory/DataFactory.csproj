@@ -93,6 +93,7 @@
     <Compile Include="Course\Course.cs" />
     <Compile Include="Course\CourseCollection.cs" />
     <Compile Include="Course\CourseFactory.cs" />
+    <Compile Include="Student\StudentComparer.cs" />
     <Compile Include="Student\StudentFactory.cs" />
     <Compile Include="Collection.cs" />
     <Compile Include="Student\StudentCollection.cs" />
