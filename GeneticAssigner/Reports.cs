@@ -50,7 +50,10 @@ namespace GeneticAssigner
 			bool hayNoAssig = false;
 			StringBuilder sb = new StringBuilder();
 			sb.Append("<table border='1'><tr><th>Libreta</th><th>Nombre</th><th>Comisión</th></tr>");
-			StringBuilder sbNoAssig = new StringBuilder(sb.ToString());
+			//StringBuilder sbNoAssig = new StringBuilder(sb.ToString());
+			StringBuilder sbNoAssig = new StringBuilder();
+			sbNoAssig.Append("<table border='1'><tr><th colspan='2'>No Asignado</th></tr>");
+			sbNoAssig.Append("<tr><th>Libreta</th><th>Nombre</th></tr>");
 
 			foreach (Student student in students)
 			{
@@ -64,7 +67,7 @@ namespace GeneticAssigner
 				{
 					hayNoAssig = true;
 					sbNoAssig.Append("<tr><td>").Append(student.Id).Append("</td><td>")
-						.Append(student.Name).Append("</td><td>No Asignado</td></tr>");
+						.Append(student.Name).Append("</td></tr>");
 				}
 			}
 			sb.Append("</table><br />");
@@ -96,21 +99,15 @@ namespace GeneticAssigner
 					{
 						sb.Append("</table><br />");
 					}
+					string asignado = GetAsignation(student);
 					sb.Append("<table border='1'>");
-					sb.Append("<tr><th>Libreta</th><th>Nombre</th><th>Comisión</th></tr>");
+					sb.Append("<tr><th colspan='2'>").Append(asignado).Append("</th></tr>");
+					sb.Append("<tr><th>Libreta</th><th>Nombre</th></tr>");
 					last = student.AssignedCourse;
 				}
-				string asignado;
-				if (student.Assigned)
-				{
-					asignado = student.AssignedCourse.ToString();
-				}
-				else
-				{
-					asignado = "No Asignado";
-				}
+
 				sb.Append("<tr><td>").Append(student.Id).Append("</td><td>")
-					.Append(student.Name).Append("</td><td>").Append(asignado).Append("</td></tr>");
+					.Append(student.Name).Append("</td></tr>");
 
 			}
 			sb.Append("</table><br />");
@@ -118,6 +115,18 @@ namespace GeneticAssigner
 			using (StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_comisiones.html", false, Encoding.Default))
 			{
 				sw.Write(sb);
+			}
+		}
+
+		private string GetAsignation(Student student)
+		{
+			if (student.Assigned)
+			{
+				return "Comisión " + student.AssignedCourse.ToString();
+			}
+			else
+			{
+				return "No Asignado";
 			}
 		}
 
@@ -206,7 +215,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		private static string GetPluralGeneraciones(int bestGeneration)
+		private string GetPluralGeneraciones(int bestGeneration)
 		{
 			if (bestGeneration == 1)
 			{
