@@ -7,3 +7,5 @@ The program takes simple [comma separated files](https://github.com/rodrigoq/gen
 This program is already being used successfully for assigning psychology students of the University of Buenos Aires to different hospitals and mental health centers for doing practices.
 
 You can run it on every platform that supports the .Net Framework or [Mono](http://www.mono-project.com/)
+
+For more information read the [wiki](https://github.com/rodrigoq/geneticassigner/wiki)
