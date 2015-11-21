@@ -118,7 +118,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		private string GetAsignation(Student student)
+		private static string GetAsignation(Student student)
 		{
 			if (student.Assigned)
 			{
@@ -203,7 +203,7 @@ namespace GeneticAssigner
 
 		}
 
-		private string GetPluralIndividuos(int populationSize)
+		private static string GetPluralIndividuos(int populationSize)
 		{
 			if (populationSize == 1)
 			{
@@ -215,7 +215,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		private string GetPluralGeneraciones(int bestGeneration)
+		private static string GetPluralGeneraciones(int bestGeneration)
 		{
 			if (bestGeneration == 1)
 			{

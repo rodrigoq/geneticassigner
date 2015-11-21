@@ -50,7 +50,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		private string ordinalEs(int i)
+		private static string ordinalEs(int i)
 		{
 			switch (i)
 			{
@@ -69,7 +69,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		private string ordinalEn(int i)
+		private static string ordinalEn(int i)
 		{
 			switch (i)
 			{

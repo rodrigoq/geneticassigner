@@ -123,7 +123,7 @@ namespace GeneticAssigner
 			AddLogLine(text);
 		}
 
-		private string FormatBest(IIndividual best)
+		private static string FormatBest(IIndividual best)
 		{
 			string bestFitness = best.NotAssigned.ToString("d3") + " ";
 
@@ -292,7 +292,7 @@ namespace GeneticAssigner
 			AddLogLine("* Final best " + FormatBest(ga.Best));
 		}
 
-		private void ResizeOptionsBest(IIndividual best, int option)
+		private static void ResizeOptionsBest(IIndividual best, int option)
 		{
 			if (best.Options.Length < option + 1)
 			{
@@ -505,7 +505,7 @@ namespace GeneticAssigner
 			Exit();
 		}
 
-		private void Exit()
+		private static void Exit()
 		{
 			Environment.Exit(0);
 		}

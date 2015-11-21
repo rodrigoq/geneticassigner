@@ -17,7 +17,7 @@ namespace DataFactory
 			CompType = comparisonType;
 		}
 
-		private int CompareAssignedCourseAndName(Student x, Student y)
+		private static int CompareAssignedCourseAndName(Student x, Student y)
 		{
 			if (x.AssignedCourse == y.AssignedCourse)
 			{
@@ -29,7 +29,7 @@ namespace DataFactory
 			}
 		}
 
-		private int CompareName(Student x, Student y)
+		private static int CompareName(Student x, Student y)
 		{
 			return x.Name.CompareTo(y.Name);
 		}
