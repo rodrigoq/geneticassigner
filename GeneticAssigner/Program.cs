@@ -29,7 +29,7 @@ namespace GeneticAssigner
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new frmMain(args));
+			Application.Run(new FrmMain(args));
 		}
 	}
 }

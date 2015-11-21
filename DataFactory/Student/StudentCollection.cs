@@ -35,7 +35,7 @@ namespace DataFactory
 
 		public void UnAssign()
 		{
-			foreach (Student s in list)
+			foreach (Student s in List)
 			{
 				s.UnAssign();
 			}

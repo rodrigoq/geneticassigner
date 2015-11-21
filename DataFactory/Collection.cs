@@ -24,33 +24,33 @@ namespace DataFactory
 	public class Collection<T> : ICollection<T> where T : Identifiable
 	{
 
-		protected List<T> list { get; set; }
-		protected Dictionary<int, int> hash { get; set; }
+		protected List<T> List { get; set; }
+		protected Dictionary<int, int> Hash { get; set; }
 
 		public Collection()
 		{
-			list = new List<T>();
-			hash = new Dictionary<int, int>();
+			List = new List<T>();
+			Hash = new Dictionary<int, int>();
 		}
 
 		public void Sort(Comparison<T> comparison)
 		{
-			list.Sort(comparison);
+			List.Sort(comparison);
 			RecreateHash();
 		}
 
 		public void Sort(IComparer<T> comparer)
 		{
-			list.Sort(comparer);
+			List.Sort(comparer);
 			RecreateHash();
 		}
 
 		private void RecreateHash()
 		{
-			hash.Clear();
-			for (int i = 0; i < list.Count; i++)
+			Hash.Clear();
+			for (int i = 0; i < List.Count; i++)
 			{
-				hash.Add(list[i].Id, i);
+				Hash.Add(List[i].Id, i);
 			}
 		}
 
@@ -60,42 +60,42 @@ namespace DataFactory
 		{
 			get
 			{
-				return list[hash[id]];
+				return List[Hash[id]];
 			}
 		}
 
 		public T[] ToArray()
 		{
-			return list.ToArray();
+			return List.ToArray();
 		}
 
 		public void Add(T item)
 		{
-			list.Add(item);
-			hash.Add(item.Id, list.Count - 1);
+			List.Add(item);
+			Hash.Add(item.Id, List.Count - 1);
 		}
 
 		public void Clear()
 		{
-			list.Clear();
-			hash.Clear();
+			List.Clear();
+			Hash.Clear();
 		}
 
 		public bool Contains(T item)
 		{
-			return list.Contains(item);
+			return List.Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
 		{
-			list.CopyTo(array, arrayIndex);
+			List.CopyTo(array, arrayIndex);
 		}
 
 		public int Count
 		{
 			get
 			{
-				return list.Count;
+				return List.Count;
 			}
 		}
 
@@ -109,9 +109,9 @@ namespace DataFactory
 
 		public bool Remove(T item)
 		{
-			if (hash.Remove(item.Id))
+			if (Hash.Remove(item.Id))
 			{
-				return list.Remove(item);
+				return List.Remove(item);
 			}
 			else
 			{
@@ -125,7 +125,7 @@ namespace DataFactory
 
 		public IEnumerator<T> GetEnumerator()
 		{
-			return list.GetEnumerator();
+			return List.GetEnumerator();
 		}
 
 		#endregion
@@ -134,7 +134,7 @@ namespace DataFactory
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			return list.GetEnumerator();
+			return List.GetEnumerator();
 		}
 
 		#endregion

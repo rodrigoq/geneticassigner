@@ -158,17 +158,17 @@
     <Compile Include="Validators\SeedValidator.cs" />
     <Compile Include="Validators\Validator.cs" />
     <Compile Include="Verifier.cs" />
-    <Compile Include="frmMain.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="FrmMain.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmMain.cs</DependentUpon>
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

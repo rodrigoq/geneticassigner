@@ -29,7 +29,7 @@ using System.Reflection;
 
 namespace GeneticAssigner
 {
-	public partial class frmMain : Form
+	public partial class FrmMain : Form
 	{
 		GeneticAlgorithm<Individual> ga;
 		DateTime startTime;
@@ -40,7 +40,7 @@ namespace GeneticAssigner
 
 		int bestGeneration;
 
-		public frmMain(string[] args)
+		public FrmMain(string[] args)
 		{
 			InitializeComponent();
 			if (args.Length > 0)
@@ -489,9 +489,9 @@ namespace GeneticAssigner
 				Individual.FirstGeneration((int)nudPopulation.Value, seed);
 
 			ga = new GeneticAlgorithm<Individual>(firstGeneration, seed);
-			ga.onBest += new EventHandler<GenerationEventArgs>(ga_onBest);
-			ga.onGeneration += new EventHandler<GenerationEventArgs>(ga_onGeneration);
-			ga.onComplete += new EventHandler(ga_onComplete);
+			ga.OnBest += new EventHandler<GenerationEventArgs>(ga_onBest);
+			ga.OnGeneration += new EventHandler<GenerationEventArgs>(ga_onGeneration);
+			ga.OnComplete += new EventHandler(ga_onComplete);
 			ga.MutationRate = (double)nudMutationRate.Value / 100.0;
 			ga.GenerationLength = (int)nudGenerations.Value;
 			ga.PopulationCount = (int)nudPopulation.Value;

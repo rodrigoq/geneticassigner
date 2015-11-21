@@ -36,7 +36,7 @@ namespace DataFactory
 
 		public void ResetPlacesLeft()
 		{
-			foreach (Course c in list)
+			foreach (Course c in List)
 			{
 				c.ResetPlacesLeft();
 			}

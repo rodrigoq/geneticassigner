@@ -25,9 +25,9 @@ namespace GeneticAlgorithm
 	public class GeneticAlgorithm<T> where T : IIndividual, new()
 	{
 
-		public event EventHandler<GenerationEventArgs> onBest;
-		public event EventHandler<GenerationEventArgs> onGeneration;
-		public event EventHandler onComplete;
+		public event EventHandler<GenerationEventArgs> OnBest;
+		public event EventHandler<GenerationEventArgs> OnGeneration;
+		public event EventHandler OnComplete;
 
 		private List<IIndividual> thisGeneration = new List<IIndividual>();
 		private List<double> fitnessTable = new List<double>();
@@ -72,17 +72,17 @@ namespace GeneticAlgorithm
 
 					SetBest();
 
-					if (onGeneration != null)
+					if (OnGeneration != null)
 					{
-						onGeneration(this,
+						OnGeneration(this,
 							new GenerationEventArgs(Generation,
 								thisGeneration[PopulationCount - 1]));
 					}
 				}
 
-				if (onComplete != null)
+				if (OnComplete != null)
 				{
-					onComplete(this, new EventArgs());
+					OnComplete(this, new EventArgs());
 				}
 			}
 			catch (ThreadAbortException)
@@ -113,9 +113,9 @@ namespace GeneticAlgorithm
 
 				Best.Options = new List<int>(ind.Options).ToArray();
 
-				if (onBest != null)
+				if (OnBest != null)
 				{
-					onBest(this, new GenerationEventArgs(Generation, Best));
+					OnBest(this, new GenerationEventArgs(Generation, Best));
 				}
 			}
 		}
