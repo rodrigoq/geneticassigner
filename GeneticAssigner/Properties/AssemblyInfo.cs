@@ -16,10 +16,11 @@
 *   You should have received a copy of the GNU General Public License
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("GeneticAssigner")]
 [assembly: AssemblyDescription("Front-end program to assign students to courses using GeneticAlgorithm library.")]
 [assembly: AssemblyConfiguration("")]

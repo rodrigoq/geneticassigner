@@ -20,6 +20,7 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("DataFactory")]
 [assembly: AssemblyDescription("Factory to create student and course objects from different sources.")]
 [assembly: AssemblyConfiguration("")]
