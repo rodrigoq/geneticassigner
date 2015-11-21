@@ -18,8 +18,10 @@
 */
 using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
+[assembly: NeutralResourcesLanguage("en")]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("GeneticAssigner")]
 [assembly: AssemblyDescription("Front-end program to assign students to courses using GeneticAlgorithm library.")]
