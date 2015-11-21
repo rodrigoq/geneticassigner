@@ -190,26 +190,24 @@ namespace GeneticAssigner
 			return settings;
 		}
 
-		public static Settings LoadFromForm(string coursesPath, string studentsPath, bool openFolder, bool saveFiles
-			, string outputPath, double mutationRate, int generations, int individuals,
+		public static Settings LoadFromForm(string coursesPath, string studentsPath, bool openFolder, bool saveFiles,
+			string outputPath, double mutationRate, int generations, int individuals,
 			int cantOpt, bool keepBest, int seed, int? overflow)
 		{
 			Settings settings = new Settings();
 
-			settings.CoursesPath = ConfigurationManager.AppSettings["courses"];
-			settings.StudentsPath = ConfigurationManager.AppSettings["students"];
-			settings.OpenFolder = bool.Parse(ConfigurationManager.AppSettings["open_folder"]);
-			settings.SaveFiles = bool.Parse(ConfigurationManager.AppSettings["save_files"]);
-			settings.OutputPath = ConfigurationManager.AppSettings["output_path"];
-			settings.MutationRate = double.Parse(ConfigurationManager.AppSettings["mutation_rate"]);
-			settings.Generations = int.Parse(ConfigurationManager.AppSettings["generations"]);
-			settings.Individuals = int.Parse(ConfigurationManager.AppSettings["individuals"]);
-			settings.CantOpt = int.Parse(ConfigurationManager.AppSettings["cant_opt"]);
-			settings.KeepBest = bool.Parse(ConfigurationManager.AppSettings["keep_best"]);
-			settings.Seed = int.Parse(ConfigurationManager.AppSettings["seed"]);
-			settings.Overflow = int.Parse(ConfigurationManager.AppSettings["overflow"]);
-
-
+			settings.CoursesPath = coursesPath;
+			settings.StudentsPath = studentsPath;
+			settings.OpenFolder = openFolder;
+			settings.SaveFiles = saveFiles;
+			settings.OutputPath = outputPath;
+			settings.MutationRate = mutationRate;
+         settings.Generations = generations;
+			settings.Individuals = individuals;
+			settings.CantOpt = cantOpt;
+			settings.KeepBest = keepBest;
+			settings.Seed = seed;
+			settings.Overflow = overflow;
 
 			return settings;
 		}
