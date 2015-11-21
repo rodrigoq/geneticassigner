@@ -76,15 +76,15 @@ namespace DataFactory
 
 		public override string ToString()
 		{
-			string options = "";
+			string opts = "";
 			for (int i = 0; i < Options.Length; i++)
 			{
 				if (Assigned && AssignedOption == i)
-					options += "[" + Options[i] + "] ";
+					opts += "[" + Options[i] + "] ";
 				else
-					options += Options[i] + " ";
+					opts += Options[i] + " ";
 			}
-			return Id + " | " + Name + " | " + options.Trim();
+			return Id + " | " + Name + " | " + opts.Trim();
 		}
 
 		internal Student Clone()
