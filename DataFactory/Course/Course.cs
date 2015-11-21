@@ -20,7 +20,7 @@ using System;
 
 namespace DataFactory
 {
-	public class Course : Identifiable
+	public class Course : IIdentifiable
 	{
 
 		internal Course(int id, string name, int totalPlaces)

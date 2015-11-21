@@ -20,7 +20,7 @@ using System;
 
 namespace DataFactory
 {
-	public class Student : Identifiable
+	public class Student : IIdentifiable
 	{
 
 		internal Student(int id, string name, params int[] options)

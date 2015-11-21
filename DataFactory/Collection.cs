@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace DataFactory
 {
-	public class Collection<T> : ICollection<T> where T : Identifiable
+	public class Collection<T> : ICollection<T> where T : IIdentifiable
 	{
 
 		protected List<T> List { get; set; }

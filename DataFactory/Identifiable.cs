@@ -19,7 +19,7 @@
 
 namespace DataFactory
 {
-	public interface Identifiable
+	public interface IIdentifiable
 	{
 		int Id { get; }
 	}
