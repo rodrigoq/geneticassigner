@@ -108,15 +108,14 @@ namespace GeneticAssigner
 
 		private void OnBest(object e)
 		{
-			int generation = ((GenerationEventArgs)e).Generation;
-			IIndividual best = ((GenerationEventArgs)e).Individual;
+			GenerationEventArgs gen = (GenerationEventArgs)e;
 
-			lblNotAssignedValue.Text = best.NotAssigned.ToString("d2");
-			string text = "* best on " + generation.ToString("d"
+			lblNotAssignedValue.Text = gen.Individual.NotAssigned.ToString("d2");
+			string text = "* best on " + gen.Generation.ToString("d"
 				+ ga.GenerationLength.ToString().Length) + "  ";
-			bestGeneration = generation;
-			string bestFitness = FormatBest(best);
-			text += bestFitness + "  " + best.Fitness.ToString();
+			bestGeneration = gen.Generation;
+			string bestFitness = FormatBest(gen.Individual);
+			text += bestFitness + "  " + gen.Individual.Fitness.ToString();
 
 			AddLogLine(text);
 		}
@@ -134,20 +133,18 @@ namespace GeneticAssigner
 
 		private void OnGeneration(object e)
 		{
-			int generation = ((GenerationEventArgs)e).Generation;
-			IIndividual individual = ((GenerationEventArgs)e).Individual;
-
+			GenerationEventArgs gen = (GenerationEventArgs)e;
 			//graph1.DrawFitness(generation, individual.Fitness);
 			//graph1.DrawStudents(generation, individual);
 
-			lblGenerationValue.Text = generation.ToString("d"
+			lblGenerationValue.Text = gen.Generation.ToString("d"
 				+ ga.GenerationLength.ToString().Length);
 
 			prgProgress.PerformStep();
 
 			if (chkCreateFiles.Checked)
 			{
-				LogGeneration(generation, individual);
+				LogGeneration(gen.Generation, gen.Individual);
 			}
 		}
 
