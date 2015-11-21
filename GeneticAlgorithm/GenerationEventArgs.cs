@@ -20,7 +20,7 @@ using System;
 
 namespace GeneticAlgorithm
 {
-	public class GenerationEventArgs: EventArgs
+	public class GenerationEventArgs : EventArgs
 	{
 		public int Generation;
 		public IIndividual Individual;

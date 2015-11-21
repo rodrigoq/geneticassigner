@@ -20,12 +20,12 @@ using System;
 
 namespace DataFactory
 {
-	public class Course: Identifiable
+	public class Course : Identifiable
 	{
 
 		internal Course(int id, string name, int totalPlaces)
 		{
-			if(totalPlaces < 0)
+			if (totalPlaces < 0)
 				throw new Exception("totalPlaces has to be greater than zero.");
 
 			this.id = id;
@@ -63,7 +63,7 @@ namespace DataFactory
 
 		public void AssignPlace()
 		{
-			if(placesLeft == 0)
+			if (placesLeft == 0)
 				throw new Exception("No more places available.");
 
 			placesLeft--;

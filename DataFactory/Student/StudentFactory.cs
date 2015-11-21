@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace DataFactory
 {
-	public class StudentFactory: Factory
+	public class StudentFactory : Factory
 	{
 
 		public static StudentCollection CreateFromFile(string file)
@@ -39,10 +39,10 @@ namespace DataFactory
 			StudentCollection students = CreateFromArray(GetLineArray(file));
 			int maxOptions = 0;
 
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
 				student.AssignOption(assignedStudents[student.Id].AssignedOption);
-				if(student.Options.Length > maxOptions)
+				if (student.Options.Length > maxOptions)
 					maxOptions = student.Options.Length;
 			}
 			students.MaxOptions = maxOptions;
@@ -53,12 +53,12 @@ namespace DataFactory
 		{
 			StudentCollection ac = new StudentCollection();
 
-			for(int i = 0;i < lines.Length;i++)
+			for (int i = 0; i < lines.Length; i++)
 			{
 				string[] tokens = lines[i].Split(
 					new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 
-				if(tokens.Length != 4)
+				if (tokens.Length != 4)
 					throw new Exception("Malformed line " + i);
 
 				ac.Add(new Student(int.Parse(tokens[0]), tokens[1], int.Parse(tokens[3])));
@@ -72,19 +72,19 @@ namespace DataFactory
 
 			int maxOptions = 0;
 
-			for(int i = 0;i < lines.Length;i++)
+			for (int i = 0; i < lines.Length; i++)
 			{
 				List<int> options = new List<int>();
 				string[] tokens = lines[i].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-				if(tokens.Length < 3)
+				if (tokens.Length < 3)
 					throw new Exception("Malformed line " + i);
 
-				for(int j = 2;j < tokens.Length;j++)
+				for (int j = 2; j < tokens.Length; j++)
 					options.Add(int.Parse(tokens[j]));
 
 				sc.Add(new Student(int.Parse(tokens[0]), tokens[1], options.ToArray()));
 
-				if(options.Count > maxOptions)
+				if (options.Count > maxOptions)
 					maxOptions = options.Count;
 			}
 
@@ -98,10 +98,10 @@ namespace DataFactory
 			StudentCollection sc = new StudentCollection();
 
 			List<int> indices = new List<int>();
-			while(indices.Count != students.Length)
+			while (indices.Count != students.Length)
 			{
 				int num = rand.Next(0, students.Length);
-				if(indices.Contains(num) == false)
+				if (indices.Contains(num) == false)
 				{
 					indices.Add(num);
 					sc.Add(students[num]);

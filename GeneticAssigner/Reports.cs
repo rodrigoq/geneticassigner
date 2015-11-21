@@ -84,7 +84,7 @@ namespace GeneticAssigner
 
 		public void CourseOrder()
 		{
-			StudentComparer studentComparer = 
+			StudentComparer studentComparer =
 				new StudentComparer(StudentComparer.ComparisonType.AssignedCourseAndName);
 			students.Sort(studentComparer);
 

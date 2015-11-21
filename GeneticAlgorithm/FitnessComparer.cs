@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace GeneticAlgorithm
 {
-	public sealed class FitnessComparer: IComparer<IIndividual>
+	public sealed class FitnessComparer : IComparer<IIndividual>
 	{
 		public int Compare(IIndividual x, IIndividual y)
 		{

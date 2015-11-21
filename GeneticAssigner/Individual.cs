@@ -20,12 +20,11 @@ using System;
 using System.Collections.Generic;
 using GeneticAlgorithm;
 using DataFactory;
-using System.Diagnostics;
 
 
 namespace GeneticAssigner
 {
-	public class Individual: IIndividual
+	public class Individual : IIndividual
 	{
 
 		public Individual()
@@ -49,7 +48,7 @@ namespace GeneticAssigner
 
 		public void Mutate(Random random, double mutationRate)
 		{
-			if(random.NextDouble() < mutationRate)
+			if (random.NextDouble() < mutationRate)
 			{
 				int src = random.Next(0, Students.Count);
 				int dst = random.Next(0, Students.Count);
@@ -61,7 +60,7 @@ namespace GeneticAssigner
 		{
 			string SPACE = " ";
 			string s = NotAssigned.ToString("d3") + SPACE;
-			for(int i = 0;i < Options.Length;i++)
+			for (int i = 0; i < Options.Length; i++)
 			{
 				s += Options[i].ToString("d3") + SPACE;
 			}
@@ -76,16 +75,16 @@ namespace GeneticAssigner
 
 			Context.Courses.ResetPlacesLeft();
 
-			for(int i = 0;i < this.Students.Count;i++)
+			for (int i = 0; i < this.Students.Count; i++)
 			{
 				int id = this.Students[i];
 
 				int opt = Math.Min(Context.Places, Context.Students[id].Options.Length);
 
-				for(int j = 0;j < opt;j++)
+				for (int j = 0; j < opt; j++)
 				{
 					Course actual = Context.Courses[Context.Students[id].Options[j]];
-					if(actual.PlacesLeft > 0)
+					if (actual.PlacesLeft > 0)
 					{
 						this.Options[j]++;
 						notAssigned--;
@@ -98,7 +97,7 @@ namespace GeneticAssigner
 			this.NotAssigned = notAssigned;
 
 			long value = this.Assigned * (long)Math.Pow(10, this.Options.Length * 3);
-			for(int i = 0;i < this.Options.Length;i++)
+			for (int i = 0; i < this.Options.Length; i++)
 			{
 				value += this.Options[i] * (long)Math.Pow(10, (this.Options.Length - 1 - i) * 3);
 			}
@@ -111,12 +110,12 @@ namespace GeneticAssigner
 		{
 			Random random = new Random(seed + 1);
 			List<int> students0 = new List<int>();
-			foreach(Student student in Context.Students)
+			foreach (Student student in Context.Students)
 			{
 				students0.Add(student.Id);
 			}
 			List<IIndividual> thisGeneration = new List<IIndividual>();
-			for(int i = 0;i < size;i++)
+			for (int i = 0; i < size; i++)
 			{
 				Individual ind = new Individual();
 				ind.Students = Shuffle(random, students0);
@@ -128,7 +127,7 @@ namespace GeneticAssigner
 		private static List<int> Shuffle(Random random, List<int> students)
 		{
 			int n = students.Count;
-			while(n > 1)
+			while (n > 1)
 			{
 				int k = random.Next(n);
 				n--;

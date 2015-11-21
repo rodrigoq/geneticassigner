@@ -31,7 +31,7 @@ namespace GeneticAssigner
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 		protected override void Dispose(bool disposing)
 		{
-			if(disposing && (components != null))
+			if (disposing && (components != null))
 			{
 				components.Dispose();
 			}
@@ -199,122 +199,122 @@ namespace GeneticAssigner
 			// nudPopulation
 			// 
 			this.nudPopulation.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+				5,
+				0,
+				0,
+				0});
 			this.nudPopulation.Location = new System.Drawing.Point(306, 90);
 			this.nudPopulation.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
+				10000,
+				0,
+				0,
+				0});
 			this.nudPopulation.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+				1,
+				0,
+				0,
+				0});
 			this.nudPopulation.Name = "nudPopulation";
 			this.nudPopulation.Size = new System.Drawing.Size(69, 20);
 			this.nudPopulation.TabIndex = 20;
 			this.nudPopulation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nudPopulation.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+				100,
+				0,
+				0,
+				0});
 			// 
 			// nudMutationRate
 			// 
 			this.nudMutationRate.Location = new System.Drawing.Point(306, 40);
 			this.nudMutationRate.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+				1,
+				0,
+				0,
+				0});
 			this.nudMutationRate.Name = "nudMutationRate";
 			this.nudMutationRate.Size = new System.Drawing.Size(69, 20);
 			this.nudMutationRate.TabIndex = 20;
 			this.nudMutationRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nudMutationRate.Value = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
+				80,
+				0,
+				0,
+				0});
 			// 
 			// nudGenerations
 			// 
 			this.nudGenerations.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+				100,
+				0,
+				0,
+				0});
 			this.nudGenerations.Location = new System.Drawing.Point(306, 65);
 			this.nudGenerations.Maximum = new decimal(new int[] {
-            9999999,
-            0,
-            0,
-            0});
+				9999999,
+				0,
+				0,
+				0});
 			this.nudGenerations.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+				1,
+				0,
+				0,
+				0});
 			this.nudGenerations.Name = "nudGenerations";
 			this.nudGenerations.Size = new System.Drawing.Size(69, 20);
 			this.nudGenerations.TabIndex = 19;
 			this.nudGenerations.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nudGenerations.Value = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
+				2000,
+				0,
+				0,
+				0});
 			// 
 			// nudOverflow
 			// 
 			this.nudOverflow.Location = new System.Drawing.Point(90, 113);
 			this.nudOverflow.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+				5,
+				0,
+				0,
+				0});
 			this.nudOverflow.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+				1,
+				0,
+				0,
+				0});
 			this.nudOverflow.Name = "nudOverflow";
 			this.nudOverflow.Size = new System.Drawing.Size(38, 20);
 			this.nudOverflow.TabIndex = 18;
 			this.nudOverflow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nudOverflow.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+				3,
+				0,
+				0,
+				0});
 			// 
 			// nudOptions
 			// 
 			this.nudOptions.Location = new System.Drawing.Point(90, 90);
 			this.nudOptions.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+				5,
+				0,
+				0,
+				0});
 			this.nudOptions.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+				1,
+				0,
+				0,
+				0});
 			this.nudOptions.Name = "nudOptions";
 			this.nudOptions.Size = new System.Drawing.Size(38, 20);
 			this.nudOptions.TabIndex = 18;
 			this.nudOptions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nudOptions.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+				3,
+				0,
+				0,
+				0});
 			this.nudOptions.ValueChanged += new System.EventHandler(this.nudOptions_ValueChanged);
 			// 
 			// chkOverflow

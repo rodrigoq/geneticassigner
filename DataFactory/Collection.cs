@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace DataFactory
 {
-	public class Collection<T>: ICollection<T> where T: Identifiable
+	public class Collection<T> : ICollection<T> where T : Identifiable
 	{
 
 		protected List<T> list = new List<T>();
@@ -44,7 +44,7 @@ namespace DataFactory
 		private void RecreateHash()
 		{
 			hash.Clear();
-			for(int i = 0;i < list.Count;i++)
+			for (int i = 0; i < list.Count; i++)
 			{
 				hash.Add(list[i].Id, i);
 			}
@@ -105,7 +105,7 @@ namespace DataFactory
 
 		public bool Remove(T item)
 		{
-			if(hash.Remove(item.Id))
+			if (hash.Remove(item.Id))
 			{
 				return list.Remove(item);
 			}

@@ -50,16 +50,16 @@ namespace GeneticAssigner
 		public void StudentsRepeatedOptions()
 		{
 			string repeated = string.Empty;
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
 				Array.Sort<int>(student.Options);
-				for(int i = 1;i < student.Options.Length;i++)
+				for (int i = 1; i < student.Options.Length; i++)
 				{
-					if(student.Options[i] == student.Options[i - 1])
+					if (student.Options[i] == student.Options[i - 1])
 						repeated += student.ToString() + Environment.NewLine;
 				}
 			}
-			if(string.IsNullOrEmpty(repeated) == false)
+			if (string.IsNullOrEmpty(repeated) == false)
 			{
 				throw new Exception(repeated);
 			}
@@ -70,15 +70,15 @@ namespace GeneticAssigner
 			string badCourses = string.Empty;
 
 			List<int> courseIds = new List<int>();
-			foreach(Course course in courses)
+			foreach (Course course in courses)
 			{
 				courseIds.Add(course.Id);
 			}
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
-				for(int i = 0;i < student.Options.Length;i++)
+				for (int i = 0; i < student.Options.Length; i++)
 				{
-					if(courseIds.Contains(student.Options[i]) == false)
+					if (courseIds.Contains(student.Options[i]) == false)
 					{
 						badCourses += student.ToString() + " BAD COURSE " + student.Options[i] + Environment.NewLine;
 					}
@@ -94,16 +94,16 @@ namespace GeneticAssigner
 		{
 			Dictionary<int, int> coursePlaces = new Dictionary<int, int>();
 			List<int> notAssignedOptions = new List<int>();
-			foreach(Student student in students)
+			foreach (Student student in students)
 			{
-				if(student.Assigned)
+				if (student.Assigned)
 				{
-					Predicate<int> contains = delegate(int value) { return value == student.AssignedCourse; };
-					if(Array.Find<int>(student.Options, contains) < 0)
+					Predicate<int> contains = delegate (int value) { return value == student.AssignedCourse; };
+					if (Array.Find<int>(student.Options, contains) < 0)
 					{
 						throw new Exception(student.ToString() + " asignado a una opción no posible");
 					}
-					if(coursePlaces.ContainsKey(student.AssignedCourse))
+					if (coursePlaces.ContainsKey(student.AssignedCourse))
 					{
 						coursePlaces[student.AssignedCourse]++;
 					}
@@ -118,7 +118,7 @@ namespace GeneticAssigner
 
 					for (int i = 0; i < opt; i++)
 					{
-						if(notAssignedOptions.Contains(student.Options[i]) == false)
+						if (notAssignedOptions.Contains(student.Options[i]) == false)
 						{
 							notAssignedOptions.Add(student.Options[i]);
 						}
@@ -126,22 +126,22 @@ namespace GeneticAssigner
 				}
 			}
 
-			foreach(Course course in courses)
+			foreach (Course course in courses)
 			{
-				if(coursePlaces.ContainsKey(course.Id))
+				if (coursePlaces.ContainsKey(course.Id))
 				{
-					if(coursePlaces[course.Id] > course.TotalPlaces)
+					if (coursePlaces[course.Id] > course.TotalPlaces)
 					{
 						throw new Exception("Más alumnos asignados que vacantes disponibles, centro [" + course.Id + "]");
 					}
-					if(coursePlaces[course.Id] < course.TotalPlaces && notAssignedOptions.Contains(course.Id))
+					if (coursePlaces[course.Id] < course.TotalPlaces && notAssignedOptions.Contains(course.Id))
 					{
 						throw new Exception("Centro [" + course.Id + "] con vacantes para alumno no asignado");
 					}
 				}
 				else
 				{
-					if(course.TotalPlaces > 0 && notAssignedOptions.Contains(course.Id))
+					if (course.TotalPlaces > 0 && notAssignedOptions.Contains(course.Id))
 					{
 						throw new Exception("Centro [" + course.Id + "] con vacantes para alumno no asignado");
 					}

@@ -46,7 +46,7 @@ namespace GeneticAssigner
 			{
 				return ValidateInteger(min, max, val);
 			}
-			
+
 		}
 
 	}

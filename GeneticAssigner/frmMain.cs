@@ -107,7 +107,7 @@ namespace GeneticAssigner
 				grpSettings.Enabled = true;
 			}
 		}
-		
+
 		private void OnBest(object e)
 		{
 			int generation = ((GenerationEventArgs)e).Generation;

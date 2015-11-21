@@ -20,7 +20,7 @@ using System;
 
 namespace DataFactory
 {
-	public class Student: Identifiable
+	public class Student : Identifiable
 	{
 
 		internal Student(int id, string name, params int[] options)
@@ -77,9 +77,9 @@ namespace DataFactory
 		public override string ToString()
 		{
 			string options = "";
-			for(int i = 0;i < Options.Length;i++)
+			for (int i = 0; i < Options.Length; i++)
 			{
-				if(Assigned && AssignedOption == i)
+				if (Assigned && AssignedOption == i)
 					options += "[" + Options[i] + "] ";
 				else
 					options += Options[i] + " ";

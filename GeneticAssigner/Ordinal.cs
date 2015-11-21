@@ -35,11 +35,11 @@ namespace GeneticAssigner
 		{
 			get
 			{
-				if(locale.ToLower() == "es")
+				if (locale.ToLower() == "es")
 				{
 					return ordinalEs(i);
 				}
-				else if(locale.ToLower() == "en")
+				else if (locale.ToLower() == "en")
 				{
 					return ordinalEn(i);
 				}
@@ -52,7 +52,7 @@ namespace GeneticAssigner
 
 		private string ordinalEs(int i)
 		{
-			switch(i)
+			switch (i)
 			{
 				case 1: return "Primera";
 				case 2: return "Segunda";
@@ -71,7 +71,7 @@ namespace GeneticAssigner
 
 		private string ordinalEn(int i)
 		{
-			switch(i)
+			switch (i)
 			{
 				case 1: return "First";
 				case 2: return "Second";

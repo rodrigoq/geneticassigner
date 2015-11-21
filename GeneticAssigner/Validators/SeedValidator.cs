@@ -22,7 +22,5 @@ namespace GeneticAssigner
 {
 	class SeedValidator : Validator
 	{
-
-
 	}
 }

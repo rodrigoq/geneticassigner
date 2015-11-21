@@ -19,7 +19,7 @@
 
 namespace DataFactory
 {
-	public class CourseCollection: Collection<Course>
+	public class CourseCollection : Collection<Course>
 	{
 
 		public int TotalPlaces { get; set; }
@@ -27,7 +27,7 @@ namespace DataFactory
 		public CourseCollection() : base() { }
 		public CourseCollection(CourseCollection collection)
 		{
-			foreach(Course course in collection)
+			foreach (Course course in collection)
 			{
 				base.Add(course.Clone());
 			}
@@ -36,7 +36,7 @@ namespace DataFactory
 
 		public void ResetPlacesLeft()
 		{
-			foreach(Course c in list)
+			foreach (Course c in list)
 			{
 				c.ResetPlacesLeft();
 			}

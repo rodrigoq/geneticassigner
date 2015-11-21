@@ -19,14 +19,14 @@
 
 namespace DataFactory
 {
-	public class StudentCollection: Collection<Student>
+	public class StudentCollection : Collection<Student>
 	{
 		public int MaxOptions { get; set; }
 
 		public StudentCollection() : base() { }
 		public StudentCollection(StudentCollection collection)
 		{
-			foreach(Student student in collection)
+			foreach (Student student in collection)
 			{
 				base.Add(student.Clone());
 			}
@@ -35,7 +35,7 @@ namespace DataFactory
 
 		public void UnAssign()
 		{
-			foreach(Student s in list)
+			foreach (Student s in list)
 			{
 				s.UnAssign();
 			}

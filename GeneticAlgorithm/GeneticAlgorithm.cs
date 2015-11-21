@@ -109,7 +109,7 @@ namespace GeneticAlgorithm
 		{
 			IIndividual ind = thisGeneration[PopulationCount - 1];
 
-			if(Best == null || Best.Fitness < ind.Fitness)
+			if (Best == null || Best.Fitness < ind.Fitness)
 			{
 				Best = new T();
 				Best.Students = new List<int>(ind.Students);
@@ -122,7 +122,7 @@ namespace GeneticAlgorithm
 
 				Best.Options = new List<int>(ind.Options).ToArray();
 
-				if(onBest != null)
+				if (onBest != null)
 				{
 					onBest(this, new GenerationEventArgs(Generation, Best));
 				}
@@ -135,13 +135,13 @@ namespace GeneticAlgorithm
 			List<IIndividual> nextGeneration = new List<IIndividual>();
 
 			IIndividual ind = null;
-			if(Elitism)
+			if (Elitism)
 			{
 				ind = new T();
 				ind.Students =
 					new List<int>(thisGeneration[PopulationCount - 1].Students);
 			}
-			for(int i = 0; i < PopulationCount; i++)
+			for (int i = 0; i < PopulationCount; i++)
 			{
 				IIndividual parent = thisGeneration[RouletteSelection()];
 				IIndividual child = new T();
@@ -151,7 +151,7 @@ namespace GeneticAlgorithm
 			}
 			thisGeneration = new List<IIndividual>(nextGeneration);
 
-			if(Elitism && ind != null)
+			if (Elitism && ind != null)
 			{
 				nextGeneration[0] = ind;
 			}
@@ -159,7 +159,7 @@ namespace GeneticAlgorithm
 
 		private void RankPopulation()
 		{
-			for(int i = 0; i < PopulationCount; i++)
+			for (int i = 0; i < PopulationCount; i++)
 			{
 				thisGeneration[i].Fitness = thisGeneration[i].FitnessFunction();
 			}
@@ -167,9 +167,9 @@ namespace GeneticAlgorithm
 
 			totalFitness = 0;
 			fitnessTable.Clear();
-			for(int i = 0; i < PopulationCount; i++)
+			for (int i = 0; i < PopulationCount; i++)
 			{
-				if(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
+				if (thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
 				{
 					thisGeneration[i].NormFitness =
 						(double)(thisGeneration[i].Fitness - thisGeneration[0].Fitness) /

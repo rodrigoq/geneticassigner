@@ -20,7 +20,7 @@ using System;
 
 namespace DataFactory
 {
-	public class CourseFactory: Factory
+	public class CourseFactory : Factory
 	{
 
 		public static CourseCollection CreateFromFile(string file)
@@ -33,12 +33,12 @@ namespace DataFactory
 			CourseCollection cc = new CourseCollection();
 
 			int totalPlaces = 0;
-			for(int i = 0;i < lines.Length;i++)
+			for (int i = 0; i < lines.Length; i++)
 			{
 				string[] tokens = lines[i].Split(
 					new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
 
-				if(tokens.Length != 3)
+				if (tokens.Length != 3)
 					throw new Exception("Malformed line " + i);
 
 				int places = int.Parse(tokens[2]);
