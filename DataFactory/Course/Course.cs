@@ -31,7 +31,7 @@ namespace DataFactory
 			this.id = id;
 			this.name = name;
 			this.totalPlaces = totalPlaces;
-			this.placesLeft = totalPlaces;
+			placesLeft = totalPlaces;
 		}
 
 		int id;
@@ -77,8 +77,8 @@ namespace DataFactory
 
 		internal Course Clone()
 		{
-			Course course = new Course(this.id, this.name, this.totalPlaces);
-			course.placesLeft = this.placesLeft;
+			Course course = new Course(id, name, totalPlaces);
+			course.placesLeft = placesLeft;
 			return course;
 		}
 

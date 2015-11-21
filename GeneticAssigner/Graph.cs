@@ -27,9 +27,9 @@ namespace GeneticAssigner
     {
         public Graph()
         {
-            //this.Height = 200;
-            //this.Width = 500;
-            this.BackColor = Color.White;
+			//this.Height = 200;
+			//this.Width = 500;
+			BackColor = Color.White;
         }
 
         public void DrawFitness(int generation, double fitness)
@@ -39,12 +39,12 @@ namespace GeneticAssigner
             double fitmin = 25.8;
             double fitmax = 26.0;
 
-            double y = ((double)this.Height * (fitness - fitmin) / (fitmax - fitmin)) - fitmin;
-            int x = this.Width * generation / 2000;
+            double y = ((double)Height * (fitness - fitmin) / (fitmax - fitmin)) - fitmin;
+            int x = Width * generation / 2000;
             Pen pen = new Pen(Color.Blue);
 
-            Graphics graphics = this.CreateGraphics();
-            graphics.DrawRectangle(pen, (float)x, (float)((double)this.Height - y), 1.0f, 1.0f);
+            Graphics graphics = CreateGraphics();
+            graphics.DrawRectangle(pen, (float)x, (float)((double)Height - y), 1.0f, 1.0f);
             pen.Dispose();
             graphics.Dispose();
 
@@ -54,19 +54,19 @@ namespace GeneticAssigner
         {
             //Pen myPen = new Pen(Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255)));//Color.Blue);
 
-            int y = this.Height * individual.Assigned / individual.Students.Count;
-            int x = this.Width * generation / 2000;
+            int y = Height * individual.Assigned / individual.Students.Count;
+            int x = Width * generation / 2000;
             Pen pen = new Pen(Color.Red);
 
-            Graphics graphics = this.CreateGraphics();
-            graphics.DrawRectangle(pen, x, this.Height - y, 1, 1);
+            Graphics graphics = CreateGraphics();
+            graphics.DrawRectangle(pen, x, Height - y, 1, 1);
             pen.Dispose();
 
-            int y1 = this.Height * individual.NotAssigned / individual.Students.Count;
-            int x1 = this.Width * generation / 2000;
+            int y1 = Height * individual.NotAssigned / individual.Students.Count;
+            int x1 = Width * generation / 2000;
             Pen pen1 = new Pen(Color.Brown);
 
-            graphics.DrawRectangle(pen1, x1, this.Height - y1, 1, 1);
+            graphics.DrawRectangle(pen1, x1, Height - y1, 1, 1);
 
 
             pen1.Dispose();

@@ -30,7 +30,7 @@ namespace DataFactory
 			{
 				base.Add(student.Clone());
 			}
-			this.MaxOptions = collection.MaxOptions;
+			MaxOptions = collection.MaxOptions;
 		}
 
 		public void UnAssign()

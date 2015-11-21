@@ -55,12 +55,12 @@ namespace GeneticAlgorithm
 
 		public GeneticAlgorithm(List<IIndividual> firstGeneration, int seed)
 		{
-			this.thisGeneration =
+			thisGeneration =
 				new List<IIndividual>(firstGeneration);
 
-			this.MutationRate = 0.80;
-			this.Elitism = true;
-			this.Seed = seed;
+			MutationRate = 0.80;
+			Elitism = true;
+			Seed = seed;
 
 			random = new Random(seed);
 		}

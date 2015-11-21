@@ -28,7 +28,7 @@ namespace DataFactory
 			this.id = id;
 			this.name = name;
 			this.options = options;
-			this.UnAssign();
+			UnAssign();
 		}
 
 		int[] options;
@@ -89,10 +89,10 @@ namespace DataFactory
 
 		internal Student Clone()
 		{
-			Student student = new Student(this.id, this.name, new int[this.options.Length]);
-			Array.Copy(this.options, student.options, this.options.Length);
-			student.assignedCourse = this.assignedCourse;
-			student.assignedOption = this.assignedOption;
+			Student student = new Student(id, name, new int[options.Length]);
+			Array.Copy(options, student.options, options.Length);
+			student.assignedCourse = assignedCourse;
+			student.assignedOption = assignedOption;
 
 			return student;
 		}

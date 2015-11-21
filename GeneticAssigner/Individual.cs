@@ -70,14 +70,14 @@ namespace GeneticAssigner
 
 		public double FitnessFunction()
 		{
-			int notAssigned = this.Students.Count;
-			this.Options = new int[Context.Places];
+			int notAssigned = Students.Count;
+			Options = new int[Context.Places];
 
 			Context.Courses.ResetPlacesLeft();
 
-			for (int i = 0; i < this.Students.Count; i++)
+			for (int i = 0; i < Students.Count; i++)
 			{
-				int id = this.Students[i];
+				int id = Students[i];
 
 				int opt = Math.Min(Context.Places, Context.Students[id].Options.Length);
 
@@ -86,20 +86,20 @@ namespace GeneticAssigner
 					Course actual = Context.Courses[Context.Students[id].Options[j]];
 					if (actual.PlacesLeft > 0)
 					{
-						this.Options[j]++;
+						Options[j]++;
 						notAssigned--;
 						actual.AssignPlace();
 						break;
 					}
 				}
 			}
-			this.Assigned = this.Students.Count - notAssigned;
-			this.NotAssigned = notAssigned;
+			Assigned = Students.Count - notAssigned;
+			NotAssigned = notAssigned;
 
-			long value = this.Assigned * (long)Math.Pow(10, this.Options.Length * 3);
-			for (int i = 0; i < this.Options.Length; i++)
+			long value = Assigned * (long)Math.Pow(10, Options.Length * 3);
+			for (int i = 0; i < Options.Length; i++)
 			{
-				value += this.Options[i] * (long)Math.Pow(10, (this.Options.Length - 1 - i) * 3);
+				value += Options[i] * (long)Math.Pow(10, (Options.Length - 1 - i) * 3);
 			}
 			//return Math.Log10(value);
 			return Math.Log(value);

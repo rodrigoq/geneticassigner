@@ -98,7 +98,7 @@ namespace GeneticAssigner
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
-				MessageBox.Show(this, ex.Message, this.Text);
+				MessageBox.Show(this, ex.Message, Text);
 			}
 			finally
 			{
@@ -304,9 +304,9 @@ namespace GeneticAssigner
 
 		private void AddLogLine(string text)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new WaitCallback(OnAddLogLine), new object[] { text });
+				Invoke(new WaitCallback(OnAddLogLine), new object[] { text });
 			}
 			else
 			{
@@ -372,9 +372,9 @@ namespace GeneticAssigner
 
 		private void SetWindowCaption()
 		{
-			string appFile = Assembly.GetAssembly(this.GetType()).Location;
+			string appFile = Assembly.GetAssembly(GetType()).Location;
 			AssemblyName ass = AssemblyName.GetAssemblyName(appFile);
-			this.Text += GetVersionString(ass);
+			Text += GetVersionString(ass);
 		}
 
 		private static string GetVersionString(AssemblyName ass)
@@ -423,7 +423,7 @@ namespace GeneticAssigner
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
-				MessageBox.Show(this, ex.Message, this.Text);
+				MessageBox.Show(this, ex.Message, Text);
 			}
 			finally
 			{
@@ -479,7 +479,7 @@ namespace GeneticAssigner
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
-				MessageBox.Show(this, ex.Message, this.Text);
+				MessageBox.Show(this, ex.Message, Text);
 				btnStart.Text = "Start";
 				grpSettings.Enabled = true;
 			}
@@ -548,9 +548,9 @@ namespace GeneticAssigner
 
 		void ga_onComplete(object sender, EventArgs e)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new ThreadStart(OnComplete));
+				Invoke(new ThreadStart(OnComplete));
 			}
 			else
 			{
@@ -560,9 +560,9 @@ namespace GeneticAssigner
 
 		void ga_onGeneration(object sender, GenerationEventArgs e)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new WaitCallback(OnGeneration), new object[] { e });
+				Invoke(new WaitCallback(OnGeneration), new object[] { e });
 			}
 			else
 			{
@@ -572,9 +572,9 @@ namespace GeneticAssigner
 
 		void ga_onBest(object sender, GenerationEventArgs e)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new WaitCallback(OnBest), new object[] { e });
+				Invoke(new WaitCallback(OnBest), new object[] { e });
 			}
 			else
 			{

@@ -31,7 +31,7 @@ namespace DataFactory
 			{
 				base.Add(course.Clone());
 			}
-			this.TotalPlaces = collection.TotalPlaces;
+			TotalPlaces = collection.TotalPlaces;
 		}
 
 		public void ResetPlacesLeft()
