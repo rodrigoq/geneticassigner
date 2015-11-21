@@ -489,9 +489,9 @@ namespace GeneticAssigner
 				Individual.FirstGeneration((int)nudPopulation.Value, seed);
 
 			ga = new GeneticAlgorithm<Individual>(firstGeneration, seed);
-			ga.onBest += new BestDelegate(ga_onBest);
-			ga.onGeneration += new GenerationDelegate(ga_onGeneration);
-			ga.onComplete += new CompletedDelegate(ga_onComplete);
+			ga.onBest += new EventHandler<GenerationEventArgs>(ga_onBest);
+			ga.onGeneration += new EventHandler<GenerationEventArgs>(ga_onGeneration);
+			ga.onComplete += new EventHandler(ga_onComplete);
 			ga.MutationRate = (double)nudMutationRate.Value / 100.0;
 			ga.GenerationLength = (int)nudGenerations.Value;
 			ga.PopulationCount = (int)nudPopulation.Value;

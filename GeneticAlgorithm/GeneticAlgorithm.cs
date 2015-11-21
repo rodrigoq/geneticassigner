@@ -22,21 +22,12 @@ using System.Threading;
 
 namespace GeneticAlgorithm
 {
-
-	#region Delegates
-
-	public delegate void BestDelegate(object sender, GenerationEventArgs e);
-	public delegate void GenerationDelegate(object sender, GenerationEventArgs e);
-	public delegate void CompletedDelegate(object sender, EventArgs e);
-
-	#endregion
-
 	public class GeneticAlgorithm<T> where T : IIndividual, new()
 	{
 
-		public event BestDelegate onBest;
-		public event GenerationDelegate onGeneration;
-		public event CompletedDelegate onComplete;
+		public event EventHandler<GenerationEventArgs> onBest;
+		public event EventHandler<GenerationEventArgs> onGeneration;
+		public event EventHandler onComplete;
 
 		private List<IIndividual> thisGeneration = new List<IIndividual>();
 		private List<double> fitnessTable = new List<double>();
