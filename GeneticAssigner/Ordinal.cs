@@ -45,7 +45,7 @@ namespace GeneticAssigner
 				}
 				else
 				{
-					throw new NotImplementedException("locale '" + locale + "'");
+					throw new Exception("locale '" + locale + "' Not Implemented.");
 				}
 			}
 		}
