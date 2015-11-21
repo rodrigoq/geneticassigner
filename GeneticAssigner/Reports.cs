@@ -227,7 +227,7 @@ namespace GeneticAssigner
 			}
 		}
 
-		public void Log(IIndividual best, StringBuilder log)
+		public void Log(IIndividual best, StringBuilder sb)
 		{
 			StringBuilder header = new StringBuilder();
 			header.Append("\"Generación\";\"Fitness\";\"No asignados\";");
@@ -236,7 +236,7 @@ namespace GeneticAssigner
 				header.Append("\"").Append(ordinales[i + 1]).Append("\";");
 			}
 			header.AppendLine();
-			header.Append(log);
+			header.Append(sb);
 			using (StreamWriter outputLog = new StreamWriter(outPath + fileNamePrefix + "log.csv", false, Encoding.Default))
 			{
 				outputLog.Write(header);
