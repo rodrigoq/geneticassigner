@@ -24,10 +24,14 @@ namespace DataFactory
 	public class Collection<T> : ICollection<T> where T : Identifiable
 	{
 
-		protected List<T> list = new List<T>();
-		protected Dictionary<int, int> hash = new Dictionary<int, int>();
+		protected List<T> list { get; set; }
+		protected Dictionary<int, int> hash { get; set; }
 
-		public Collection() { }
+		public Collection()
+		{
+			list = new List<T>();
+			hash = new Dictionary<int, int>();
+		}
 
 		public void Sort(Comparison<T> comparison)
 		{

@@ -22,8 +22,8 @@ namespace GeneticAlgorithm
 {
 	public class GenerationEventArgs : EventArgs
 	{
-		public int Generation;
-		public IIndividual Individual;
+		public int Generation { get; set; }
+		public IIndividual Individual { get; set; }
 
 		public GenerationEventArgs(int generation, IIndividual individual)
 			: base()
