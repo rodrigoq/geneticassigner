@@ -66,8 +66,6 @@ namespace GeneticAssigner
 				Context.Courses.ResetPlacesLeft();
 				Context.Students.UnAssign();
 
-				string folderName = string.Empty;
-
 				AssignBestResults();
 
 				if (chkOverflow.Checked)
