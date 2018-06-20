@@ -25,7 +25,6 @@ namespace GeneticAlgorithm
 	{
 		int[] Options { get; set; }
 
-		//TODO: rename Students to Elements
 		List<int> Students { get; set; }
 
 		int NotAssigned { get; set; }
