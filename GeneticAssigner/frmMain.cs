@@ -1,7 +1,7 @@
 /*
 *   GeneticAssigner - Genetic Algorithm implementation for automatic 
 *   assigning of students to class courses.
-*   Copyright (C) 2008-2011  Rodrigo Queipo <rodrigoq@gmail.com>
+*   Copyright (C) 2008-2018  Rodrigo Queipo <rodrigoq@gmail.com>
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -196,7 +196,8 @@ namespace GeneticAssigner
 			{
 				Directory.CreateDirectory(folderName);
 			}
-			Reports reports = new Reports(Context.Courses, Context.Students, folderName, fileNamePrefix);
+			
+			Reports reports = new Reports(Context.Courses, Context.Students, settings, folderName, fileNamePrefix);
 			AddLogLine("Saving results...");
 
 			reports.Summary(ga.Best, bestGeneration, ga.PopulationCount, totalSeconds);
