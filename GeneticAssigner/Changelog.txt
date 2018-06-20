@@ -1,4 +1,9 @@
 ﻿
+0.1.5
+
+* Reports are Word files based on a template.
+* Added dependencies with nuget.
+
 0.1.4.1
 
 * Minor change to reports.

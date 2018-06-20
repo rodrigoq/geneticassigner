@@ -1,7 +1,7 @@
 ﻿/*
 *   GeneticAssigner - Genetic Algorithm implementation for automatic 
 *   assigning of students to class courses.
-*   Copyright (C) 2008-2011  Rodrigo Queipo <rodrigoq@gmail.com>
+*   Copyright (C) 2008-2018  Rodrigo Queipo <rodrigoq@gmail.com>
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GeneticAssigner")]
-[assembly: AssemblyCopyright("Copyright (C) 2008-2011  Rodrigo Queipo")]
+[assembly: AssemblyCopyright("Copyright (C) 2008-2018  Rodrigo Queipo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -36,5 +36,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("005a05b5-2282-4ae6-9ed4-8d213d28d4ef")]
 
-[assembly: AssemblyVersion("0.1.4.1")]
-[assembly: AssemblyFileVersion("0.1.4.1")]
+[assembly: AssemblyVersion("0.1.5")]
+[assembly: AssemblyFileVersion("0.1.5")]
