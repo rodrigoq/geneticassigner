@@ -22,9 +22,26 @@ namespace GeneticAlgorithm
 {
 	public sealed class FitnessComparer : IComparer<IIndividual>
 	{
+		public bool UseOldComparer { get; private set; }
+
+		public FitnessComparer(bool useOldComparer = false)
+		{
+			UseOldComparer = useOldComparer;
+		}
+
 		public int Compare(IIndividual x, IIndividual y)
 		{
-			return x.Fitness.CompareTo(y.Fitness);
+			var cmp = x.Fitness.CompareTo(y.Fitness);
+			if (UseOldComparer || cmp != 0)
+				return cmp;
+
+			for (int i = 0; i < x.Students.Count; i++)
+			{
+				var cmpStudent = x.Students[i].CompareTo(y.Students[i]);
+				if (cmpStudent != 0)
+					return cmpStudent;
+			}
+			return cmp;
 		}
 	}
 }
