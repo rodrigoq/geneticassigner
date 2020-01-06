@@ -1,4 +1,8 @@
-﻿
+﻿0.1.7
+
+* Bugfix on recreating Word reports.
+* Added Html header and footer to html reports.
+
 0.1.6
 
 * Bugfix on Keep Best (elitism).
