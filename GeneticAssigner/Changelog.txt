@@ -1,4 +1,10 @@
 ﻿
+0.1.6
+
+* Bugfix on Keep Best (elitism).
+* More deterministic sorting of generation Fitness.
+* Updated dependencies.
+
 0.1.5
 
 * Reports are Word files based on a template.
