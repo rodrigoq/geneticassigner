@@ -92,6 +92,7 @@ namespace GeneticAssigner
 
 			bool hayNoAssig = false;
 			StringBuilder sb = new StringBuilder();
+			sb.Append("<!doctype html><html><head><meta charset='utf-8'></head><body>");
 			sb.Append("<table border='1'><tr><th>Libreta</th><th>Nombre</th><th>Comisión</th></tr>");
 			StringBuilder sbNoAssig = new StringBuilder();
 			sbNoAssig.Append("<table border='1'><tr><th colspan='2'>No Asignado</th></tr>");
@@ -112,11 +113,12 @@ namespace GeneticAssigner
 						.Append(student.Name).Append("</td></tr>");
 				}
 			}
-			sb.Append("</table><br />");
+			sb.Append("</table><br>");
 			if (hayNoAssig)
 			{
-				sb.Append(sbNoAssig.Append("</table><br />"));
+				sb.Append(sbNoAssig.Append("</table><br>"));
 			}
+			sb.Append("</body></html>");
 			using (StreamWriter sw =
 				new StreamWriter(Path.Combine(outPath, fileNamePrefix + "report_alumnos.html"), false, Encoding.Default))
 			{
@@ -195,6 +197,7 @@ namespace GeneticAssigner
 			students.Sort(studentComparer);
 
 			StringBuilder sb = new StringBuilder();
+			sb.Append("<!doctype html><html><head><meta charset='utf-8'></head><body>");
 
 			int last = -1;
 			foreach (Student student in students)
@@ -203,7 +206,7 @@ namespace GeneticAssigner
 				{
 					if (sb.Length > 0)
 					{
-						sb.Append("</table><br />");
+						sb.Append("</table><br>");
 					}
 					string asignado = GetAsignation(student);
 					sb.Append("<table border='1'>");
@@ -216,7 +219,8 @@ namespace GeneticAssigner
 					.Append(student.Name).Append("</td></tr>");
 
 			}
-			sb.Append("</table><br />");
+			sb.Append("</table><br>");
+			sb.Append("</body></html>");
 
 			using (StreamWriter sw = new StreamWriter(outPath + fileNamePrefix + "report_comisiones.html", false, Encoding.Default))
 			{
@@ -269,6 +273,7 @@ namespace GeneticAssigner
 		private void PlacesLeftHtml()
 		{
 			StringBuilder sb = new StringBuilder();
+			sb.Append("<!doctype html><html><head><meta charset='utf-8'></head><body>");
 			sb.Append("<table border='1'><tr><th>Comisión</th><th>Institución</th><th>Cupos</th></tr>");
 			bool placesLeft = false;
 			foreach (Course course in courses)
@@ -281,11 +286,14 @@ namespace GeneticAssigner
 						.Append(course.PlacesLeft).Append("</td></tr>");
 				}
 			}
-			sb.Append("</table><br />");
+			sb.Append("</table><br>");
+			sb.Append("</body></html>");
 
 			if (placesLeft == false)
 			{
-				sb = new StringBuilder("No hay vacantes disponibles.");
+				sb = new StringBuilder("<!doctype html><html><head><meta charset='utf-8'></head><body>");
+				sb.Append("No hay vacantes disponibles.");
+				sb.Append("</body></html>");
 			}
 			using (StreamWriter sw = new StreamWriter(Path.Combine(outPath,
 				fileNamePrefix + "report_vacantes.html"), false, Encoding.Default))
