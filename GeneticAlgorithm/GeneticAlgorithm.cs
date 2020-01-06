@@ -143,7 +143,7 @@ namespace GeneticAlgorithm
 
 			if (Elitism && ind != null)
 			{
-				nextGeneration[0] = ind;
+				thisGeneration[0] = ind;
 			}
 		}
 
@@ -162,8 +162,8 @@ namespace GeneticAlgorithm
 				if (thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness > 0)
 				{
 					thisGeneration[i].NormFitness =
-						(double)(thisGeneration[i].Fitness - thisGeneration[0].Fitness) /
-						(double)(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness);
+						(thisGeneration[i].Fitness - thisGeneration[0].Fitness) /
+						(thisGeneration[thisGeneration.Count - 1].Fitness - thisGeneration[0].Fitness);
 				}
 				else
 				{
@@ -173,15 +173,16 @@ namespace GeneticAlgorithm
 				fitnessTable.Add(totalFitness);
 			}
 
-			/*
 			//DEBUGGING
-			using(System.IO.StreamWriter sw = new System.IO.StreamWriter("fitnesses.txt", true, Encoding.Default)) 
-			{
-				for(int i = 0;i < thisGeneration.Count;i++)
-				{
-					sw.WriteLine(generation + "\t" + i + "\t" + thisGeneration[i].ToString());
-				}
-			}*/
+			//using (System.IO.StreamWriter sw = new System.IO.StreamWriter("fitnesses.txt", true, System.Text.Encoding.Default))
+			//{
+			//	for (int i = 0; i < thisGeneration.Count; i++)
+			//	{
+			//		sw.WriteLine(Generation + "\t" + i + "\t" + thisGeneration[i].ToString());
+			//		for (var j = 0; j < thisGeneration[i].Students.Count; j++)
+			//			sw.WriteLine("\tS" + Generation + "\t" + i + "\t" + j + "\t" + thisGeneration[i].Students[j].ToString());
+			//	}
+			//}
 		}
 
 		private int RouletteSelection()
