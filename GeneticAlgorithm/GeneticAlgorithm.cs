@@ -120,7 +120,6 @@ namespace GeneticAlgorithm
 			}
 		}
 
-		//TODO: think how to add crossing over... and if it is a necesity.
 		private void CreateNextGeneration()
 		{
 			List<IIndividual> nextGeneration = new List<IIndividual>();
