@@ -71,6 +71,8 @@ namespace GeneticAssigner
 			Array.Copy(headerAssigned, headerNoAssigned, headerNoAssigned.Length);
 
 			var dest = Path.Combine(outPath, fileNamePrefix + "report_alumnos.docx");
+			if (File.Exists(dest))
+				File.Delete(dest);
 			File.Copy(template, dest);
 			using (var wr = new WordReport(dest))
 			{
@@ -170,6 +172,8 @@ namespace GeneticAssigner
 
 			var groups = students.ToLookup(x => x.AssignedCourse);
 			var dest = Path.Combine(outPath, fileNamePrefix + "report_comisiones.docx");
+			if (File.Exists(dest))
+				File.Delete(dest);
 			File.Copy(template, dest);
 
 			using (var wr = new WordReport(dest))
@@ -245,8 +249,10 @@ namespace GeneticAssigner
 			}
 
 			var dest = Path.Combine(outPath, fileNamePrefix + "report_vacantes.docx");
-			File.Copy(template, dest);
 
+			if (File.Exists(dest))
+				File.Delete(dest);
+			File.Copy(template, dest);
 			using (var wr = new WordReport(dest))
 			{
 				ReplaceFields(wr);
